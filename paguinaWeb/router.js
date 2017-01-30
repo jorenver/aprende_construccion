@@ -6,5 +6,7 @@ module.exports = function(app){
 
 	//ControllerIndex
 	app.get('/', ControllerIndex.index);
+	app.get('/login', ControllerIndex.login);
+	app.get('/signup', ControllerIndex.signup);
 	
 };
