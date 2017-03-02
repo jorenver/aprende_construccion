@@ -14,3 +14,7 @@ exports.login = function(request, response){
 exports.signup = function(request, response){
 	response.render('signup');
 };
+
+exports.curso = function(request, response){
+	response.render('index',{id:1});
+};
