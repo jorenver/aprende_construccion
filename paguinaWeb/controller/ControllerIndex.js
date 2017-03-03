@@ -18,11 +18,22 @@ exports.login = function(request, response){
 exports.signup = function(request, response){
 	response.render('signup');
 };
+
 exports.logout = function(request, response){
 	request.session.user=null;
 	response.render('index');
 };
 exports.curso = function(request, response){
 	db.curso(request,response)
+};
+
+
+exports.signInUsuer = function(request,response){
+	db.signIn(request,response);
+
+};
+
+exports.crearUsuario = function(request,response){
+	db.signUp(request,response);
 };
 

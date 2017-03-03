@@ -9,12 +9,17 @@ module.exports = function(app){
 	app.get('/login', ControllerIndex.login);
 	app.get('/signup', ControllerIndex.signup);
 	app.get('/logout', ControllerIndex.logout);
+	app.post('/signInUser',ControllerIndex.signInUsuer);
+	app.post('/signUpUser',ControllerIndex.crearUsuario);
 	app.get('/curso', ControllerIndex.curso);
 
 	
 	app.get('/getModulos', ControllerModulo.getModulos);
 	app.get('/modulo', ControllerModulo.modulo);
+
 	app.get('/getCapitulos', ControllerModulo.getCapitulos);
+
+	
 
 	
 };

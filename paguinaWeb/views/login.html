@@ -51,15 +51,18 @@
                                     <form class="login-form">              
                                         <div class="form-group email">
                                             <label class="sr-only" for="login-cedula">Cedula</label>
-                                            <input id="login-cedula" type="email" class="form-control login-cedula" placeholder="Cedula">
+                                            <input id="login-cedula" type="text" pattern="[0-9]{10}" title="Por favor solo se puede ingresar numeros" class="form-control login-cedula" placeholder="Cedula">
                                         </div><!--//form-group-->
                                         <div class="form-group password">
                                             <label class="sr-only" for="login-password">contrase&#241;a</label>
                                             <input id="login-password" type="password" class="form-control login-password" placeholder="contrase&#241;a">
                                             <p class="forgot-password"><a href="reset-password.html">Recuperar contrase&#241;a</a></p>
                                         </div><!--//form-group-->
-                                        <button type="submit" class="btn btn-block btn-cta-primary">Iniciar Sesion</button>
-                                         <p class="lead">¿Aun no te registras? <br /><a class="signup-link" href="-signup">Crear nueva cuenta</a></p>  
+                                        <button  id= "btnSignIn" class="btn btn-block btn-cta-primary">Iniciar Sesion</button>
+                                        <div class="alert alert-danger" id="passwordsNoMatchRegister">
+                                           <strong>Error!</strong> Ingreso erroneo de los datos
+                                        </div>
+                                         <p class="lead">¿Aun no te registras? <br /><a class="signup-link" href="/signup">Crear nueva cuenta</a></p>  
                                     </form>
                                 </div><!--//form-container-->
                                
@@ -83,6 +86,7 @@
     <script type="text/javascript" src="assets/plugins/FitVids/jquery.fitvids.js"></script>
     <script type="text/javascript" src="assets/plugins/flexslider/jquery.flexslider-min.js"></script> 
     <script type="text/javascript" src="assets/js/main.js"></script>
+    <script type="text/javascript" src="js/signIn.js"></script>
     
             
 </body>
