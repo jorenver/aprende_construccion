@@ -19,6 +19,46 @@ connection.connect(function(err){
     }
 );
 
+exports.signIn = function(request,response){
+    var cedula = request.body.cedula;
+    var password = request.body.password;
+    connection.query('call signIn("'+cedula+'","'+password+'")',function(err,rows){
+            if(err) throw err;
+            if (rows[0][0]) {
+                response.json({truly_signIn:true,id:rows[0][0],cedula:rows[0][1],
+                        nombre:rows[0][2],apellido:rows[0][3],telefono:rows[0][4],
+                        direccion:rows[0][5],ciudad:rows[0][6],provincia:rows[0][7],
+                        distrito:rows[0][8],correo:rows[0][9]});
+            }
+            else {
+                 response.json({truly_signIn:false,estado:"Usuario_incorrecto"});
+            }
+        }
+    );
+
+};
+
+exports.signUp = function(request,response){
+    var cedula = request.body.cedula;
+    var nombre = request.body.nombre;
+    var apellido = request.body.apellido;
+    var email = request.body.email;
+    var password = request.body.password;
+    var telefono = request.body.telefono;
+    var direccion = request.body.direccion;
+    var ciudad = request.body.ciudad;
+    var provincia = request.body.provincia;
+    var distrito = request.body.distrito;
+    connection.query('call crearUsuario("'+cedula+'","'+nombre+'","'+apellido+'","'+telefono+'","'+direccion+'","'+ciudad+'","'+provincia+'","'+distrito+'","'+password+'","'+email+'")',function(err,rows){
+        if(err) throw(err);
+    response.render('index');
+    });
+};
+
+
+
+
+
 
 
 

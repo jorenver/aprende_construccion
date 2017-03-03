@@ -96,7 +96,7 @@
 
                                         <div class="form-group provinci">
                                             <label class="sr-only" for="signup-provinci">Provincia</label>
-                                            <input id="signup-provinci" type="text" class="form-control signup-provinci" placeholder="Provincia">
+                                            <input id="signup-provincia" type="text" class="form-control signup-provinci" placeholder="Provincia">
                                         </div>
 
                                         <div class="form-group distrito">
@@ -105,7 +105,10 @@
                                         </div>
 
 
-                                        <button type="submit" class="btn btn-block btn-cta-primary">Registrar</button>
+                                        <button id="idSignUp" class="btn btn-block btn-cta-primary">Registrar</button>
+                                         <div class="alert alert-danger" id="passwordsIncorrectas">
+                                           <strong>Error!</strong> Contrase&#241;a no coinciden!
+                                        </div>
                                     </form>
                                 </div><!--//form-container-->
                                
@@ -129,6 +132,7 @@
     <script type="text/javascript" src="assets/plugins/FitVids/jquery.fitvids.js"></script>
     <script type="text/javascript" src="assets/plugins/flexslider/jquery.flexslider-min.js"></script> 
     <script type="text/javascript" src="assets/js/main.js"></script>
+    <script type="text/javascript" src="js/signUp.js"></script>
     
             
 </body>

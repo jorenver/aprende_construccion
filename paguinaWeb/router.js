@@ -10,5 +10,7 @@ module.exports = function(app){
 	app.get('/signup', ControllerIndex.signup);
 	app.get('/curso', ControllerIndex.curso);
 	app.get('/modulo', ControllerModulo.modulo);
+	app.post('/signInUser',ControllerIndex.signInUsuer);
+	app.post('/signUpUser',ControllerIndex.crearUsuario);
 	
 };
