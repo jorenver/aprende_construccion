@@ -88,9 +88,12 @@ exports.modulo = function(request, response){
 
 
 exports.signIn = function(request,response){
-    
-    var cedula = request.body.cedula;
-    var password = request.body.password;
+    var cedula = request.query.cedula;
+    var password = request.query.pasw;
+
+    console.log(request.query.cedula);
+    console.log(request.query.pasw);
+
     connection.query('call signIn("'+cedula+'","'+password+'")',function(err,rows){
             if(err) throw err;
             if (rows[0][0]) {
@@ -119,7 +122,8 @@ exports.signUp = function(request,response){
     var ciudad = request.body.ciudad;
     var provincia = request.body.provincia;
     var distrito = request.body.distrito;
-    connection.query('call crearUsuario("'+cedula+'","'+nombre+'","'+apellido+'","'+telefono+'","'+direccion+'","'+ciudad+'","'+provincia+'","'+distrito+'","'+password+'","'+email+'")',function(err,rows){
+    var  responseNombre;
+    connection.query('call crearUsuario("'+cedula+'","'+nombre+'","'+apellido+'","'+telefono+'","'+direccion+'","'+ciudad+'","'+provincia+'","'+distrito+'","'+password+'","'+email+'","'+responseNombre+'")',function(err,rows){
         if(err) throw(err);
     response.render('index');
     });
