@@ -3,8 +3,12 @@ var db = require('../model/model');
 
 
 exports.index = function(request, response){
-	//request.session.infoUser=null;
-	response.render('index');
+	if(request.session.user){
+		response.render('index',{id:request.session.user.id});
+	}else{
+		response.render('index');
+	}
+	
 };
 
 exports.login = function(request, response){
@@ -14,7 +18,11 @@ exports.login = function(request, response){
 exports.signup = function(request, response){
 	response.render('signup');
 };
-
-exports.curso = function(request, response){
-	response.render('index',{id:1});
+exports.logout = function(request, response){
+	request.session.user=null;
+	response.render('index');
 };
+exports.curso = function(request, response){
+	db.curso(request,response)
+};
+

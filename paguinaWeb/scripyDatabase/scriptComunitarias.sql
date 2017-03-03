@@ -28,7 +28,7 @@ create table Administrador(
     
 
 );
-
+r
 create table Estudiante(
 	id integer auto_increment,
     cedula varchar(10),

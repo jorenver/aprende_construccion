@@ -8,7 +8,13 @@ module.exports = function(app){
 	app.get('/', ControllerIndex.index);
 	app.get('/login', ControllerIndex.login);
 	app.get('/signup', ControllerIndex.signup);
+	app.get('/logout', ControllerIndex.logout);
 	app.get('/curso', ControllerIndex.curso);
+
+	
+	app.get('/getModulos', ControllerModulo.getModulos);
 	app.get('/modulo', ControllerModulo.modulo);
+	app.get('/getCapitulos', ControllerModulo.getCapitulos);
+
 	
 };
