@@ -1,5 +1,4 @@
 var mysql = require("mysql");
-
 var connection = mysql.createConnection({
     host : "80.241.222.40",
     user : "kevin",
@@ -19,26 +18,26 @@ connection.connect(function(err){
     }
 );
 
-exports.signIn = function(request,response){
-    var cedula = request.query.cedula;
-    var password = request.query.pasw;
+exports.signIn = function(req,res){
+    var cedula = req.body.cedula;
+    var password = req.body.password;
 
-    console.log(request.query.cedula);
-    console.log(request.query.pasw);
+    console.log(cedula);
+    console.log(password);
     connection.query('call signIn("'+cedula+'","'+password+'")',function(err,rows){
             if(err) throw err;
-            if (rows[0][0]) {
-                response.json({truly_signIn:true,id:rows[0][0],cedula:rows[0][1],
-                        nombre:rows[0][2],apellido:rows[0][3],telefono:rows[0][4],
-                        direccion:rows[0][5],ciudad:rows[0][6],provincia:rows[0][7],
-                        distrito:rows[0][8],correo:rows[0][9]});
+            if (rows[0][0] != undefined) {
+                res.json({truly_signIn:true,id:rows[0][0].id,cedula:rows[0][0].cedula,
+                         nombre:rows[0][0].nombre,apellido:rows[0][0].apellido,telefono:rows[0][0].telefono,
+                         direccion:rows[0][0].direccion,ciudad:rows[0][0].ciudad,provincia:rows[0][0].provincia,
+                         distrito:rows[0][0].distrito,correo:rows[0][0].correo});
             }
             else {
-                 response.json({truly_signIn:false,estado:"Usuario_incorrecto"});
+                res.json({truly_signIn:false,estado:"Usuario_incorrecto"});
             }
         }
+       
     );
-
 };
 
 exports.signUp = function(request,response){

@@ -49,17 +49,17 @@
                             <h2 class="title text-center">Iniciar Sesion</h2>                 
                             <div class="row">
                                 <div class="form-container col-md-12 col-sm-12 col-xs-12">
-                                    <form class="login-form" id="login" action="signInUser/" method="get">              
+                                    <form class="login-form" id="myFormLogin">              
                                         <div class="form-group email">
                                             <label class="sr-only" for="login-cedula">Cedula</label>
-                                            <input id="login-cedula" name="cedula" type="text" pattern="[0-9]{10}" title="Por favor solo se puede ingresar numeros" class="form-control login-cedula" placeholder="Cedula">
+                                            <input id="login-cedula"  type="text" pattern="[0-9]{10}" title="Por favor solo se puede ingresar numeros" class="form-control login-cedula" placeholder="Cedula">
                                         </div><!--//form-group-->
                                         <div class="form-group password">
                                             <label class="sr-only" for="login-password">contrase&#241;a</label>
-                                            <input id="login-password" name="pasw" type="password" class="form-control login-password" placeholder="contrase&#241;a">
+                                            <input id="login-password" type="password" class="form-control login-password" placeholder="contrase&#241;a">
                                             <p class="forgot-password"><a href="reset-password.html">Recuperar contrase&#241;a</a></p>
                                         </div><!--//form-group-->
-                                        <input   id= "btnSignIn" type="submit" form="login" value="Ingresar"  class="btn btn-block btn-cta-primary">
+                                        <button  id= "btnSignIn" type="button"  class="btn btn-block btn-cta-primary">Ingresar</button>
                                         <div class="alert alert-danger" id="passwordsNoMatchRegister">
                                            <strong>Error!</strong> Ingreso erroneo de los datos
                                         </div>
@@ -87,6 +87,8 @@
     <script type="text/javascript" src="assets/plugins/FitVids/jquery.fitvids.js"></script>
     <script type="text/javascript" src="assets/plugins/flexslider/jquery.flexslider-min.js"></script> 
     <script type="text/javascript" src="assets/js/main.js"></script>
+    <script type="text/javascript" src="js/signIn.js"></script>
+
    
     
             

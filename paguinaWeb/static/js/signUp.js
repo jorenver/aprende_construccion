@@ -1,5 +1,5 @@
 var Userinformationdict = {}
-
+var flagError = 0;
 Userinformationdict.cedula = $("#signup-cedula").val();
 Userinformationdict.nombre = $("#signup-nombre").val();
 Userinformationdict.apellido = $("#signup-apellido").val();
@@ -10,13 +10,21 @@ Userinformationdict.direccion = $("#signup-direccion").val();
 Userinformationdict.ciudad = $("#signup-ciudad").val();
 Userinformationdict.provincia = $("#signup-provincia").val();
 Userinformationdict.distrito = $("#signup-distrito").val();
+if (!flagError) {
+  $("#passwordsIncorrectas").hide();    
+}
+else{
+    $("#passwordsIncorrectas").show();
 
-$("#passwordsIncorrectas").hide();  
+}
+
+
 
 $("#idSignUp").click(
     function(){
         if ($("#signup-password").val() != $("#signup-re-password").val()) {
-          $("#passwordsIncorrectas").show();  
+          $("#passwordsIncorrectas").show();
+          flagError = 1;  
         }
         else{
              $.ajax({
