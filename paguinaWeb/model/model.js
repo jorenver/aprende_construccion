@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
     database : "Sistema_Aprendizaje_Construccion"
 });
 
-
+/*
 connection.connect(function(err){
      if(!err){
         console.log("Base de Datos conectada con exito");
@@ -17,13 +17,78 @@ connection.connect(function(err){
      }
     }
 );
+*/
+exports.curso = function(request, response){
+	var cedula="0951060185"
+	console.log("curso")
+	connection.query('call getUserInfoByCedula("'+cedula+'")',function(err,rows){
+	  if(err) throw err;
+	  if(rows[0][0]){
+	  	request.session.user= rows[0][0]
+	  	console.log(request.session.user.id)
+	  	response.render('index',{id:request.session.user.id});
+	  }else{
+	  	response.render('index');
+	  }
+	});
+	
+};
+
+exports.getModulos = function(request, response){
+	console.log('*****Modulos******')
+	if(request.session.user){
+		connection.query('call getModulos()',function(err,rows){
+		  if(err) throw err;
+		  if(rows[0]){
+		  	//console.log(rows[0])
+		  	response.json({error:false,modulos:rows[0]})
+		  }else{
+		  	response.json({error:true})
+		  }
+		});
+	}else{
+		response.json({error:true})
+	}
+	
+};
+
+exports.modulo = function(request, response){
+	idModulo=request.query.idModulo;
+	console.log('Capitulos del Modulo:' +idModulo)
+	query= 'call getModulo('+idModulo+')';
+	query2= 'call getCapitulosByModuloId('+idModulo+')';
+	if(request.session.user){
+
+		connection.query(query,function(err,rows){
+		  if(err) throw err;
+		  if(rows[0][0]){
+		  	infoModulo= rows[0][0];
+		  	connection.query(query2,function(err,rows){
+			  if(err) throw err;
+			  if(rows[0]){
+			  	//console.log(rows[0])
+			  	response.render('modulo',{id:request.session.user.id,modulo:infoModulo,capitulos:rows[0]});
+			  }else{
+			  	response.render('index');
+			  }
+			});
+
+		  }else{
+		  	response.render('index');
+		  }
+		});
+
+		
+	}else{
+		response.json({error:true})
+	}
+	
+};
+
 
 exports.signIn = function(req,res){
     var cedula = req.body.cedula;
     var password = req.body.password;
-
-    console.log(cedula);
-    console.log(password);
     connection.query('call signIn("'+cedula+'","'+password+'")',function(err,rows){
             if(err) throw err;
             if (rows[0][0] != undefined) {
@@ -34,11 +99,10 @@ exports.signIn = function(req,res){
             }
             else {
                 res.json({truly_signIn:false,estado:"Usuario_incorrecto"});
+
             }
-        }
-       
-    );
-};
+    } );
+}
 
 exports.signUp = function(request,response){
     var cedula = request.body.cedula;

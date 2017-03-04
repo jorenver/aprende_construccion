@@ -1,3 +1,6 @@
+<script >
+    var id={{id}}
+</script>
 <!-- ******HEADER****** -->
 <header id="header" class="header navbar-fixed-top scrolled">
     <div class="container">       
@@ -19,14 +22,10 @@
                     {% if id > 0 %}
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">Construcion <i class="fa fa-angle-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/modulo">Modulo 1: Lectura de Planos</a></li>
-                            <li><a href="/modulo">Modulo 2: Tecnologias del Hormigon</a></li>
-                            <li><a href="/modulo">Modulo 3: Acero y Armadura</a></li>
-                            <li><a href="/modulo">Modulo 4: Topografia</a></li>                
+                        <ul id="modulos" class="dropdown-menu">             
                         </ul>                            
                     </li><!--//dropdown-->
-                    <li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="#">Cerrar Secion</a></li>
+                    <li class="nav-item"><a href="/logout">Cerrar Secion</a></li>
                     {% endif %}
                     {% if id == 0 %}                      
                     <li class="nav-item"><a href="/login">Iniciar Secion</a></li>

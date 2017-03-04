@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">    
     {% include './importsFooter.html' %}
-    <link rel="stylesheet" href="css/slideBar.css">
+    <link rel="stylesheet" href="css/sideBar.css">
     <link rel="stylesheet" href="css/modulo.css">
     <script src="js/modulo.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -19,31 +19,63 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+        var idModulo= {{modulo.id}}
+    </script>
 </head> 
 
 <body class="home-page">   
     {% include './header.html' %}
 
-    <div id="continer-estacion" class="sections-wrapper">   
+    <div id="continer" class="sections-wrapper">   
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3 sidebar">
-                    
-                    <h3 id="titleContenido" class="title text-center">Modulo 1: Lectura de Planos </h3>
-                    <ul id="botones">
-                        <li>Capitulo 1</li>
-                        <li>Capitulo 2</li>
-                        <li>Capitulo 3</li>
-                    </ul>
-                </div>
+                {% include './sideBar.html' %}
 
-                <div id="contenido" class="col-md-8 col-md-offset-3">
-                    <div class="”video-responsive”">
+                <div class="col-md-8 col-md-offset-3">
+                    <!-- <div class="”videcoo-responsive”">
                         <iframe  src="https://www.youtube.com/embed/sOnqjkJTMaA" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
-                    </div>
-                    
-                </div>
+                    </div>-->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-success" role="progressbar" style="width:30%">
+                                Capitulo 1
+                              </div>
+                              <div class="progress-bar progress-bar-warning" role="progressbar" style="width:30%">
+                                Capitulo 2
+                              </div>
+                              <div class="progress-bar progress-bar-danger" role="progressbar" style="width:20%">
+                                Capitulo 3
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row" id="contenido">
+                            <h2 class="title text-center">Modulo {{modulo.indice}}: {{modulo.titulo}} </h2>
+                            <h3 class="title text-center">Capitulo 1: Introduccion </h3>
+                            
+                            <div >
+                                <h4>Seccion 1: Titulo</h4>
+                                <p>Explain one of your product benefits here. Let users know how they can benefit using your product. It’s also a good idea to back it up with a testimonial or tweet from your users.</p>
 
+                                <p>The original PSD of the graphic is included in the package. You can easily customise the PSD to meet your needs.</p>
+                                <div class="”videcoo-responsive”">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/mzq656xAUy4" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            
+                            <div >
+                                <h4>Seccion 2: Titulo 2</h4>
+                                <p>Explain one of your product benefits here. Let users know how they can benefit using your product. It’s also a good idea to back it up with a testimonial or tweet from your users.</p>
+
+                                <p>The original PSD of the graphic is included in the package. You can easily customise the PSD to meet your needs.</p>
+                                <img src="images/plano.gif">
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
             </div> 
         </div>
     </div>    

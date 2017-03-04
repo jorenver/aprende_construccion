@@ -19,6 +19,7 @@ app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
+
 var sessionMiddleware = session({
 	secret: 'bobneuman',
 	store: new redisStore({
@@ -30,6 +31,7 @@ var sessionMiddleware = session({
 	resave: false
 });
 app.use(sessionMiddleware);
+
 
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.json());
