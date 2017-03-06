@@ -83,6 +83,7 @@ exports.modulo = function(request, response){
 exports.signIn = function(req,res){
     var cedula = req.body.cedula;
     var password = req.body.password;
+    console.log(cedula);
     connection.query('call signIn("'+cedula+'","'+password+'")',function(err,rows){
             if(err) throw err;
             if (rows[0][0] != undefined) {
@@ -102,17 +103,18 @@ exports.signUp = function(request,response){
     var cedula = request.body.cedula;
     var nombre = request.body.nombre;
     var apellido = request.body.apellido;
-    var email = request.body.email;
+    var email = request.body.correo;
     var password = request.body.password;
     var telefono = request.body.telefono;
     var direccion = request.body.direccion;
     var ciudad = request.body.ciudad;
     var provincia = request.body.provincia;
     var distrito = request.body.distrito;
-    var  responseNombre;
-    connection.query('call crearUsuario("'+cedula+'","'+nombre+'","'+apellido+'","'+telefono+'","'+direccion+'","'+ciudad+'","'+provincia+'","'+distrito+'","'+password+'","'+email+'","'+responseNombre+'")',function(err,rows){
-        if(err) throw(err);
-    response.render('index');
+    connection.query('call crearUsuario("'+cedula+'","'+nombre+'","'+apellido+'","'+telefono+'","'+direccion+'","'+ciudad+'","'+provincia+'","'+distrito+'","'+password+'","'+email+'")',function(err,rows){
+        if(err){
+			response.json({estado:"No_Guardado"});
+		}
+			response.json({estado:"Guardado"});
     });
 };
 
