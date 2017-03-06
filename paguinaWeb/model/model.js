@@ -8,24 +8,18 @@ var connection = mysql.createConnection({
 });
 
 /*
-connection.connect(function(err){
-     if(!err){
-        console.log("Base de Datos conectada con exito");
-     }
-     else {
-        console.log("Error en la conexion de la base de datos");
-     }
-    }
+connection.connect(
+    function(err){if(err) throw err;}
 );
 */
 exports.curso = function(request, response){
 	var cedula="0951060185"
-	console.log("curso")
+	console.log("curso");
 	connection.query('call getUserInfoByCedula("'+cedula+'")',function(err,rows){
 	  if(err) throw err;
 	  if(rows[0][0]){
-	  	request.session.user= rows[0][0]
-	  	console.log(request.session.user.id)
+	  	request.session.user= rows[0][0];
+	  	console.log(request.session.user.id);
 	  	response.render('index',{id:request.session.user.id});
 	  }else{
 	  	response.render('index');
@@ -41,13 +35,13 @@ exports.getModulos = function(request, response){
 		  if(err) throw err;
 		  if(rows[0]){
 		  	//console.log(rows[0])
-		  	response.json({error:false,modulos:rows[0]})
+		  	response.json({error:false,modulos:rows[0]});
 		  }else{
-		  	response.json({error:true})
+		  	response.json({error:true});
 		  }
 		});
 	}else{
-		response.json({error:true})
+		response.json({error:true});
 	}
 	
 };
