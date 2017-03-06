@@ -21,6 +21,7 @@ function verifyRightText(textCedula){
     return true;
 
 }
+/*
 
 $("input[id='login-cedula']").keypress(function(event){
   contadorCedula += 1;
@@ -50,7 +51,7 @@ $("input[id='login-password']").focus(function(){
     }
 });
 
-
+*/
 
 function redireccionarLogin(event){
     var response = JSON.parse(event.target.responseText);

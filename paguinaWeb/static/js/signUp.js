@@ -6,6 +6,7 @@ $("#ErrorInputApellido").hide();
 $("#ErrorInputEmail").hide();
 $("#ErrorInputTelefono").hide();
 $("#passwordsIncorrectas").hide();
+ $("#idDataInconcluso").hide();
 var userInformation = {};
 flagWindow = false;
 var validadorCedula = false;
@@ -63,6 +64,7 @@ function inicializar(){
   //$("#myModal").hide();
   $("#myModalSuccessRequest").hide();
   $("#myModalFailRequest").hide();
+   $("#idDataInconcluso").hide();
   //$("button[id='idSignUp']").on("click",function(e){
     //    e.preventDefault;
   //});
@@ -78,6 +80,7 @@ function verificarPassword(password,repassword){
 
 $("input[id='signup-cedula']").focus(function(){
     //$("#myModal").hide();
+     $("#idDataInconcluso").hide();
       $("button[id='idSignUp']").prop('disabled',false);
 
 
@@ -86,6 +89,8 @@ $("input[id='signup-cedula']").focus(function(){
 $("input[id='signup-nombre']").focus(function(){
   $("button[id='idSignUp']").prop('disabled',false);
   //$("#myModal").hide();
+   $("#idDataInconcluso").hide();
+
 
   console.log("estoy en nombre");
     if(!verificarRightNumber($("input[id='signup-cedula']").val())){
@@ -108,6 +113,7 @@ $("input[id='signup-nombre']").focus(function(){
 $("input[id='signup-apellido']").focus(function(){
   $("button[id='idSignUp']").prop('disabled',false);
   //$("#myModal").hide();
+ $("#idDataInconcluso").hide();
 
   console.log("estoy en apellido");
     if(!verificarRightString($("input[id='signup-nombre']").val())){
@@ -130,6 +136,7 @@ $("input[id='signup-apellido']").focus(function(){
 $("input[id='signup-email']").focus(function(){
   $("button[id='idSignUp']").prop('disabled',false);
   //$("#myModal").hide();
+ $("#idDataInconcluso").hide();
 
   console.log("estoy en email");
     if(!verificarRightString($("input[id='signup-apellido']").val())){
@@ -151,6 +158,8 @@ $("input[id='signup-email']").focus(function(){
 $("input[id='signup-direccion']").focus(function(){
   $("button[id='idSignUp']").prop('disabled',false);
   //$("#myModal").hide();
+   $("#idDataInconcluso").hide();
+
 
   console.log("direccion");
     if(!verificarRightTelephone($("input[id='signup-telefono']").val())){
@@ -170,6 +179,8 @@ $("input[id='signup-direccion']").focus(function(){
 
 $("input[id='signup-password']").focus(function(){
   //$("#myModal").hide();
+   $("#idDataInconcluso").hide();
+
   $("button[id='idSignUp']").prop('disabled',false);
   console.log("password");
     if(!varificarEmail($("input[id='signup-email']").val())){
@@ -189,6 +200,7 @@ $("input[id='signup-password']").focus(function(){
 $("input[id='signup-telefono']").focus(function(){
   $("button[id='idSignUp']").prop('disabled',false);
   //$("#myModal").hide();
+ $("#idDataInconcluso").hide();
 
   console.log("telefono");
     if(!verificarPassword($("input[id='signup-password']").val(),$("input[id='signup-re-password']").val())){
@@ -216,10 +228,12 @@ $("#buttonRegister").mouseover(function(){
    console.log((validadorCedula && validadorNombre && validadorApellido && validadorCorreo && validadorContrasena  && validadorTelefono ));
     if (!(validadorCedula && validadorNombre && validadorApellido && validadorCorreo && validadorContrasena  && validadorTelefono)) {
       $("button[id='idSignUp']").prop('disabled',true);
+      $("#idDataInconcluso").show();
       //$("#myModal").modal();
     }
     else {
       $("button[id='idSignUp']").prop('disabled',false);
+       $("#idDataInconcluso").hide();
     } 
 });
 

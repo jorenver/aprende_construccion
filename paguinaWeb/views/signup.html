@@ -98,9 +98,9 @@
 
                                         <div class="form-group telefono">
                                             <label class="sr-only" for="signup-telefono">Telefono</label>
-                                            <input id="signup-telefono" class="form-control signup-telefono" type="text" placeholder="Telefono">
+                                            <input id="signup-telefono" class="form-control signup-telefono" type="text" placeholder="Celular">
                                             <div class="alert alert-danger" id="ErrorInputTelefono">
-                                                 Solo se deben ingresar valores numericos (ejemplo:09212344354)
+                                                 Solo se deben ingresar valores numericos (ejemplo:0997298159)
                                             </div>
                                         </div>
 
@@ -115,7 +115,7 @@
 
                                         <div class="form-group provinci dropdown ">
                                             <label class="sr-only" for="signup-provinci">Provincia</label>
-                                            <button id="signup-provincia" type="button"  class="btn btn-primary dropdown-toggle" data-toggle="dropdown" >Provincia<span class="caret"></span></button>
+                                            <button id="signup-provincia" type="button"  class="btn btn-default dropdown-toggle" data-toggle="dropdown" >Provincia<span class="caret"></span></button>
                                             <ul class="dropdown-menu scrollable-menu" id="menuProvincia" role="menu" style="height: auto;max-height: 200px; overflow-x: hidden;" >
                                                 <li><a>Carchi</a></li>
                                                 <li><a>Imbabura</a></li>
@@ -145,7 +145,7 @@
 
                                         <div class="form-group distrito dropdown">
                                             <label class="sr-only" for="signup-distrito">Distrito</label>
-                                            <button id="signup-distrito" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Distrito<span class="caret"></span></button>
+                                            <button id="signup-distrito" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Distrito<span class="caret"></span></button>
                                             <ul class="dropdown-menu scrollable-menu" id="menuDistrito" role="menu">
                                                 <li><a >Ximena 2</a></li>
                                                 <li><a>Febres Cordero</a></li>
@@ -160,6 +160,9 @@
 
                                         <div id='buttonRegister'>
                                             <button id="idSignUp" class="btn btn-block btn-cta-primary" data-toggle="modal" data-target="#myModal" type="button">Registrar </button>
+                                            <div class="alert alert-danger" id="idDataInconcluso">
+                                                <strong>Error!</strong> Existen campos vacios o datos ingresados de forma erronea, Se necesita que ingrese esos datos!!
+                                            </div>
                                         </div>
                                         <!-- 
                                           <div class="modal fade" id="myModal" role="dialog">
