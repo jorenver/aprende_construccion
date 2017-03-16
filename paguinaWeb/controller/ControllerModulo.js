@@ -9,7 +9,7 @@ exports.modulo = function(request, response){
 		db.modulo(request,response);
 		
 	}else{
-		response.render('index');
+		response.render('index',{id:-1});
 	}
 };
 
@@ -27,6 +27,7 @@ exports.getContenidoCapitulo = function(request, response){
 	idcapitulo= request.query.idcapitulo;
 	console.log(idcapitulo);
 	if(request.session.user){
+		/*
 		var respuesta={error:false,
 						titulo:"XYZ",
 						indice:1,
@@ -56,6 +57,7 @@ exports.getContenidoCapitulo = function(request, response){
 		};
 		console.log(respuesta);
 		response.json(respuesta);
+		*/
 		
 	}else{
 		response.json({error:true});

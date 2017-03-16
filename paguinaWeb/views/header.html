@@ -1,5 +1,5 @@
 <script >
-    var id={{id}}
+    var id={{id}};
 </script>
 <!-- ******HEADER****** -->
 <header id="header" class="header navbar-fixed-top scrolled">
@@ -19,7 +19,7 @@
             <div id="navbar-collapse" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active nav-item"><a href="/">Inicio</a></li>
-                    {% if id > 0 %}
+                    {% if id > -1 %}
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">Construcion <i class="fa fa-angle-down"></i></a>
                         <ul id="modulos" class="dropdown-menu">             
@@ -27,7 +27,7 @@
                     </li><!--//dropdown-->
                     <li class="nav-item"><a href="/logout">Cerrar Secion</a></li>
                     {% endif %}
-                    {% if id == 0 %}                      
+                    {% if id == -1 %}                      
                     <li class="nav-item"><a href="/login">Iniciar Secion</a></li>
                     <li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="/signup">Registrate</a></li>
                     {% endif %}

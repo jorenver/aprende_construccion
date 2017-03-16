@@ -1,6 +1,8 @@
-var boton=null
+var boton=null;
 
 function procesarContenidoCapitulo(json){
+	$('.botonSelected').removeClass("botonSelected");
+	boton.className="botonSelected";
     console.log(json);
     if(!json.error){
     	titulo_capitulo.innerHTML= "Capitulo "+json.indice+" : "+json.titulo;
@@ -69,6 +71,7 @@ function getContenidoCapitulo(event){
     });
 
 }
+
 
 //function inicializar(){}
 

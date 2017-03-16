@@ -13,27 +13,24 @@ connection.connect(
 );
 */
 exports.curso = function(request, response){
-	var cedula="0951060185"
 	console.log("curso");
-	connection.query('call getUserInfoByCedula("'+cedula+'")',function(err,rows){
-	  if(err) throw err;
-	  if(rows[0][0]){
-	  	request.session.user= rows[0][0];
-	  	console.log(request.session.user.id);
-	  	response.render('index',{id:request.session.user.id});
-	  }else{
-	  	response.render('index');
-	  }
-	});
-	
+	if(request.session.user){
+		response.render('index',{id:request.session.user.id});
+	}else{
+		response.render('index',{id:-1});
+	}
+
 };
 
 exports.getModulos = function(request, response){
 	console.log('*****Modulos******')
 	if(request.session.user){
 		connection.query('call getModulos()',function(err,rows){
-		  if(err) throw err;
-		  if(rows[0]){
+		  if(err){
+		  	console.log(err);
+		  	response.json({error:true});
+		  } 
+		  else if(rows[0]){
 		  	//console.log(rows[0])
 		  	response.json({error:false,modulos:rows[0]});
 		  }else{
@@ -52,27 +49,29 @@ exports.modulo = function(request, response){
 	query= 'call getModulo('+idModulo+')';
 	query2= 'call getCapitulosByModuloId('+idModulo+')';
 	if(request.session.user){
-
 		connection.query(query,function(err,rows){
-		  if(err) throw err;
-		  if(rows[0][0]){
+		  if(err){ 
+		  	console.log(err);
+		  	response.json({error:true});
+		  }
+		  else if(rows[0][0]){
 		  	infoModulo= rows[0][0];
 		  	connection.query(query2,function(err,rows){
-			  if(err) throw err;
+			  if(err){ 
+			  	console.log(err);
+			  	response.json({error:true})
+			  }
 			  if(rows[0]){
-			  	//console.log(rows[0])
 			  	response.render('modulo',{id:request.session.user.id,modulo:infoModulo,capitulos:rows[0]});
 			  }else{
-			  	response.render('index');
+			  	response.render('index',{id:-1});
 			  }
 			});
 
 		  }else{
-		  	response.render('index');
+		  	response.render('index',{id:-1});
 		  }
 		});
-
-		
 	}else{
 		response.json({error:true})
 	}
@@ -80,23 +79,25 @@ exports.modulo = function(request, response){
 };
 
 
-exports.signIn = function(req,res){
-    var cedula = req.body.cedula;
-    var password = req.body.password;
+exports.signIn = function(request,response){
+    var cedula = request.body.cedula;
+    var password = request.body.password;
     console.log(cedula);
     connection.query('call signIn("'+cedula+'","'+password+'")',function(err,rows){
-            if(err) throw err;
-            if (rows[0][0] != undefined) {
-                res.json({truly_signIn:true,id:rows[0][0].id,cedula:rows[0][0].cedula,
-                         nombre:rows[0][0].nombre,apellido:rows[0][0].apellido,telefono:rows[0][0].telefono,
-                         direccion:rows[0][0].direccion,ciudad:rows[0][0].ciudad,provincia:rows[0][0].provincia,
-                         distrito:rows[0][0].distrito,correo:rows[0][0].correo});
-            }
-            else {
-                res.json({truly_signIn:false,estado:"Usuario_incorrecto"});
+        if(err){
+        	console.log(err);
+        	response.json({truly_signIn:false,estado:"Usuario_incorrecto"});
+        } 
+        else if (rows[0][0] != undefined) {
+        	request.session.user= rows[0][0];
+  			console.log("Sesion iniciada: "+request.session.user.id);
+            response.json({truly_signIn:true});
+        }
+        else {
+            response.json({truly_signIn:false,estado:"Usuario_incorrecto"});
 
-            }
-    } );
+        }
+    });
 }
 
 exports.signUp = function(request,response){
@@ -112,11 +113,22 @@ exports.signUp = function(request,response){
     var distrito = request.body.distrito;
     connection.query('call crearUsuario("'+cedula+'","'+nombre+'","'+apellido+'","'+telefono+'","'+direccion+'","'+ciudad+'","'+provincia+'","'+distrito+'","'+password+'","'+email+'")',function(err,rows){
         if(err){
+        	console.log(err);
 			response.json({estado:"No_Guardado"});
 		}
 			response.json({estado:"Guardado"});
     });
 };
+
+/*
+exports.getContenidoCapitulo = function(request,response){
+    
+    connection.query('call',function(err,rows){
+        if(err)
+    });
+};
+
+*/
 
 
 
