@@ -133,24 +133,48 @@ exports.signUp = function(request,response){
 };
 
 exports.listaEstudiantes =function(request,response) {
+	    var estudiantes = [];
+		var lstEstudiantes = [];
 		connection.query('call cargarListadoUsuarios',function(err,rows) {
 		try {
-			response.json({listadoUsuarios:rows});
-			
-		} catch (err) {
+			estudiantes = rows[0];
+			for (var node in estudiantes){
+				var estudiante = {
+					id: node.id,
+					cedula: node.cedula,
+					nombre: node.nombre,
+					apellido: node.apellido
+				}
+			}
+			response.render('listEstudiantes',lstEstudiantes);
+		}
+		 catch (err) {
 			console.log(err);
-			response.json({listadoUsuarios:"null"});
+			response.render('listEstudiantes',lstEstudiantes);
 		}
 	});
 }
 
 exports.getCalifacionEstudiante = function (request,response) {
+	 var calificaciones= []
+	 var lstCalificaciones = []
 	connection.query('call  getInformationCalificacionUser("'+request.id+'")',function (err,rows) {
 		try {
-			response.json({listaCalificaciones:rows});
+			calificaciones = rows[0]
+			for(var node in calificaciones){
+				var calificacion = {
+					calificacion: node.calificacion,
+					capitulo: node.Capitulo.titulo,
+					modulo: node.Modulo.titulo,
+					indiceCapitulo: node.Capitulo.indice,
+					indiceModulo: node.Modulo.indice
+				}
+				lstCalificaciones.push(calificacion);
+			}
+			response.render("avanceEstudiante",lstCalificaciones);
 		} catch (err) {
 			console.log(err);
-			response.json({listaCalificaciones:"null"});
+			response.render("avanceEstudiante",lstCalificaciones);
 			
 		}
 	});
