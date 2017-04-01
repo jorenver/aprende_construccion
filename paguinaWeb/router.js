@@ -1,9 +1,9 @@
 var ControllerIndex = require('./controller/ControllerIndex');
 var ControllerModulo = require('./controller/ControllerModulo');
+var ControllerEvaluacion= require('./controller/ControllerEvaluacion');
 
 
 module.exports = function(app){
-
 	//ControllerIndex
 	app.get('/', ControllerIndex.index);
 	app.get('/login', ControllerIndex.login);
@@ -16,8 +16,6 @@ module.exports = function(app){
 	app.post('/signInUser',ControllerIndex.signInUser);
 	app.post('/signUpUser',ControllerIndex.crearUsuario);
 	app.get('/getCapitulos', ControllerModulo.getCapitulos);
-
-	
-
-	
+	app.get('/evaluaciones', ControllerEvaluacion.evaluaciones);
+	app.get('/getEvaluacionByIdCapitulo', ControllerEvaluacion.getEvaluacionByIdCapitulo);		
 };

@@ -23,9 +23,6 @@ exports.getCapitulos = function(request, response){
 
 exports.getContenidoCapitulo = function(request, response){
 	console.log('contenido capitulo');
-	console.log(request.query);
-	idcapitulo= request.query.idcapitulo;
-	console.log(idcapitulo);
 	if(request.session.user){
 		/*
 		var respuesta={error:false,
@@ -58,7 +55,7 @@ exports.getContenidoCapitulo = function(request, response){
 		console.log(respuesta);
 		response.json(respuesta);
 		*/
-		
+		db.getContenidoCapitulo(request,response);
 	}else{
 		response.json({error:true});
 	}

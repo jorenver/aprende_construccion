@@ -120,15 +120,101 @@ exports.signUp = function(request,response){
     });
 };
 
-/*
-exports.getContenidoCapitulo = function(request,response){
-    
-    connection.query('call',function(err,rows){
-        if(err)
-    });
-};
 
-*/
+exports.getContenidoCapitulo = function(request,response){
+    idcapitulo= request.query.idcapitulo;
+	console.log('@@@@@@@Contenido Cspitulo: '+idcapitulo);
+	if(request.session.user){
+		connection.query('CALL getSeccionesByCapituloId('+idcapitulo+')',function(err,result1){
+	        if(err){
+	        	console.log(error);
+	        	response.json({error:true});
+	        }else{
+			    connection.query('CALL getContenidoCapitulonByCapituloId('+idcapitulo+')',function(err,result2){
+			        if(err){
+			        	console.log(error);
+			        	response.json({error:true});
+			        }else{
+			        	var respuesta={error:false,
+			        					secciones:[]
+			        	}
+			        	seccionesCapitulo=result1[0];
+			        	contenidoCapitulo=result2[0];
+			        	var ultimo=0;
+			        	for (var i = 0; i < seccionesCapitulo.length; i++) {
+			        		var infoSeccion=seccionesCapitulo[i];
+			        		var ban=true;
+			        		var seccion={titulo:infoSeccion.titulo,
+			        					indice:infoSeccion.indice,
+			        					contenidos:[]}
+			        		for (var j = ultimo; j < contenidoCapitulo.length; j++) {
+			        			if(ban || infoSeccion.id==contenidoCapitulo[j].id){
+			        				if(infoSeccion.id==contenidoCapitulo[j].id){
+			        					ban=false;
+			        					//console.log(infoSeccion.id);
+			        					var contenido={texto:contenidoCapitulo[j].texto,
+			        									multimedia:null}
+			        					if(contenidoCapitulo[j].ruta_multimedia){
+			        						var multimedia={
+			        							tipo:contenidoCapitulo[j].tipo_multimedia,
+			        							ruta:contenidoCapitulo[j].ruta_multimedia,
+			        							descripcion:contenidoCapitulo[j].descripcion_multimedia,
+			        							fuente:contenidoCapitulo[j].fuente_multimedia}
+			        							contenido.multimedia=multimedia;
+			        					}
+			        					seccion.contenidos.push(contenido);
+			        				}
+			        			}else{
+			        				ultimo=j;
+			        				break;
+			        			}
+			        		};
+			        		respuesta.secciones.push(seccion);
+			        	};
+			        	response.json(respuesta);
+			        }
+
+			    });
+			}
+		});
+	}else{
+		response.json({error:true});
+	}
+}
+
+exports.getEvaluacionByIdCapitulo = function(request, response){
+	if(request.session.user){
+		connection.query('call getPreguntasCapitulo(1)',function(err,rows){
+	        if(err){
+	        	console.log(err);
+				response.render('index',{id:-1});
+			}
+			var respuesta={id:request.session.user.id,
+							titulo:"Planos Arquitectonicos",
+							preguntas:[]};
+			var preguntas=rows[0];
+			for (var i = 0; i < preguntas.length; i++) {
+				var pregunta={	id:preguntas[i].id,
+								pregunta:preguntas[i].pregunta,
+								opcion_1:preguntas[i].opcion_1,
+								opcion_2:preguntas[i].opcion_2,
+								opcion_3:preguntas[i].opcion_3,
+								opcion_4:preguntas[i].opcion_4,
+								multimedia:{
+									tipo_multimedia:preguntas[i].tipo_multimedia,
+									ruta_multimedia:preguntas[i].ruta_multimedia
+								}
+								
+							}
+				respuesta.preguntas.push(pregunta);
+			};
+			response.render('evaluacion',respuesta);
+	    });
+	}else{
+		response.render('index',{id:-1});
+	}
+}
+
 
 
 
