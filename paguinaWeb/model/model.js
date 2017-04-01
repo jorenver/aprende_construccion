@@ -19,7 +19,6 @@ connection.connect(function(err){
 });
 
 exports.curso = function(request, response){
-<<<<<<< HEAD
 	var cedula="0951060185"
 	connection.query('call getUserInfoByCedula("'+cedula+'")',function(err,rows){
 	  if(err) throw err;
@@ -32,15 +31,7 @@ exports.curso = function(request, response){
 	  }
 	});
 	
-=======
-	console.log("curso");
-	if(request.session.user){
-		response.render('index',{id:request.session.user.id});
-	}else{
-		response.render('index',{id:-1});
-	}
 
->>>>>>> 5be016583c75162c528b9ed89529e9a13bf5514a
 };
 
 exports.getModulos = function(request, response){
