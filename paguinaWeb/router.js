@@ -16,6 +16,7 @@ module.exports = function(app){
 	app.post('/signInUser',ControllerIndex.signInUser);
 	app.post('/signUpUser',ControllerIndex.crearUsuario);
 	app.get('/getCapitulos', ControllerModulo.getCapitulos);
+	app.get('/getListEstudiantes',ControllerModulo.getListEstudiantes)
 	app.get('/evaluaciones', ControllerEvaluacion.evaluaciones);
 	app.get('/getEvaluacionByIdCapitulo', ControllerEvaluacion.getEvaluacionByIdCapitulo);		
 };

@@ -21,6 +21,13 @@ exports.getCapitulos = function(request, response){
 	db.getCapitulos(request,response)
 };
 
+exports.getListEstudiantes = function(request,response) {
+	db.listaEstudiantes(request,response);
+}
+
+exports.getListCalificaciones = function (request,response) {
+	db.getCalifacionEstudiante(request,response);
+}
 exports.getContenidoCapitulo = function(request, response){
 	console.log('contenido capitulo');
 	if(request.session.user){
