@@ -1,4 +1,5 @@
 var mysql = require("mysql");
+
 var connection = mysql.createConnection({
     host : "80.241.222.40",
     user : "kevin",
@@ -12,9 +13,13 @@ connection.connect(
     function(err){if(err) throw err;}
 );
 */
+connection.connect(function(err){
+	if(err) throw err;
+	console.log("conectado exitosamente");
+});
+
 exports.curso = function(request, response){
 	var cedula="0951060185"
-	console.log("curso");
 	connection.query('call getUserInfoByCedula("'+cedula+'")',function(err,rows){
 	  if(err) throw err;
 	  if(rows[0][0]){
@@ -52,7 +57,6 @@ exports.modulo = function(request, response){
 	query= 'call getModulo('+idModulo+')';
 	query2= 'call getCapitulosByModuloId('+idModulo+')';
 	if(request.session.user){
-
 		connection.query(query,function(err,rows){
 		  if(err) throw err;
 		  if(rows[0][0]){
@@ -117,6 +121,30 @@ exports.signUp = function(request,response){
 			response.json({estado:"Guardado"});
     });
 };
+
+exports.listaEstudiantes =function(request,response) {
+		connection.query('call cargarListadoUsuarios',function(err,rows) {
+		try {
+			response.json({listadoUsuarios:rows});
+			
+		} catch (err) {
+			console.log(err);
+			response.json({listadoUsuarios:"null"});
+		}
+	});
+}
+
+exports.getCalifacionEstudiante = function (request,response) {
+	connection.query('call  getInformationCalificacionUser("'+request.id+'")',function (err,rows) {
+		try {
+			response.json({listaCalificaciones:rows});
+		} catch (err) {
+			console.log(err);
+			response.json({listaCalificaciones:"null"});
+			
+		}
+	});
+}
 
 
 
