@@ -23,7 +23,7 @@ function getModulos(){
 }
 
 function inicializar (){
-	if(id){
+	if(id!=-1){
 		getModulos();
 	}
 }

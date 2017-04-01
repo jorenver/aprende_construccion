@@ -2,8 +2,7 @@
 	<h3 id="titleContenido" class="title text-center">Modulo {{modulo.indice}}: {{modulo.titulo}} </h3>
 	<ul id="botones">
 		{% for capitulo in capitulos %}
-		    <li data-idcapitulo= {{capitulo.id}} onclick="getContenidoCapitulo(event);" class="">Capitulo {{capitulo.indice}} : {{ capitulo.titulo}}</li>
+		    <li data-idcapitulo= {{capitulo.id}} data-titulo= {{capitulo.titulo}} data-indice= {{capitulo.indice}} onclick="getContenidoCapitulo(event);" class="">Capitulo {{capitulo.indice}} : {{ capitulo.titulo}}</li>
 		{% endfor %}
-	
 	</ul>
 </div>

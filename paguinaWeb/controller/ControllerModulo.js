@@ -9,7 +9,7 @@ exports.modulo = function(request, response){
 		db.modulo(request,response);
 		
 	}else{
-		response.render('index');
+		response.render('index',{id:-1});
 	}
 };
 
@@ -30,10 +30,8 @@ exports.getListCalificaciones = function (request,response) {
 }
 exports.getContenidoCapitulo = function(request, response){
 	console.log('contenido capitulo');
-	console.log(request.query);
-	idcapitulo= request.query.idcapitulo;
-	console.log(idcapitulo);
 	if(request.session.user){
+		/*
 		var respuesta={error:false,
 						titulo:"XYZ",
 						indice:1,
@@ -63,7 +61,8 @@ exports.getContenidoCapitulo = function(request, response){
 		};
 		console.log(respuesta);
 		response.json(respuesta);
-		
+		*/
+		db.getContenidoCapitulo(request,response);
 	}else{
 		response.json({error:true});
 	}

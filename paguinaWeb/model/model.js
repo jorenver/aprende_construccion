@@ -19,6 +19,7 @@ connection.connect(function(err){
 });
 
 exports.curso = function(request, response){
+<<<<<<< HEAD
 	var cedula="0951060185"
 	connection.query('call getUserInfoByCedula("'+cedula+'")',function(err,rows){
 	  if(err) throw err;
@@ -31,14 +32,26 @@ exports.curso = function(request, response){
 	  }
 	});
 	
+=======
+	console.log("curso");
+	if(request.session.user){
+		response.render('index',{id:request.session.user.id});
+	}else{
+		response.render('index',{id:-1});
+	}
+
+>>>>>>> 5be016583c75162c528b9ed89529e9a13bf5514a
 };
 
 exports.getModulos = function(request, response){
 	console.log('*****Modulos******')
 	if(request.session.user){
 		connection.query('call getModulos()',function(err,rows){
-		  if(err) throw err;
-		  if(rows[0]){
+		  if(err){
+		  	console.log(err);
+		  	response.json({error:true});
+		  } 
+		  else if(rows[0]){
 		  	//console.log(rows[0])
 		  	response.json({error:false,modulos:rows[0]});
 		  }else{
@@ -58,25 +71,28 @@ exports.modulo = function(request, response){
 	query2= 'call getCapitulosByModuloId('+idModulo+')';
 	if(request.session.user){
 		connection.query(query,function(err,rows){
-		  if(err) throw err;
-		  if(rows[0][0]){
+		  if(err){ 
+		  	console.log(err);
+		  	response.json({error:true});
+		  }
+		  else if(rows[0][0]){
 		  	infoModulo= rows[0][0];
 		  	connection.query(query2,function(err,rows){
-			  if(err) throw err;
+			  if(err){ 
+			  	console.log(err);
+			  	response.json({error:true})
+			  }
 			  if(rows[0]){
-			  	//console.log(rows[0])
 			  	response.render('modulo',{id:request.session.user.id,modulo:infoModulo,capitulos:rows[0]});
 			  }else{
-			  	response.render('index');
+			  	response.render('index',{id:-1});
 			  }
 			});
 
 		  }else{
-		  	response.render('index');
+		  	response.render('index',{id:-1});
 		  }
 		});
-
-		
 	}else{
 		response.json({error:true})
 	}
@@ -84,23 +100,25 @@ exports.modulo = function(request, response){
 };
 
 
-exports.signIn = function(req,res){
-    var cedula = req.body.cedula;
-    var password = req.body.password;
+exports.signIn = function(request,response){
+    var cedula = request.body.cedula;
+    var password = request.body.password;
     console.log(cedula);
     connection.query('call signIn("'+cedula+'","'+password+'")',function(err,rows){
-            if(err) throw err;
-            if (rows[0][0] != undefined) {
-                res.json({truly_signIn:true,id:rows[0][0].id,cedula:rows[0][0].cedula,
-                         nombre:rows[0][0].nombre,apellido:rows[0][0].apellido,telefono:rows[0][0].telefono,
-                         direccion:rows[0][0].direccion,ciudad:rows[0][0].ciudad,provincia:rows[0][0].provincia,
-                         distrito:rows[0][0].distrito,correo:rows[0][0].correo});
-            }
-            else {
-                res.json({truly_signIn:false,estado:"Usuario_incorrecto"});
+        if(err){
+        	console.log(err);
+        	response.json({truly_signIn:false,estado:"Usuario_incorrecto"});
+        } 
+        else if (rows[0][0] != undefined) {
+        	request.session.user= rows[0][0];
+  			console.log("Sesion iniciada: "+request.session.user.id);
+            response.json({truly_signIn:true});
+        }
+        else {
+            response.json({truly_signIn:false,estado:"Usuario_incorrecto"});
 
-            }
-    } );
+        }
+    });
 }
 
 exports.signUp = function(request,response){
@@ -116,6 +134,7 @@ exports.signUp = function(request,response){
     var distrito = request.body.distrito;
     connection.query('call crearUsuario("'+cedula+'","'+nombre+'","'+apellido+'","'+telefono+'","'+direccion+'","'+ciudad+'","'+provincia+'","'+distrito+'","'+password+'","'+email+'")',function(err,rows){
         if(err){
+        	console.log(err);
 			response.json({estado:"No_Guardado"});
 		}
 			response.json({estado:"Guardado"});
@@ -145,6 +164,102 @@ exports.getCalifacionEstudiante = function (request,response) {
 		}
 	});
 }
+
+
+exports.getContenidoCapitulo = function(request,response){
+    idcapitulo= request.query.idcapitulo;
+	console.log('@@@@@@@Contenido Cspitulo: '+idcapitulo);
+	if(request.session.user){
+		connection.query('CALL getSeccionesByCapituloId('+idcapitulo+')',function(err,result1){
+	        if(err){
+	        	console.log(error);
+	        	response.json({error:true});
+	        }else{
+			    connection.query('CALL getContenidoCapitulonByCapituloId('+idcapitulo+')',function(err,result2){
+			        if(err){
+			        	console.log(error);
+			        	response.json({error:true});
+			        }else{
+			        	var respuesta={error:false,
+			        					secciones:[]
+			        	}
+			        	seccionesCapitulo=result1[0];
+			        	contenidoCapitulo=result2[0];
+			        	var ultimo=0;
+			        	for (var i = 0; i < seccionesCapitulo.length; i++) {
+			        		var infoSeccion=seccionesCapitulo[i];
+			        		var ban=true;
+			        		var seccion={titulo:infoSeccion.titulo,
+			        					indice:infoSeccion.indice,
+			        					contenidos:[]}
+			        		for (var j = ultimo; j < contenidoCapitulo.length; j++) {
+			        			if(ban || infoSeccion.id==contenidoCapitulo[j].id){
+			        				if(infoSeccion.id==contenidoCapitulo[j].id){
+			        					ban=false;
+			        					//console.log(infoSeccion.id);
+			        					var contenido={texto:contenidoCapitulo[j].texto,
+			        									multimedia:null}
+			        					if(contenidoCapitulo[j].ruta_multimedia){
+			        						var multimedia={
+			        							tipo:contenidoCapitulo[j].tipo_multimedia,
+			        							ruta:contenidoCapitulo[j].ruta_multimedia,
+			        							descripcion:contenidoCapitulo[j].descripcion_multimedia,
+			        							fuente:contenidoCapitulo[j].fuente_multimedia}
+			        							contenido.multimedia=multimedia;
+			        					}
+			        					seccion.contenidos.push(contenido);
+			        				}
+			        			}else{
+			        				ultimo=j;
+			        				break;
+			        			}
+			        		};
+			        		respuesta.secciones.push(seccion);
+			        	};
+			        	response.json(respuesta);
+			        }
+
+			    });
+			}
+		});
+	}else{
+		response.json({error:true});
+	}
+}
+
+exports.getEvaluacionByIdCapitulo = function(request, response){
+	if(request.session.user){
+		connection.query('call getPreguntasCapitulo(1)',function(err,rows){
+	        if(err){
+	        	console.log(err);
+				response.render('index',{id:-1});
+			}
+			var respuesta={id:request.session.user.id,
+							titulo:"Planos Arquitectonicos",
+							preguntas:[]};
+			var preguntas=rows[0];
+			for (var i = 0; i < preguntas.length; i++) {
+				var pregunta={	id:preguntas[i].id,
+								pregunta:preguntas[i].pregunta,
+								opcion_1:preguntas[i].opcion_1,
+								opcion_2:preguntas[i].opcion_2,
+								opcion_3:preguntas[i].opcion_3,
+								opcion_4:preguntas[i].opcion_4,
+								multimedia:{
+									tipo_multimedia:preguntas[i].tipo_multimedia,
+									ruta_multimedia:preguntas[i].ruta_multimedia
+								}
+								
+							}
+				respuesta.preguntas.push(pregunta);
+			};
+			response.render('evaluacion',respuesta);
+	    });
+	}else{
+		response.render('index',{id:-1});
+	}
+}
+
 
 
 
