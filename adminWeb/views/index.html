@@ -16,7 +16,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="css/evaluacion.css">
+    <link rel="stylesheet" href="css/index.css">
 </head> 
 
 <body class="home-page">   
@@ -25,40 +25,40 @@
     <div id="continer" class="sections-wrapper">   
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-6 col-md-offset-3">
                     <div class="container-fluid">
                         <!--inicio contenido-->
-                        <div class="row" id="contenido_evaluacion"> 
-                            {% for pregunta in preguntas %}
-                                <div class="row pregunta">
-                                    <div class="panel-group">
-                                      <div class="panel panel-primary">
-                                        <div class="panel-heading">{{pregunta.pregunta}}</div>
-                                      </div>
-                                      <div class="panel panel-primary">
-                                        <div class="panel-body">
-                                            <div class="opciones col-md-6" data-id="{{pregunta.id}}">
-                                                <div class="radio">
-                                                  <label><input type="radio" name="{{pregunta.id}}" value="1">{{pregunta.opcion_1}}</label>
-                                                </div>
-                                                <div class="radio">
-                                                  <label><input type="radio" name="{{pregunta.id}}" value="2">{{pregunta.opcion_2}}</label>
-                                                </div>
-                                                <div class="radio">
-                                                  <label><input type="radio" name="{{pregunta.id}}" value="3">{{pregunta.opcion_3}}</label>
-                                                </div>
-                                                <div class="radio">
-                                                  <label><input type="radio" name="{{pregunta.id}}" value="4">{{pregunta.opcion_4}}</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <img class="multimedia-evaluacion" src="{{pregunta.multimedia.ruta_multimedia}}">
-                                            </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                        <div class="row" id="contenido_index"> 
+                            <div class="col-md-6 text-center option-admin">
+                                <div class="row">
+                                    <button type="button" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-list-alt"></span>
+                                    </button>
                                 </div>
-                            {% endfor %}
+                                <div class="row">
+                                    <h4>Editar Contenido</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center option-admin">
+                                <div class="row">
+                                    <button type="button" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-list-alt"></span>
+                                    </button>
+                                </div>
+                                <div class="row">
+                                    <h4>Editar Evaluaciones</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center option-admin">
+                                <div class="row">
+                                    <button type="button" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-list-alt"></span>
+                                    </button>
+                                </div>
+                                <div class="row">
+                                    <h4>Ver Estudiantes</h4>
+                                </div>
+                            </div>
                         </div>
                         <!--fin contenido-->
                     </div>
