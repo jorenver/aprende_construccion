@@ -291,6 +291,27 @@ exports.evaluacionModulo = function(request, response){
 exports.evaluaciones = function(request,response){
     console.log('get Evaluaciones');
 	if(request.session.user){
+		/*
+		Ejemplo de objeto que se envia al cliente
+		var respuesta={ id:request.session.user.id,
+						modulos:[{id:1,
+								 titulo:"Lectura de Planos",
+								 indice:1,
+								 nota:95,
+								 capitulos:[{id:1,titulo:"Planos Arquitectonicos",indice:1,nota:90},
+								 			{id:2,titulo:"Planos Geotecnicos",indice:1,nota:70},
+								 			{id:3,titulo:"Planos Viales",indice:1,nota:null}]
+								 },
+								 {id:2,
+								 titulo:"Lectura de Planos",
+								 indice:2,
+								 nota:null,
+								 capitulos:[{id:4,titulo:"Planos Arquitectonicos",indice:1,nota:40},
+								 			{id:5,titulo:"Planos Geotecnicos",indice:1,nota:70},
+								 			{id:6,titulo:"Planos Viales",indice:1,nota:null}]
+								 }]
+					};
+		*/
 		var userId=request.session.user.id;
 		connection.query('call getCalificacionModuloByEstudianteId('+userId+')',function(err,rows1){
 	        if(err){
