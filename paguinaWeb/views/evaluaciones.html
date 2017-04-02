@@ -11,12 +11,13 @@
     <meta name="description" content="">
     <meta name="author" content="">    
     {% include './importsFooter.html' %}
+    <script src="js/evaluaciones.js"></script>
+    <link rel="stylesheet" href="css/evaluacion.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="css/evaluacion.css">
 </head> 
 
 <body class="home-page">   
@@ -28,10 +29,10 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="container-fluid">
                         <div class="row" id="contenido_evaluaciones"> 
-                            {% for modulo in moduos %}
+                            {% for modulo in modulos %}
                                 <div class="row table_modulo">
                                     <div class="row">
-                                        <h3 class="title text-center">Modulo {{modulo.indice}}: {{modulo.tirulo}} </h3>
+                                        <h3 class="title text-center">Modulo {{modulo.indice}}: {{modulo.titulo}} </h3>
                                     </div>
                                     <div>
                                         <table class="table table-bordered">
@@ -39,27 +40,35 @@
                                               <tr >
                                                 <th>Titulo Evaluacion</th>
                                                 <th class="text-center">Calificacion</th>
-                                                <th class="text-center">Opciones</th>
+                                                <th class="text-center"></th>
                                               </tr>
                                             </thead>
                                             <tbody>
-                                              {% for capitulo in moduo.capitulos %}
+                                              {% for capitulo in modulo.capitulos %}
                                                   <tr>
                                                     <td>Capitulo {{capitulo.indice}}: {{capitulo.titulo}}</td>
-                                                    <td class="text-center">--</td>
+                                                    {%if capitulo.nota != null%}
+                                                        <td class="text-center">{{capitulo.nota}}</td>
+                                                    {% else %}
+                                                        <td class="text-center">--</td>
+                                                    {% endif %}
                                                     <td class="text-center">
-                                                        <button type="button" class="btn btn-default btn-sm">
-                                                            <span class="glyphicon glyphicon-list-alt"></span> tomar evaluacion
+                                                        <button data-id="{{capitulo.id}}" type="button" class="btnEvaluacionCapitulo btn btn-default btn-sm">
+                                                            <span data-id="{{capitulo.id}}" class="glyphicon glyphicon-list-alt"></span> tomar evaluacion
                                                         </button>
                                                     </td>
                                                   </tr>
                                               {% endfor %}
                                               <tr>
                                                 <td>Evaluacion del Modulo</td>
-                                                <td class="text-center">--</td>
+                                                {%if modulo.nota != null%}
+                                                    <td class="text-center">{{modulo.nota}}</td>
+                                                {% else %}
+                                                    <td class="text-center">--</td>
+                                                {% endif %}
                                                 <td class="text-center">
-                                                    <button type="button" class="btn btn-default btn-sm">
-                                                        <span class="glyphicon glyphicon-list-alt"></span> tomar evaluacion
+                                                    <button data-id="{{modulo.id}}" type="button" class="btnEvaluacionModulo btn btn-default btn-sm">
+                                                        <span data-id="{{modulo.id}}" class="glyphicon glyphicon-list-alt"></span> tomar evaluacion
                                                     </button>
                                                 </td>
                                               </tr>

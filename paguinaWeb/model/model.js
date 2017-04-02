@@ -218,9 +218,11 @@ exports.getContenidoCapitulo = function(request,response){
 	}
 }
 
-exports.getEvaluacionByIdCapitulo = function(request, response){
+exports.evaluacionCapitulo = function(request, response){
+	var idCapitulo=request.query.idCapitulo;
+	console.log('Evaluacion Capitulo: '+idCapitulo);
 	if(request.session.user){
-		connection.query('call getPreguntasCapitulo(1)',function(err,rows){
+		connection.query('call getPreguntasCapitulo('+idCapitulo+')',function(err,rows){
 	        if(err){
 	        	console.log(err);
 				response.render('index',{id:-1});
@@ -246,6 +248,95 @@ exports.getEvaluacionByIdCapitulo = function(request, response){
 			};
 			response.render('evaluacion',respuesta);
 	    });
+	}else{
+		response.render('index',{id:-1});
+	}
+}
+
+exports.evaluacionModulo = function(request, response){
+	var idModulo=request.query.idModulo;
+	console.log('Evaluacion Modulo: '+idModulo);
+	if(request.session.user){
+		connection.query('call getPreguntasCapitulo('+idModulo+')',function(err,rows){
+	        if(err){
+	        	console.log(err);
+				response.render('index',{id:-1});
+			}
+			var respuesta={id:request.session.user.id,
+							titulo:"Planos Arquitectonicos",
+							preguntas:[]};
+			var preguntas=rows[0];
+			for (var i = 0; i < preguntas.length; i++) {
+				var pregunta={	id:preguntas[i].id,
+								pregunta:preguntas[i].pregunta,
+								opcion_1:preguntas[i].opcion_1,
+								opcion_2:preguntas[i].opcion_2,
+								opcion_3:preguntas[i].opcion_3,
+								opcion_4:preguntas[i].opcion_4,
+								multimedia:{
+									tipo_multimedia:preguntas[i].tipo_multimedia,
+									ruta_multimedia:preguntas[i].ruta_multimedia
+								}
+								
+							}
+				respuesta.preguntas.push(pregunta);
+			};
+			response.render('evaluacion',respuesta);
+	    });
+	}else{
+		response.render('index',{id:-1});
+	}
+}
+
+exports.evaluaciones = function(request,response){
+    console.log('get Evaluaciones');
+	if(request.session.user){
+		var userId=request.session.user.id;
+		connection.query('call getCalificacionModuloByEstudianteId('+userId+')',function(err,rows1){
+	        if(err){
+	        	console.log(err);
+				response.render('index',{id:-1});
+			}
+			connection.query('call getCalificacionCapitulosByEstudianteId('+userId+')',function(err,rows2){
+		        if(err){
+		        	console.log(err);
+					response.render('index',{id:-1});
+				}
+				var calificacionesModulos=rows1[0];
+				var calificacionesCapitulo=rows2[0];
+				var respuesta={ id:request.session.user.id,
+							modulos:[]
+						};
+				var ultimo=0;
+				for (var i = 0; i < calificacionesModulos.length; i++) {
+					var modulo={id:calificacionesModulos[i].id,
+								titulo:calificacionesModulos[i].titulo,
+								indice:calificacionesModulos[i].indice_Modulo,
+								nota:calificacionesModulos[i].calificacion,
+								capitulos:[]};
+					var ban=true;
+					for (var j = ultimo; j < calificacionesCapitulo.length; j++) {
+	        			if(ban || modulo.id==calificacionesCapitulo[j].id){
+	        				if(modulo.id==calificacionesCapitulo[j].id){
+	        					ban=false;
+	        					var capitulo={	id:calificacionesCapitulo[j].id_capitulo,
+	        									titulo:calificacionesCapitulo[j].titulo_capitulo,
+	        									indice:calificacionesCapitulo[j].indice_capitulo,
+	        									nota:calificacionesCapitulo[j].calificacion};
+	        					modulo.capitulos.push(capitulo);
+	        				}
+	        			}else{
+	        				ultimo=j;
+	        				break;
+	        			}
+	        		};
+					respuesta.modulos.push(modulo);
+				}
+				response.render('evaluaciones',respuesta);
+				
+		    });
+	    });
+		
 	}else{
 		response.render('index',{id:-1});
 	}
