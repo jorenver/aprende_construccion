@@ -18,5 +18,6 @@ module.exports = function(app){
 	app.get('/getCapitulos', ControllerModulo.getCapitulos);
 	app.get('/getListEstudiantes',ControllerModulo.getListEstudiantes)
 	app.get('/evaluaciones', ControllerEvaluacion.evaluaciones);
-	app.get('/getEvaluacionByIdCapitulo', ControllerEvaluacion.getEvaluacionByIdCapitulo);		
+	app.get('/evaluacionCapitulo', ControllerEvaluacion.evaluacionCapitulo);
+	app.get('/evaluacionModulo', ControllerEvaluacion.evaluacionModulo);		
 };

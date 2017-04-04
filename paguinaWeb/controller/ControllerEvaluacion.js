@@ -1,15 +1,14 @@
 var db = require('../model/model');
 
 exports.evaluaciones = function(request, response){
-	console.log('get Evaluaciones');
-	if(request.session.user){
-		response.render('evaluaciones',{id:request.session.user.id});
-	}else{
-		response.render('index',{id:-1});
-	}
+	db.evaluaciones(request,response);
 };
 
-exports.getEvaluacionByIdCapitulo = function(request, response){
-	console.log('get Evaluacion Capitulo');
-	db.getEvaluacionByIdCapitulo(request, response);
+
+exports.evaluacionCapitulo = function(request, response){
+	db.evaluacionCapitulo(request, response);
+};
+
+exports.evaluacionModulo = function(request, response){
+	db.evaluacionModulo(request, response);
 };

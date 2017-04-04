@@ -38,10 +38,10 @@
                             {% for pregunta in preguntas %}
                                 <div class="row pregunta">
                                     <div class="panel-group">
-                                      <div class="panel panel-primary">
+                                      <div class="panel panel-default">
                                         <div class="panel-heading">{{pregunta.pregunta}}</div>
                                       </div>
-                                      <div class="panel panel-primary">
+                                      <div class="panel panel-default">
                                         <div class="panel-body">
                                             <div class="opciones col-md-6" data-id="{{pregunta.id}}">
                                                 <div class="radio">
@@ -67,8 +67,9 @@
                             {% endfor %}
                         </div>
                         <!--fin contenido_evaluacion-->
-                        <div class="row" id="panel-boton-evaluacion col-md-4 col-md-offset-8">
-                            <button type="button" class="btn btn-success">Calificar</button>
+                        <div class="row text-center panel-boton-evaluacion">
+                            <button id="btnCalificar" type="button" class="btn btn-default">
+                                <span data-id="{{modulo.id}}" class="glyphicon glyphicon-check"></span> calificar</button>
                             <hr>
                         </div> 
                     </div>
