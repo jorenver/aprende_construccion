@@ -145,6 +145,7 @@ exports.listaEstudiantes =function(request,response) {
 					nombre: node.nombre,
 					apellido: node.apellido
 				}
+				lstEstudiantes.push(estudiante);
 			}
 			response.render('listEstudiantes',lstEstudiantes);
 		}
@@ -157,27 +158,66 @@ exports.listaEstudiantes =function(request,response) {
 
 exports.getCalifacionEstudiante = function (request,response) {
 	 var calificaciones= []
-	 var lstCalificaciones = []
+	 var objetoEstudiante = {
+		     listaModulos:[],
+			 listaCapitulos:[],
+			 listaCalificaciones:[]
+	 }
 	connection.query('call  getInformationCalificacionUser("'+request.id+'")',function (err,rows) {
 		try {
 			calificaciones = rows[0]
-			for(var node in calificaciones){
-				var calificacion = {
-					calificacion: node.calificacion,
-					capitulo: node.Capitulo.titulo,
-					modulo: node.Modulo.titulo,
-					indiceCapitulo: node.Capitulo.indice,
-					indiceModulo: node.Modulo.indice
-				}
-				lstCalificaciones.push(calificacion);
+			for(var calificacion in calificaciones){
+				objetoEstudiante.listaCalificaciones.push(calificacion.Calificacion);
+				objetoEstudiante.listaCapitulos.push(calificacion.Capitulo);
+				objetoEstudiante.listaModulos.push(calificacion.Modulo);
 			}
-			response.render("avanceEstudiante",lstCalificaciones);
 		} catch (err) {
-			console.log(err);
-			response.render("avanceEstudiante",lstCalificaciones);
-			
+			console.log(err);			
 		}
 	});
+	return objetoEstudiante;
+}
+
+
+exports.getInformationStudent=function(request,response){
+	 var objetoCalificacion = {
+		 cedula:"",
+		 correo:"",
+		 apellido: "",
+		 nombre: ""	 
+	 }
+	connection.query('call getEstudianteId("'+request.id+'")',function(err,rows){
+		try {
+			var estudiante = rows[0];
+			objetoCalificacion.cedula = estudiante.cedula;
+			objetoCalificacion.nombre = estudiante.nombre;
+			objetoCalificacion.apellido = estudiante.apellido;
+			objetoCalificacion.correo = estudiante.correo;
+			
+		} catch (err) {
+			console.log(err);
+		}
+	});
+	return objetoCalificacion;
+
+}
+
+exports.getModulosStudent=function (request,response) {
+	var lstNameModulos = [];
+	var lstModulos = [];
+	connection.query('call loadModulosEstudiante',function (err,rows) {
+		try {
+		    lstModulos = rows[0]
+			for(var modulo in lstModulos){
+				lstNameModulos.push(modulo.titulo);
+			}	
+		} catch (err) {
+			console.log(err);
+		}
+	});
+	return lstNameModulos;
+
+	
 }
 
 
