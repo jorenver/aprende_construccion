@@ -31,6 +31,6 @@ exports.loginAdmin = function(request,response){
 };
 
 exports.getListEstudiantes = function(request,response){
-	
+	response.render('admin');	
 };
 

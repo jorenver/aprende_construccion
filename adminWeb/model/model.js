@@ -1,6 +1,7 @@
 var mysql = require("mysql");
 
-var connection = mysql.createConnection({
+var connection = mysql.createPool({
+	connectionLimit : 10,
     host : "80.241.222.40",
     user : "kevin",
     port : "3306",
