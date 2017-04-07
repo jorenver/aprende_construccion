@@ -20,6 +20,12 @@ exports.login = function(request, response){
 };
 
 
+exports.logout = function(request, response){
+	request.session.user=null;
+	response.render('index',{id:-1});
+};
+
+
 exports.loginAdmin = function(request,response){
 	db.signInAdmin(request,response);
 };
