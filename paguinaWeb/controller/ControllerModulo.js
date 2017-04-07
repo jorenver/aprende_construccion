@@ -24,7 +24,14 @@ exports.getListEstudiantes = function(request,response) {
 }
 
 exports.getListCalificaciones = function (request,response) {
-	db.getCalifacionEstudiante(request,response);
+	var estudiantes = {};
+	var calificaciones = db.getCalifacionEstudiante(request,response);
+	var estudiante = db.getInformationStudent(request,response);
+	var modulos = db.getModulosStudent(request,response);
+	estudiantes.tagCalificaciones = calificaciones;
+	estudiantes.tagEstudiante = estudiante;
+	estudiantes.tagModulo = modulos;
+	response.json({lstEstudiante:estudiantes});
 }
 exports.getContenidoCapitulo = function(request, response){
 	console.log('contenido capitulo');
