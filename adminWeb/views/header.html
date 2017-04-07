@@ -18,12 +18,15 @@
             </div><!--//navbar-header-->
             <div id="navbar-collapse" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li class="active nav-item"><a href="/">Inicio</a></li>
                     {% if id > -1 %}
-                    <li class="active nav-item"><a href="/index">Inicio</a></li>
                     <li class="nav-item"><a href="#">Contenido</a></li>
                     <li class="nav-item"><a href="#">Evaluaciones</a></li>
                     <li class="nav-item"><a href="#">Estudiantes</a></li>
                     <li class="nav-item"><a href="#">Cerrar Secion</a></li>
+                    {% endif %}
+                    {% if id == -1 %}
+                        <li class="active nav-item"><a href="/login">Iniciar Sesion</a></li>
                     {% endif %}
                 </ul><!--//nav-->
             </div><!--//navabr-collapse-->

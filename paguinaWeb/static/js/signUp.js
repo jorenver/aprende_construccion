@@ -248,6 +248,7 @@ $("button[id='idSignUp']").click(function(){
   userInformation.direccion = $("input[id='signup-direccion']").val();
   userInformation.ciudad = $("input[id='signup-ciudad']").val();
   //$("#myModal").hide();
+  //login del admin
   console.log(userInformation);
    $.ajax({
         type:'POST',

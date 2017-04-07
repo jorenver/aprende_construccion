@@ -53,18 +53,12 @@
                                         <div class="form-group email">
                                             <label class="sr-only" for="login-cedula">Cedula</label>
                                             <input id="login-cedula"   type="text" class="form-control login-cedula" placeholder="Cedula">
-                                                <div class="alert alert-danger" id="ErrorCedula">
-                                                    Solo se deben ingresar numeros de un tama&#241;o maximo de 10 sin incluir "-"
-                                                </div>
-                                                <div class="alert alert-danger" id="ErrorTextoCedula">
-                                                    <strong>Error!</strong>Solo se puede ingresar numeros
-                                                </div>
                                         </div><!--//form-group-->
                                         <div class="form-group password">
                                             <label class="sr-only" for="login-password">contrase&#241;a</label>
                                             <input id="login-password" type="password" class="form-control login-password" placeholder="contrase&#241;a" required=true >
                                         </div><!--//form-group-->
-                                        <button  id= "btnSignIn" type="button"  class="btn btn-block btn-cta-primary">Ingresar</button>
+                                        <button  id= "btnSignInAdmin" type="button"  class="btn btn-block btn-cta-primary">Ingresar</button>
                                         <div class="alert alert-danger" id="passwordsNoMatchRegister">
                                            <strong>Error!</strong> Contrase&#241;a o cedula ingresados de forma incorrecta!
                                         </div>
@@ -78,7 +72,8 @@
             </div><!--//container-->
         </section><!--//contact-section-->
     </div><!--//upper-wrapper-->
-    <!-- Javascript -->          
+    <!-- Javascript -->  
+      {% include './importsFooter.html' %}     
     <script type="text/javascript" src="assets/plugins/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="assets/plugins/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
@@ -88,7 +83,7 @@
     <script type="text/javascript" src="assets/plugins/FitVids/jquery.fitvids.js"></script>
     <script type="text/javascript" src="assets/plugins/flexslider/jquery.flexslider-min.js"></script> 
     <script type="text/javascript" src="assets/js/main.js"></script>
-    <script type="text/javascript" src="js/signIn.js"></script>
+    <script type="text/javascript" src="js/signInAdmin.js"></script>
 
    
     

@@ -2,11 +2,10 @@
 var db = require('../model/model');
 
 exports.index = function(request, response){
-	request.session.user={id:1};
 	if(request.session.user){
 		response.render('index',{id:request.session.user.id});
 	}else{
-		response.render('index',{id:1});
+		response.render('index',{id:-1});
 	}
 	
 };
@@ -17,6 +16,15 @@ exports.login = function(request, response){
 	}else{
 		response.render('login');
 	}
+	
+};
+
+
+exports.loginAdmin = function(request,response){
+	db.signInAdmin(request,response);
+};
+
+exports.getListEstudiantes = function(request,response){
 	
 };
 
