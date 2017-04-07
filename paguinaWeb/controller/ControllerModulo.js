@@ -1,10 +1,8 @@
 var db = require('../model/model');
 
 exports.modulo = function(request, response){
-	console.log('modulo');
 	idModulo= request.query.idModulo;
-	console.log(idModulo);
-
+	console.log('modulo: '+idModulo);
 	if(request.session.user){
 		db.modulo(request,response);
 		

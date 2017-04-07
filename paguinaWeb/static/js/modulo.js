@@ -86,8 +86,12 @@ function procesarContenidoCapitulo(json){
 			
 			contenido_secciones.appendChild(div_seccion);
 		}
+		$("#contenedor_boton_evaluacion button").attr("data-id",json.idCapitulo);
+		$("#contenedor_boton_evaluacion button span").attr("data-id",json.idCapitulo);
 		$("#contenedor_boton_evaluacion").show();
-    }	
+    }else{
+    	window.location.href="/logout"
+    }
 }
 
 function getContenidoCapitulo(event){
@@ -100,7 +104,7 @@ function getContenidoCapitulo(event){
         data: null,
         success: procesarContenidoCapitulo,
         error:function() {
-            alert("Error");
+            window.location.href="/logout"
         }
     });
 
@@ -108,7 +112,11 @@ function getContenidoCapitulo(event){
 
 
 function inicializar(){
+	$(".btnEvaluacionCapitulo").click(function(event){
+		window.location.href="/evaluacionCapitulo?idCapitulo="+event.target.dataset.id;
+	});
 	$("#contenedor_boton_evaluacion").hide();
+
 }
 
 window.addEventListener('load', inicializar, false);
