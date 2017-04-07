@@ -19,5 +19,6 @@ module.exports = function(app){
 	app.get('/getListEstudiantes',ControllerModulo.getListEstudiantes)
 	app.get('/evaluaciones', ControllerEvaluacion.evaluaciones);
 	app.get('/evaluacionCapitulo', ControllerEvaluacion.evaluacionCapitulo);
-	app.get('/evaluacionModulo', ControllerEvaluacion.evaluacionModulo);		
+	app.get('/evaluacionModulo', ControllerEvaluacion.evaluacionModulo);	
+	app.post('/calificar', ControllerEvaluacion.calificar);		
 };

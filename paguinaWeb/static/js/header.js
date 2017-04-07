@@ -2,7 +2,7 @@ function ProcesarModulos(event){
 	var respond = event.target.responseText;
 	var j= JSON.parse(respond);
 	if(j.error){
-		window.location.href="/"; 
+		window.location.href="/logout"
 		return;
 	}
 	modulos.innerHTML=""

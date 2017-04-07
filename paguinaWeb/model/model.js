@@ -1,37 +1,27 @@
 var mysql = require("mysql");
 
-var connection = mysql.createConnection({
+var connection = mysql.createPool({
+	connectionLimit : 10,
     host : "80.241.222.40",
     user : "kevin",
     port : "3306",
     password : "*yIO8v3hVai0zosaD",
     database : "Sistema_Aprendizaje_Construccion"
 });
-
 /*
 connection.connect(
     function(err){if(err) throw err;}
 );
 */
-connection.connect(function(err){
-	if(err) throw err;
-	console.log("conectado exitosamente");
-});
+
 
 exports.curso = function(request, response){
-	var cedula="0951060185"
-	connection.query('call getUserInfoByCedula("'+cedula+'")',function(err,rows){
-	  if(err) throw err;
-	  if(rows[0][0]){
-	  	request.session.user= rows[0][0];
-	  	console.log(request.session.user.id);
-	  	response.render('index',{id:request.session.user.id});
-	  }else{
-	  	response.render('index');
-	  }
-	});
-	
-
+	if(request.session.user){
+		console.log("id usuario: "+request.session.user.id);
+		response.render('index',{id:request.session.user.id});
+	}else{
+		response.render('index',{id:-1});
+	}
 };
 
 exports.getModulos = function(request, response){
@@ -236,6 +226,7 @@ exports.getContenidoCapitulo = function(request,response){
 			        	response.json({error:true});
 			        }else{
 			        	var respuesta={error:false,
+			        					idCapitulo:idcapitulo,
 			        					secciones:[]
 			        	}
 			        	seccionesCapitulo=result1[0];
@@ -377,6 +368,7 @@ exports.evaluaciones = function(request,response){
 					};
 		*/
 		var userId=request.session.user.id;
+		console.log(userId);
 		connection.query('call getCalificacionModuloByEstudianteId('+userId+')',function(err,rows1){
 	        if(err){
 	        	console.log(err);
