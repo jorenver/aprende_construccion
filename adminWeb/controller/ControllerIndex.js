@@ -31,6 +31,10 @@ exports.loginAdmin = function(request,response){
 };
 
 exports.getListEstudiantes = function(request,response){
-	response.render('admin');	
+	db.listaEstudiantes(request,response);
 };
 
+exports.getNotasEstudiante = function(request,response){
+	db.calificaciones(request,response);
+
+}

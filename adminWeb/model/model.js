@@ -30,98 +30,96 @@ exports.signInAdmin = function(request,response){
     });
 }
 
+/**
+ * Esta funcion lo que hace es llamar la lista de estudiantes en la base de datos
+ * se envia un json con un arreglo de estudiantes 
+ */
+
 exports.listaEstudiantes =function(request,response) {
-	    var estudiantes = [];
 		var lstEstudiantes = [];
+		request.session.user.id = 1;
 		connection.query('call cargarListadoUsuarios',function(err,rows) {
 		try {
-			estudiantes = rows[0];
-			for (var node in estudiantes){
+			for (var i=0; i < rows[0].length;i++){
 				var estudiante = {
-					id: node.id,
-					cedula: node.cedula,
-					nombre: node.nombre,
-					apellido: node.apellido
+					id: rows[0][i].id,
+					cedula: rows[0][i].cedula,
+					nombre: rows[0][i].nombre,
+					apellido: rows[0][i].apellido
 				}
 				lstEstudiantes.push(estudiante);
 			}
-			response.render('listEstudiantes',lstEstudiantes);
+			response.render('listaEstudiantes',{lstEstudiantes});
 		}
 		 catch (err) {
 			console.log(err);
-			response.render('listEstudiantes',lstEstudiantes);
 		}
 	});
 }
 
-
-
-
-exports.getCalifacionEstudiante = function (request,response) {
-	 var calificaciones= []
-	 var objetoEstudiante = {
-		     listaModulos:[],
-			 listaCapitulos:[],
-			 listaCalificaciones:[]
-	 }
-	connection.query('call  getInformationCalificacionUser("'+request.id+'")',function (err,rows) {
-		try {
-			calificaciones = rows[0]
-			for(var calificacion in calificaciones){
-				objetoEstudiante.listaCalificaciones.push(calificacion.Calificacion);
-				objetoEstudiante.listaCapitulos.push(calificacion.Capitulo);
-				objetoEstudiante.listaModulos.push(calificacion.Modulo);
+exports.calificaciones = function(request,response){
+		var userId=request.query.id;
+		var estudiante={ nombre:"",
+						 apellido:"",
+						 cedula:"",
+						 correo:"",
+						 modulos:[]
+						};
+		console.log(userId);
+		connection.query('call getEstudianteId('+userId+')',function(err,rows){
+			estudiante.nombre = rows[0][0].nombre;
+			estudiante.apellido = rows[0][0].apellido;
+			estudiante.cedula = rows[0][0].cedula;
+			estudiante.correo = rows[0][0].correo;
+			connection.query('call getCalificacionModuloByEstudianteId('+userId+')',function(err,rows1){
+	        if(err){
+	        	console.log(err);
+				response.render('index',{id:-1});
 			}
-		} catch (err) {
-			console.log(err);			
-		}
+			connection.query('call getCalificacionCapitulosByEstudianteId('+userId+')',function(err,rows2){
+		        if(err){
+		        	console.log(err);
+					response.render('index',{id:-1});
+				}
+				var calificacionesModulos=rows1[0];
+				var calificacionesCapitulo=rows2[0];
+				var ultimo=0;
+				for (var i = 0; i < calificacionesModulos.length; i++) {
+					var modulo={id:calificacionesModulos[i].id,
+								titulo:calificacionesModulos[i].titulo,
+								indice:calificacionesModulos[i].indice_Modulo,
+								nota:calificacionesModulos[i].calificacion,
+								capitulos:[]};
+					var ban=true;
+					for (var j = ultimo; j < calificacionesCapitulo.length; j++) {
+	        			if(ban || modulo.id==calificacionesCapitulo[j].id){
+	        				if(modulo.id==calificacionesCapitulo[j].id){
+	        					ban=false;
+	        					var capitulo={	id:calificacionesCapitulo[j].id_capitulo,
+	        									titulo:calificacionesCapitulo[j].titulo_capitulo,
+	        									indice:calificacionesCapitulo[j].indice_capitulo,
+	        									nota:calificacionesCapitulo[j].calificacion};
+	        					modulo.capitulos.push(capitulo);
+	        				}
+	        			}else{
+	        				ultimo=j;
+	        				break;
+	        			}
+	        		};
+					estudiante.modulos.push(modulo);
+				}
+				response.render('avanceEstudiante',{estudiante});
+				
+		    });
+	   	 });
+
 	});
-	return objetoEstudiante;
+		
+		
 }
 
 
 
-exports.getInformationStudent=function(request,response){
-	 var objetoCalificacion = {
-		 cedula:"",
-		 correo:"",
-		 apellido: "",
-		 nombre: ""	 
-	 }
-	connection.query('call getEstudianteId("'+request.id+'")',function(err,rows){
-		try {
-			var estudiante = rows[0];
-			objetoCalificacion.cedula = estudiante.cedula;
-			objetoCalificacion.nombre = estudiante.nombre;
-			objetoCalificacion.apellido = estudiante.apellido;
-			objetoCalificacion.correo = estudiante.correo;
-			
-		} catch (err) {
-			console.log(err);
-		}
-	});
-	return objetoCalificacion;
-
-}
-
-
-exports.getModulosStudent=function (request,response) {
-	var lstNameModulos = [];
-	var lstModulos = [];
-	connection.query('call loadModulosEstudiante',function (err,rows) {
-		try {
-		    lstModulos = rows[0]
-			for(var modulo in lstModulos){
-				lstNameModulos.push(modulo.titulo);
-			}	
-		} catch (err) {
-			console.log(err);
-		}
-	});
-	return lstNameModulos;
-
-	
-}
 
 
 

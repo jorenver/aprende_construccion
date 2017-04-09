@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <title>FIEC Capacitacion</title>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="">
+            <meta name="author" content="">
+            {% include './importsFooter.html' %}
+            <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">            
+            <link rel="stylesheet"  href="css/estiloListaEstudiantes.css">                
+    </head>
+    <body>
+        {% include './header.html' %}
+            <div class="content">
+                    <h3 class="page-header">LISTADO DE ESTUDIANTES</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-default"  data-sortable-id="index-1" >
+                                    <div class="panel-body">
+                                        <table class="table table-hover table-valign-middle m-b-0" cellspacing="0" width="100%" id="tableEstudiantes" >
+                                            <thead>
+                                                <tr>
+                                                    <th>Cedula</th>
+                                                    <th>Nombre</th>
+                                                    <th>Apellido</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                                <tbody>
+                                                    {% for estudiante in lstEstudiantes  %}
+                                                        <tr>
+                                                            <td>{{estudiante.cedula}}</td>
+                                                            <td>{{estudiante.nombre}}</td>
+                                                            <td>{{estudiante.apellido}}</td>
+                                                            <td>
+                                                                <a onclick="cargarNota({{estudiante.id}})" class="nounderline" style="text-decoration: none" alt="Editar">
+                                                                    <span class="fa-stack fa-1x text-info" data-id="{{estudiante.id}}">
+                                                                        <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                                                        <i class="fa fa-pencil fa-stack-1x"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    {%  endfor %}
+                                                </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </div>
+        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/loadListEstudiantes.js"></script>
+        
+    </body>
+</html>
+
+

@@ -1,55 +1,177 @@
-<div class="container" id="containerAvanceEstudiante">
-    <div class="content">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12 lead">{{estudiante.apellido}}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 text-center" id="avatar">
-                            
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <title>FIEC Capacitacion</title>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="">
+            <meta name="author" content="">
+            {% include './importsFooter.html' %}
+            <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">            
+            <link rel="stylesheet" href="css/estiloListaEstudiantes.css" type="text/css">            
+    
+    </head>
+    <body>
+        {% include './header.html' %}
+        <div class="content disenoEstudiante">
+            <div class="row">
+                <div class="col-md-12">
+                     <div class="panel panel-inverse">
+                         <div class="panel-body p-t-20">
+                             <div class="row">
+                                   <div class="col-md-12">
+                                        <h3>Informe de Seguimiento de Estudiante</h3>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label" for="form-group">Cedula</label>
+                                                                <div class="col-sm-8">
+                                                                    <label class="col-sm-6 control-label" for="form-group">{{estudiante.cedula}}</label>
+                                                                </div>
+                                                         </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label" for="form-group">Nombre</label>
+                                                                <div class="col-sm-8">
+                                                                    <label class="col-sm-6 control-label" for="form-group">{{estudiante.nombre}}</label>
+                                                                </div>
+                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h1 class="only-bottom-margin">{{estudiante.nombre}}</h1>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <span class="text-muted">Email:</span>{{estudiante.email}}<br>
-                                <span class="text-muted">Cedula:</span>{{estudiante.cedula}}<br>
-                            </div>
-                        </div>
-                        <hr>
-                        <hr>
-                        <h3 class="text-center">Progreso del Estudiante</h3>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="col-sm-4 control-label">Nombre del Modulo</label>
-                                <div class="col-sm-8">
-                                    <select  name="listString" id="lstModuloEstudiante">
-                                        {% for modulo in  Modulos %}
-                                            <option value="{{modulo.titulo}}">{{modulo.titulo}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6" id="tablaProgresoEstudiante">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label" for="form-group">Apellido</label>
+                                                                <div class="col-sm-8">
+                                                                    <label class="col-sm-6 control-label" for="form-group">{{estudiante.apellido}}</label>
+                                                                </div>
+                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                            </div>
-                        </div>
-                    </div>
+
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label" for="form-group">Correo</label>
+                                                                <div class="col-sm-8">
+                                                                    <label class="col-sm-6 control-label" for="form-group">{{estudiante.correo}}</label>
+                                                                </div>
+                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                                <div id="tablaNotas" class="container-fluid">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-10 col-md-offset-1">
+                                                                            <div class="container-fluid">
+                                                                                <div class="row">
+                                                                                    {% for modulo in estudiante.modulos %}
+                                                                                        <div class="row tableModulo">
+                                                                                            <div class="row">
+                                                                                                <h3 class="title text-center">Modulo {{modulo.indice}} : {{modulo.titulo}}</h3>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div id="tablaCalificaciones">
+                                                                                            <table class="table table-bordered">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th>Titulo del Capitulo</th>
+                                                                                                        <th class="text-center">Calificacion</th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    {%  for capitulo in modulo.capitulos %}
+                                                                                                        <tr>
+                                                                                                            <td>Capitulo {{capitulo.indice}}: {{capitulo.titulo}}</td>
+                                                                                                            {% if capitulo.nota != null %}
+                                                                                                                <td class="text-center">{{capitulo.nota}}</td>                                                               
+                                                                                                            {% else %}
+                                                                                                                <td class="text-center">--</td>
+                                                                                                            {% endif %}
+                                                                                                        </tr>
+                                                                                                    {%  endfor  %}
+                                                                                                    
+                                                                                                    <tr>
+                                                                                                        <td>Evaluacion del Modulo</td>
+                                                                                                        {%if modulo.nota != null%}
+                                                                                                            <td class="text-center">{{modulo.nota}}</td>
+                                                                                                        {% else %}
+                                                                                                            <td class="text-center">--</td>
+                                                                                                        {% endif %}
+                                                                                                    </tr>
+                                                                                                
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    {% endfor %}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                        <div class="col-md-3">
+                                            <button  type="button" class="btn btn-block btn-inverse btn-md btn-back" title="Agregar">
+                                                Regresar
+                                            </button>
+                                        </div>
+                             </div>
+                         </div>
+                     </div>
+
                 </div>
+            
             </div>
         </div>
-    </div>
-</div>
+            
+        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/avanceEstudiante.js"></script>
+
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

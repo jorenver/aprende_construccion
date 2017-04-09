@@ -7,8 +7,7 @@ module.exports = function(app){
 	app.get('/getListEstudiantes',ControllerIndex.getListEstudiantes);
 	app.post('/loginAdmin', ControllerIndex.loginAdmin);
 	app.get('/logout',ControllerIndex.logout);
-	app.get('/getListEstudiantes',ControllerIndex.getListEstudiantes);
-
+	app.get('/getNotasEstudiante',ControllerIndex.getNotasEstudiante);
 
 
 };
