@@ -108,6 +108,7 @@ exports.calificaciones = function(request,response){
 	        		};
 					estudiante.modulos.push(modulo);
 				}
+				console.log(estudiante)
 				response.render('avanceEstudiante',{estudiante});
 				
 		    });
