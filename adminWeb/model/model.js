@@ -49,7 +49,7 @@ exports.listaEstudiantes =function(request,response) {
 				}
 				lstEstudiantes.push(estudiante);
 			}
-			response.render('listaEstudiantes',{lstEstudiantes});
+			response.render('listaEstudiantes',{lstEstudiantes:lstEstudiantes});
 		}
 		 catch (err) {
 			console.log(err);
@@ -109,7 +109,7 @@ exports.calificaciones = function(request,response){
 					estudiante.modulos.push(modulo);
 				}
 				console.log(estudiante)
-				response.render('avanceEstudiante',{estudiante});
+				response.render('avanceEstudiante',estudiante);
 				
 		    });
 	   	 });

@@ -10,4 +10,9 @@ module.exports = function(app){
 	app.get('/getNotasEstudiante',ControllerIndex.getNotasEstudiante);
 
 
+
+	//control del contenido
+	app.get('/adminModulos',ControllerIndex.getListEstudiantes);
+
+
 };
