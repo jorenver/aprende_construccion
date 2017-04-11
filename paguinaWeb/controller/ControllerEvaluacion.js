@@ -13,5 +13,5 @@ exports.evaluacionModulo = function(request, response){
 	db.evaluacionModulo(request, response);
 };
 exports.calificar = function(request, response){
-	console.log(request.body);
+	db.calificar(request, response);
 };

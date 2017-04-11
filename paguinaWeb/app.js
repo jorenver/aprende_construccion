@@ -21,7 +21,7 @@ app.set('views', __dirname + '/views');
 
 
 var sessionMiddleware = session({
-	secret: 'bobneuman',
+	secret: 'web_admin',
 	store: new redisStore({
 			host:'localhost',
 			port: 6379,

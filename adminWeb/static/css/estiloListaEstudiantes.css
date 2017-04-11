@@ -1,21 +1,18 @@
 .page-header{
     padding-bottom: 30px;
     margin:90px 0 100px;
-    border-bottom:1px solid #eee;
     margin-bottom: 0px;
     text-align: center;
-}
-
-#tablaCalificaciones{
-    margin-left: 180px;
-
-}
-.disenoEstudiante{
-    margin-top: 60px;
 }
 
 .btn-back,.btn-back:hover{
     margin-left: 390px;
     background: cornflowerblue;
     color: white;
+}
+a:hover{
+    cursor: pointer;
+};
+select{
+    height: auto;
 }
