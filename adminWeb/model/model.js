@@ -37,8 +37,8 @@ exports.signInAdmin = function(request,response){
 
 exports.listaEstudiantes =function(request,response) {
 		var lstEstudiantes = [];
-		request.session.user.id = 1;
-		connection.query('call cargarListadoUsuarios',function(err,rows) {
+		if(request.session.user){
+			connection.query('call cargarListadoUsuarios',function(err,rows) {
 		try {
 			for (var i=0; i < rows[0].length;i++){
 				var estudiante = {
@@ -51,71 +51,80 @@ exports.listaEstudiantes =function(request,response) {
 			}
 			response.render('listaEstudiantes',{lstEstudiantes:lstEstudiantes});
 		}
-		 catch (err) {
-			console.log(err);
-		}
-	});
+		 	catch (err) {
+				console.log(err);
+		 }
+		});
+	 }
+	 else{
+		 response.render('login')
+	 }
+		
 }
 
 exports.calificaciones = function(request,response){
-		var userId=request.query.id;
-		var estudiante={ nombre:"",
-						 apellido:"",
-						 cedula:"",
-						 correo:"",
-						 modulos:[]
-						};
-		console.log(userId);
-		connection.query('call getEstudianteId('+userId+')',function(err,rows){
-			estudiante.nombre = rows[0][0].nombre;
-			estudiante.apellido = rows[0][0].apellido;
-			estudiante.cedula = rows[0][0].cedula;
-			estudiante.correo = rows[0][0].correo;
-			connection.query('call getCalificacionModuloByEstudianteId('+userId+')',function(err,rows1){
-	        if(err){
-	        	console.log(err);
-				response.render('index',{id:-1});
-			}
-			connection.query('call getCalificacionCapitulosByEstudianteId('+userId+')',function(err,rows2){
-		        if(err){
-		        	console.log(err);
-					response.render('index',{id:-1});
-				}
-				var calificacionesModulos=rows1[0];
-				var calificacionesCapitulo=rows2[0];
-				var ultimo=0;
-				for (var i = 0; i < calificacionesModulos.length; i++) {
-					var modulo={id:calificacionesModulos[i].id,
-								titulo:calificacionesModulos[i].titulo,
-								indice:calificacionesModulos[i].indice_Modulo,
-								nota:calificacionesModulos[i].calificacion,
-								capitulos:[]};
-					var ban=true;
-					for (var j = ultimo; j < calificacionesCapitulo.length; j++) {
-	        			if(ban || modulo.id==calificacionesCapitulo[j].id){
-	        				if(modulo.id==calificacionesCapitulo[j].id){
-	        					ban=false;
-	        					var capitulo={	id:calificacionesCapitulo[j].id_capitulo,
-	        									titulo:calificacionesCapitulo[j].titulo_capitulo,
-	        									indice:calificacionesCapitulo[j].indice_capitulo,
-	        									nota:calificacionesCapitulo[j].calificacion};
-	        					modulo.capitulos.push(capitulo);
-	        				}
-	        			}else{
-	        				ultimo=j;
-	        				break;
-	        			}
-	        		};
-					estudiante.modulos.push(modulo);
-				}
-				console.log(estudiante)
-				response.render('avanceEstudiante',estudiante);
-				
-		    });
-	   	 });
+	if(request.session.user){
+					var userId=request.query.id;
+					var estudiante={ nombre:"",
+									apellido:"",
+									cedula:"",
+									correo:"",
+									modulos:[]
+									};
+					connection.query('call getEstudianteId('+userId+')',function(err,rows){
+						estudiante.nombre = rows[0][0].nombre;
+						estudiante.apellido = rows[0][0].apellido;
+						estudiante.cedula = rows[0][0].cedula;
+						estudiante.correo = rows[0][0].correo;
+						connection.query('call getCalificacionModuloByEstudianteId('+userId+')',function(err,rows1){
+						if(err){
+							console.log(err);
+							response.render('index',{id:-1});
+						}
+						connection.query('call getCalificacionCapitulosByEstudianteId('+userId+')',function(err,rows2){
+							if(err){
+								console.log(err);
+								response.render('index',{id:-1});
+							}
+							var calificacionesModulos=rows1[0];
+							var calificacionesCapitulo=rows2[0];
+							var ultimo=0;
+							for (var i = 0; i < calificacionesModulos.length; i++) {
+								var modulo={id:calificacionesModulos[i].id,
+											titulo:calificacionesModulos[i].titulo,
+											indice:calificacionesModulos[i].indice_Modulo,
+											nota:calificacionesModulos[i].calificacion,
+											capitulos:[]};
+								var ban=true;
+								for (var j = ultimo; j < calificacionesCapitulo.length; j++) {
+									if(ban || modulo.id==calificacionesCapitulo[j].id){
+										if(modulo.id==calificacionesCapitulo[j].id){
+											ban=false;
+											var capitulo={	id:calificacionesCapitulo[j].id_capitulo,
+															titulo:calificacionesCapitulo[j].titulo_capitulo,
+															indice:calificacionesCapitulo[j].indice_capitulo,
+															nota:calificacionesCapitulo[j].calificacion};
+											modulo.capitulos.push(capitulo);
+										}
+									}else{
+										ultimo=j;
+										break;
+									}
+								};
+								estudiante.modulos.push(modulo);
+							}
+							console.log(estudiante)
+							response.render('avanceEstudiante',{estudiante:estudiante});
+							
+						});
+					});
 
-	});
-		
+				});
+					
+	}
+	else{
+		response.render('login');
+	}
 		
 }
 
