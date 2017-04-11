@@ -59,7 +59,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <img class="multimedia-evaluacion" src="{{pregunta.multimedia.ruta_multimedia}}">
+                                                {%if pregunta.tipo_multimedia %}
+                                                    <img class="multimedia-evaluacion" src="{{pregunta.multimedia.ruta_multimedia}}">
+                                                {%endif%}
                                             </div>
                                         </div>
                                       </div>
@@ -68,11 +70,25 @@
                             {% endfor %}
                         </div>
                         <!--fin contenido_evaluacion-->
-                        <div class="row text-center panel-boton-evaluacion">
-                            <button id="btnCalificar" type="button" class="btn btn-default">
-                                <span data-id="{{modulo.id}}" class="glyphicon glyphicon-check"></span> calificar</button>
-                            <hr>
-                        </div> 
+                        {% if preguntas.length!=0 %}
+                            {% if tipo ==0 %}
+                                <div class="row text-center panel-boton-evaluacion">
+                                    <button id="btnCalificar" type="button" class="btn btn-default" data-id="{{id_capitulo}}" data-tipo="capitulo">
+                                        <span data-id="{{id_capitulo}}" data-tipo="capitulo" class="glyphicon glyphicon-check"></span> calificar</button>
+                                    <hr>
+                                </div>
+                            {% else%}
+                                <div class="row text-center panel-boton-evaluacion">
+                                    <button id="btnCalificar" type="button" class="btn btn-default" data-id="{{id_modulo}}" data-tipo="modulo">
+                                        <span data-id="{{id_modulo}}" data-tipo="modulo" class="glyphicon glyphicon-check"></span> calificar</button>
+                                    <hr>
+                                </div>
+                            {% endif %}
+                        {% else%}
+                            <div class="row">
+                                <h1 class="text-center"><small>La evaluacion esta vacia</small></h1>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div> 
