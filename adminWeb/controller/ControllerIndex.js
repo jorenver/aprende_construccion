@@ -38,3 +38,7 @@ exports.getNotasEstudiante = function(request,response){
 	db.calificaciones(request,response);
 
 }
+
+exports.modulos = function(request,response){
+	db.modulos(request,response);
+};

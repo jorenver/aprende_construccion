@@ -12,7 +12,7 @@ module.exports = function(app){
 
 
 	//control del contenido
-	app.get('/adminModulos',ControllerIndex.getListEstudiantes);
+	app.get('/modulos',ControllerIndex.modulos);
 
 
 };
