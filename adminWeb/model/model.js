@@ -128,8 +128,93 @@ exports.calificaciones = function(request,response){
 		
 }
 
+exports.contenido = function(request,response){
+	if(request.session.user){
+
+			var lstContenido = []
+		connection.query('call getModulos',function(err,rows){
+			if(err){
+				console.log(err);
+				response.render('index');
+			}
+
+			connection.query('call getCapitulos',function(err,rows1){
+					var listadoModulos = rows[0];
+					var listaCapitulos = rows1[0];
+					for(var i=0; i < listadoModulos.length ; i++){
+						   var modulo ={
+							   idModulo:listadoModulos[i].id,
+							   tituloModulo:listadoModulos[i].titulo,
+							   capitulos:[]
+						   }
+							for(var j=0; j< listaCapitulos.length; j++){
+								var idModulo = modulo.idModulo;
+								var idCapitulo = listaCapitulos[j].modulo; 
+								if( idModulo == idCapitulo ){
+									var capitulo = {
+										idCapitulo:listaCapitulos[j].id,
+										tituloCapitulo:listaCapitulos[j].titulo
+									}
+									modulo.capitulos.push(capitulo);
+								}
+								console.log("probo");
+							}
+							lstContenido.push(modulo);
+							console.log(lstContenido);
+						}
+					response.render('Contenido',{lstContenido:lstContenido});
+					});
+		});
+		
+
+	}
+	else{
+		response.render('login');
+
+	}
+}
+
+exports.getExamenesByCapitulo = function(request,response){
+	if(request.session.user){
+		var id = request.query.id;
+		connection.query('call getPreguntasCapitulo('+id+')',function(err,rows){
+			if(err){
+				response.render('index');
+				console.log(err);
+			}
+			connection.query('call getInfoCapituloById('+id+')',function(err,rows1){
+						var listadoPregunta = {
+								idCapitulo:rows1[0][0].id,
+								tituloCapitulo:rows1[0][0].titulo,
+								preguntas:[]
+						}
+						for( var i = 0 ; i < rows[0].length;i++){
+									var preguntas ={
+										id:rows[0][i].id,
+										pregunta:rows[0][i].pregunta,
+										tipoMultimedia:rows[0][i].tipo_multimedia,
+										rutaMultimedia: rows[0][i].ruta_multimedia,
+										opcion1:rows[0][i].opcion_1,
+										opcion2:rows[0][i].opcion_2,
+										opcion3:rows[0][i].opcion_3,
+										opcion4:rows[0][i].opcion_4,
+										correcta:rows[0][i].correcta
+									}
+							listadoPregunta.preguntas.push(preguntas);
+						}
 
 
+				response.render('evaluaciones',{listadoPregunta:listadoPregunta});
+				console.log(listadoPregunta);	
+
+
+			});
+		});
+	}
+	else{
+		response.render('login');
+	}
+}
 
 
 

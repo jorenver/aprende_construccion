@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <title>FIEC Capacitacion</title>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="">
+            <meta name="author" content="">
+            {% include './importsFooter.html' %}
+            <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">            
+    
+    </head>
+    <body>
+        {% include './header.html' %}
+        <div class="content" style="margin-top: 100px;">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                     <div>
+                         <div>
+                             <div class="row">
+                                   <div class="col-md-12">
+                                        <h3 class="text-center">Contenido del Curso</h3>
+                                    </div>
+                                    <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="form-horizontal">
+                                                    <div class="form-group">
+                                                            <div id="tablaNotas" class="container-fluid">
+
+                                                                <div class="row">
+                                                                    <div class="col-md-10 col-md-offset-1">
+                                                                        <div class="container-fluid">
+                                                                            <div class="row">
+                                                                                {% for modulo in lstContenido %}
+                                                                                    <div class="row tableModulo">
+                                                                                        <div class="row">
+                                                                                            <h3 class="title text-center">Modulo {{modulo.idModulo}} : {{modulo.tituloModulo}}</h3>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div id="tablaCalificaciones">
+                                                                                        <table class="table table-bordered">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>Titulo del Capitulo</th>
+                                                                                                    <th class="text-center">Acciones</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                {%  for capitulo in modulo.capitulos %}
+                                                                                                    <tr>
+                                                                                                        <td>Capitulo {{capitulo.idCapitulo}}: {{capitulo.tituloCapitulo}}</td>
+                                                                                                        <td class="text-center">
+                                                                                                                  <button data-id="{{capitulo.idCapitulo}}" type="button" class="btnExamenesCapitulo btn btn-default btn-sm">
+                                                                                                                        <span data-id="{{capitulo.idCapitulo}}" class="glyphicon glyphicon-list-alt"></span> Abrir Evaluaciones
+                                                                                                                 </button>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                {%  endfor  %}                    
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                {% endfor %}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                    </div>
+                             </div>
+                         </div>
+                     </div>
+
+                </div>
+            
+            </div>
+        </div>
+            
+        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
+
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
