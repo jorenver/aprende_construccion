@@ -1,4 +1,5 @@
 var ControllerIndex = require('./controller/ControllerIndex');
+var ControllerContenido = require('./controller/ControllerContenido');
 
 module.exports = function(app){
 	//ControllerIndex
@@ -8,7 +9,8 @@ module.exports = function(app){
 	app.post('/loginAdmin', ControllerIndex.loginAdmin);
 	app.get('/logout',ControllerIndex.logout);
 	app.get('/getNotasEstudiante',ControllerIndex.getNotasEstudiante);
-
+	app.get('/contenido',ControllerContenido.loadContenido);
+	app.get('/evaluaciones',ControllerContenido.getExamenByCapitulo);
 
 
 	//control del contenido

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <title>FIEC Capacitacion</title>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="">
+            <meta name="author" content="">
+            {% include './importsFooter.html' %}
+            <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">            
+            <link rel="stylesheet" href="css/estiloListaEstudiantes.css" type="text/css">            
+    
+    </head>
+    <body>
+        {% include './header.html' %}
+        <div class="content" style="margin-top: 100px;">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                     <div>
+                         <div>
+                             <div class="row">
+                                   <div class="col-md-12">
+                                        <h3 class="text-center">EDICION DE EVALUACION</h3>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row" style="margin-top: 20px;">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <label class="col-md-6 text-right" >Capitulo {{listadoPregunta.idCapitulo}}:{{listadoPregunta.tituloCapitulo}}</label>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                        <div id="tablaNotas" class="container-fluid">
+                                                            <div class="row">
+                                                                <div class="col-md-10 col-md-offset-1">
+                                                                    <div class="container-fluid">
+                                                                        <div class="row">
+                                                                                <div id="tablaCalificaciones">
+                                                                                    <table class="table table-bordered">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>Preguntas</th>
+                                                                                                <th class="text-center">Acciones</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            {% for pregunta in listadoPregunta.preguntas %}
+                                                                                                <tr>
+                                                                                                    <td> {{pregunta.id}}: {{pregunta.pregunta}}</td>
+                                                                                                    <td>
+
+                                                                                                         <button data-id="{{pregunta.id}}" type="button" class="btnVerPregunta btn btn-default btn-sm">
+                                                                                                             <span data-id="{{pregunta.id}}" class="glyphicon glyphicon-zoom-in"></span>
+                                                                                                        </button>
+
+                                                                                                         <button data-id="{{pregunta.id}}" type="button" class="btnEditarPregunta btn btn-default btn-sm">
+                                                                                                             <span data-id="{{pregunta.id}}" class="glyphicon glyphicon-pencil"></span>
+                                                                                                        </button>
+
+                                                                                                         <button data-id="{{pregunta.id}}" type="button" class="btnEliminarPregunta btn btn-default btn-sm">
+                                                                                                             <span data-id="{{pregunta.id}}" class="glyphicon glyphicon-trash"></span>
+                                                                                                        </button>
+                                                                                                    </td>        
+                                                                                                </tr>
+                                                                                            {%  endfor  %}
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                             </div>
+                         </div>
+                     </div>
+
+                </div>
+            
+            </div>
+        </div>
+            
+        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/avanceEstudiante.js"></script>
+
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
