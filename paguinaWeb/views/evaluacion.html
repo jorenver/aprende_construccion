@@ -39,10 +39,10 @@
                             {% for pregunta in preguntas %}
                                 <div class="row pregunta">
                                     <div class="panel-group">
-                                      <div class="panel panel-default">
+                                      <div class="panel panel-primary">
                                         <div class="panel-heading">{{pregunta.pregunta}}</div>
                                       </div>
-                                      <div class="panel panel-default">
+                                      <div class="panel panel-primary">
                                         <div class="panel-body">
                                             <div class="opciones col-md-6" data-id="{{pregunta.id}}">
                                                 <div class="radio">
@@ -73,20 +73,20 @@
                         {% if preguntas.length!=0 %}
                             {% if tipo ==0 %}
                                 <div class="row text-center panel-boton-evaluacion">
-                                    <button id="btnCalificar" type="button" class="btn btn-default" data-id="{{id_capitulo}}" data-tipo="capitulo">
+                                    <button id="btnCalificar" type="button" class="btn btn-success btn-lg" data-id="{{id_capitulo}}" data-tipo="capitulo">
                                         <span data-id="{{id_capitulo}}" data-tipo="capitulo" class="glyphicon glyphicon-check"></span> calificar</button>
                                     <hr>
                                 </div>
                             {% else%}
                                 <div class="row text-center panel-boton-evaluacion">
-                                    <button id="btnCalificar" type="button" class="btn btn-default" data-id="{{id_modulo}}" data-tipo="modulo">
+                                    <button id="btnCalificar" type="button" class="btn btn-success btn-lg" data-id="{{id_modulo}}" data-tipo="modulo">
                                         <span data-id="{{id_modulo}}" data-tipo="modulo" class="glyphicon glyphicon-check"></span> calificar</button>
                                     <hr>
                                 </div>
                             {% endif %}
                         {% else%}
                             <div class="row">
-                                <h1 class="text-center"><small>La evaluacion esta vacia</small></h1>
+                                <h1 class="text-center"><small>La evaluación esta vacia, contacte con el administrador soporte@capacitatemaestro.com</small></h1>
                             </div>
                         {% endif %}
                     </div>
