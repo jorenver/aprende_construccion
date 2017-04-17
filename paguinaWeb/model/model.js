@@ -372,9 +372,9 @@ exports.calificar = function(request, response){
 				};
 				var calificacion=100.0*correctas/total;
 				if(tipo=="capitulo"){
-					query2='call guardarCalificacionCapituloEstudiante('+id_evaluacion+','+idEstudiante+','+calificacion+')';
+					query2='call guardarCalificacionCapituloEstudiante('+id_evaluacion+','+idEstudiante+','+calificacion.toFixed(2)+')';
 				}else{
-					query2='call guardarCalificacionModuloEstudiante('+id_evaluacion+','+idEstudiante+','+calificacion+')';
+					query2='call guardarCalificacionModuloEstudiante('+id_evaluacion+','+idEstudiante+','+calificacion.toFixed(2)+')';
 				}
 				console.log(query2);
 				connection.query(query2,function(err,rows){
