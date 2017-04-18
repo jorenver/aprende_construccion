@@ -30,6 +30,9 @@
                                                     <div class="form-horizontal">
                                                         <div class="form-group">
                                                             <label class="col-md-6 text-right" >Capitulo {{listadoPregunta.idCapitulo}}:{{listadoPregunta.tituloCapitulo}}</label>
+                                                            <button  type="button" class="btnNuevaPregunta btn btn-default btn-sm" data-toggle="modal" data-target="#crearPregunta">
+                                                                    <span  class="glyphicon glyphicon-plus-sign"></span>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                     
@@ -46,7 +49,7 @@
                                                                 <div class="col-md-10 col-md-offset-1">
                                                                     <div class="container-fluid">
                                                                         <div class="row">
-                                                                                <div id="tablaCalificaciones">
+                                                                                <div id="tablaPreguntas">
                                                                                     <table class="table table-bordered">
                                                                                         <thead>
                                                                                             <tr>
@@ -88,6 +91,10 @@
 
                                         </div>
                                     </div>
+                                    {% include './modalCrearPregunta.html' %}
+                                    {% include './modalEditarPregunta.html' %}
+                                    {% include './modalVerPregunta.html' %}
+
                              </div>
                          </div>
                      </div>
@@ -99,8 +106,7 @@
             
         <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/avanceEstudiante.js"></script>
-
+        <script type="text/javascript" src="js/evaluaciones.js"></script>
     </body>
 </html>
 

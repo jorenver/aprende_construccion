@@ -217,6 +217,92 @@ exports.getExamenesByCapitulo = function(request,response){
 }
 
 
+exports.verPregunta = function(request,response){
+	if(request.session.user){
+		var id = request.query.id;
+		connection.query('call verPregunta('+id+')',function(err,rows){
+			try {
+			var objetoPregunta = rows[0][0];
+			response.json({pregunta:objetoPregunta});	
+			} catch (err) {
+				console.log(err);
+				response.json({pregunta:null});
+			}
+
+		});
+	}
+	else{
+		response.render('login');
+	}
+
+
+}
+
+exports.actualizarPregunta = function(request,response){
+	if (request.session.user) {
+		connection.query('call actualizarPreguntas('+request.body.id+','+request.body.pregunta+','+request.body.opcion1+','+request.body.opcion2+','+request.body.opcion3+','+request.body.opcion4+','+request.body.capituloPregunta+','+request.body.moduloPregunta+','+request.body.tipoMultimedia+','+request.body.ruta+','+request.body.imagen1+')',function(err,rows){
+			if(err){
+				console.log(err);
+			}
+			if(rows[0][0]!= undefined){
+				response.json({exito:true});
+			}
+			else{
+				response.json({exito:false});
+			}
+		
+		});
+	}
+	else{
+		response.render('login');
+	}
+
+}
+exports.eliminarPregunta = function(request,response){
+	if(request.session.user){
+		var id = request.query.id;
+		connection.query('call eliminarPregunta('+id+')',function(err,rows){
+			try {
+			var objetoPregunta = rows[0][0];
+			 if(objetoPregunta != undefined){
+				response.json({exito:true});
+			 }
+			 else{
+				response.json({exito:false});
+			 }	
+			} catch (err) {
+				console.log(err);
+			}
+
+		});
+	}
+	else{
+		response.render('login');
+	}
+
+}
+
+exports.guardarPregunta= function(request,response){
+	if (request.session.user) {
+		connection.query('call guardarPreguntas('+request.body.pregunta+','+request.body.opcion1+','+request.body.opcion2+','+request.body.opcion3+','+request.body.opcion4+','+request.body.capituloPregunta+','+request.body.moduloPregunta+','+request.body.tipoMultimedia+','+request.body.ruta+','+request.body.imagen1+')',function(err,rows){
+			if(err){
+				console.log(err);
+			}
+			if(rows[0][0]!= undefined){
+				response.json({exito:true});
+			}
+			else{
+				response.json({exito:false});
+			}
+		
+		});
+	}
+	else{
+		response.render('login');
+	}
+
+}
+
 
 
 

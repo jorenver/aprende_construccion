@@ -11,7 +11,10 @@ module.exports = function(app){
 	app.get('/getNotasEstudiante',ControllerIndex.getNotasEstudiante);
 	app.get('/contenido',ControllerContenido.loadContenido);
 	app.get('/evaluaciones',ControllerContenido.getExamenByCapitulo);
-
+	app.get('/verPregunta',ControllerContenido.verPreguntaById);
+	app.post('/actualizarPregunta',ControllerContenido.editarPreguntaById);
+	app.get('/eliminarPregunta',ControllerContenido.eliminarPreguntaById);
+	app.post('/guardarPregunta',ControllerContenido.guardarPregunta);
 
 	//control del contenido
 	app.get('/adminModulos',ControllerIndex.getListEstudiantes);
