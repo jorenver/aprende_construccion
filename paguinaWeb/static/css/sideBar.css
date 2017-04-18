@@ -1,7 +1,7 @@
 .sidebar{
 	padding-top: 30px;
 	height: 100%;
-	background: #505050;
+	background: black;
 	color: white;
 	position: fixed;
 	z-index: 1000;

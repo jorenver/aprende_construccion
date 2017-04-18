@@ -141,6 +141,7 @@ select {
   appearance: none;
   /* for mobile safari */
   -webkit-appearance: none;
+  height: 100%;
 }
 #topcontrol {
   background: #5d80a1;

@@ -83,27 +83,131 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE getInfoCapituloById
+(IN idCapitulo INT)
+BEGIN
+  SELECT * FROM Capitulo WHERE id=idCapitulo;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE getInfoModuloById
+(IN idModulo INT)
+BEGIN
+  SELECT * FROM Modulo WHERE id=idModulo;
+END //
+DELIMITER ;
+
 
 
 DELIMITER //
 CREATE PROCEDURE getPreguntasCapitulo
 (IN idCapitulo INT)
 BEGIN
-  SELECT * FROM Pregunta WHERE capitulo=idCapitulo;
+  SELECT * FROM Pregunta WHERE capitulo=idCapitulo
+  ORDER BY id;
 END //
 DELIMITER ;
+
 
 DELIMITER //
 CREATE PROCEDURE getPreguntasModulo
 (IN idModulo INT)
 BEGIN
-  SELECT * FROM Pregunta WHERE modulo=idModulo;
+  SELECT * FROM Pregunta WHERE modulo=idModulo
+  ORDER BY id;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE getCalificacionCapitulosByEstudianteId
+(IN idEstudiante INT)
+BEGIN
+  Select Modulo.id,Modulo.indice as indice_Modulo, Capitulo.indice as indice_capitulo, Capitulo.id as id_capitulo, Capitulo.titulo as titulo_capitulo,
+  TRUNCATE ((SELECT calificacion FROM calificacion_capitulo WHERE Capitulo.id=calificacion_capitulo.capitulo and calificacion_capitulo.estudiante=idEstudiante),2) as calificacion
+  FROM Modulo,Capitulo
+  WHERE Modulo.id=Capitulo.modulo
+  ORDER BY indice_Modulo, indice_capitulo;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE getCalificacionModuloByEstudianteId
+(IN idEstudiante INT)
+BEGIN
+  Select Modulo.id,Modulo.indice as indice_Modulo, Modulo.titulo,
+  TRUNCATE ((SELECT calificacion FROM calificacion_modulo WHERE Modulo.id=calificacion_modulo.modulo and calificacion_modulo.estudiante=idEstudiante),2) as calificacion
+  FROM Modulo
+  WHERE Modulo.id
+  ORDER BY indice_Modulo;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE getCalificacionCapitulo
+(IN idCapitulo INT, idEstudiante INT)
+BEGIN
+  SELECT * FROM calificacion_capitulo WHERE capitulo=idCapitulo and estudiante=idEstudiante;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE getCalificacionCapitulo
+(IN idCapitulo INT, idEstudiante INT)
+BEGIN
+  SELECT * FROM calificacion_capitulo WHERE capitulo=idCapitulo and estudiante=idEstudiante;
+END //
+DELIMITER ;
+
+DROP PROCEDURE guardarCalificacionCapituloEstudiante;
+DELIMITER //
+CREATE PROCEDURE guardarCalificacionCapituloEstudiante
+(IN idCapitulo INT, idEstudiante INT,calificacion_estudiante DOUBLE)
+BEGIN
+  INSERT INTO calificacion_capitulo (capitulo, estudiante,calificacion) VALUES(idCapitulo,idEstudiante,calificacion_estudiante) ON DUPLICATE KEY UPDATE
+  calificacion=TRUNCATE(GREATEST(calificacion,calificacion_estudiante),2);
+END //
+DELIMITER ;
+
+DROP PROCEDURE guardarCalificacionModuloEstudiante;
+DELIMITER //
+CREATE PROCEDURE guardarCalificacionModuloEstudiante
+(IN idModulo INT, idEstudiante INT,calificacion_estudiante DOUBLE)
+BEGIN
+  INSERT INTO calificacion_modulo (modulo, estudiante,calificacion) VALUES(idModulo,idEstudiante,calificacion_estudiante) ON DUPLICATE KEY UPDATE
+  calificacion=TRUNCATE(GREATEST(calificacion,calificacion_estudiante),2);
 END //
 DELIMITER ;
 
 CALL getSeccionesByCapituloId(1);
 CALL getContenidoCapitulonByCapituloId(1);
 CALL getPreguntasCapitulo(1);
+CALL getCalificacionCapitulosByEstudianteId(1);
+CALL getCalificacionModuloByEstudianteId(1);
+CALL getInfoCapituloById(1);
+CALL getInfoModuloById(1);
+CALL getPreguntasCapitulo(1);
+CALL guardarCalificacionCapituloEstudiante(1,1,30.3312312312312312);
+CALL guardarCalificacionModuloEstudiante(1,1,1);
+
+
+Select Modulo.id,Modulo.indice as indice_Modulo, Capitulo.indice as indice_capitulo, Capitulo.id as id_capitulo, Capitulo.titulo as titulo_capitulo,
+  (SELECT calificacion FROM calificacion_capitulo WHERE Capitulo.id=calificacion_capitulo.capitulo and calificacion_capitulo.estudiante=4) as calificacion
+FROM Modulo,Capitulo
+where Modulo.id=Capitulo.modulo;
+
+Select Modulo.id,Modulo.indice as indice_Modulo, Modulo.titulo,
+  (SELECT calificacion FROM calificacion_modulo WHERE Modulo.id=calificacion_modulo.modulo and calificacion_modulo.estudiante=1) as calificacion
+FROM Modulo
+where Modulo.id
+ORDER BY indice_Modulo;
+
+
+
+
+
 
 
 

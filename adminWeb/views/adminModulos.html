@@ -9,34 +9,30 @@
             <meta name="author" content="">
             {% include './importsFooter.html' %}
             <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">            
-            <link rel="stylesheet"  href="css/estiloListaEstudiantes.css">                
+            <link rel="stylesheet"  href="css/modulos.css">                
     </head>
     <body>
         {% include './header.html' %}
             <div class="content" style="margin-top: 100px;">
-                <h3 class="title text-center">Lista de Estudiantes</h3>
+                <h3 class="title text-center">Modulos</h3>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div >
-                            <table class="table table-hover table-valign-middle m-b-0" cellspacing="0" width="100%" id="tableEstudiantes" >
+                            <table class="table table-hover table-valign-middle m-b-0" cellspacing="0" width="100%" id="tableModulos" >
                                 <thead>
                                     <tr>
+                                        <th>Indice Modulo</th>
                                         <th>Titulo Modulo</th>
-                                        <th>No. Capitulos</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                     <tbody>
-                                        {% for estudiante in lstEstudiantes  %}
+                                        {% for modulo in modulos  %}
                                             <tr>
-                                                <td>{{estudiante.cedula}}</td>
-                                                <td>{{estudiante.nombre}}</td>
-                                                <td>{{estudiante.apellido}}</td>
+                                                <td>{{modulo.indice}}</td>
+                                                <td>{{modulo.titulo}}</td>
                                                 <td>
-                                                    <a onclick="cargarNota({{estudiante.id}})" class="nounderline" style="text-decoration: none" alt="Editar">
-                                                        <span class="glyphicon glyphicon-search" data-id="{{estudiante.id}}">
-                                                        </span>
-                                                    </a>
+                                                    
                                                 </td>
                                             </tr>
                                         {%  endfor %}
@@ -48,7 +44,7 @@
             </div>
         <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/loadListEstudiantes.js"></script>
+        <script type="text/javascript" src="js/modulos.js"></script>
         
     </body>
 </html>

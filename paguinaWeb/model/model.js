@@ -285,49 +285,51 @@ exports.evaluacionModulo = function(request, response){
 exports.evaluaciones = function(request,response){
 	if(request.session.user){
 		var userId=request.session.user.id;
+		console.log(userId);
 		connection.query('call getCalificacionModuloByEstudianteId('+userId+')',function(err,rows1){
 	        if(err){
 	        	console.log(err);
 				response.render('index',{id:-1});
+			}else{
+				connection.query('call getCalificacionCapitulosByEstudianteId('+userId+')',function(err,rows2){
+			        if(err){
+			        	console.log(err);
+						response.render('index',{id:-1});
+					}
+					var calificacionesModulos=rows1[0];
+					var calificacionesCapitulo=rows2[0];
+					var respuesta={ id:request.session.user.id,
+								modulos:[]
+							};
+					var ultimo=0;
+					for (var i = 0; i < calificacionesModulos.length; i++) {
+						var modulo={id:calificacionesModulos[i].id,
+									titulo:calificacionesModulos[i].titulo,
+									indice:calificacionesModulos[i].indice_Modulo,
+									nota:calificacionesModulos[i].calificacion,
+									capitulos:[]};
+						var ban=true;
+						for (var j = ultimo; j < calificacionesCapitulo.length; j++) {
+		        			if(ban || modulo.id==calificacionesCapitulo[j].id){
+		        				if(modulo.id==calificacionesCapitulo[j].id){
+		        					ban=false;
+		        					var capitulo={	id:calificacionesCapitulo[j].id_capitulo,
+		        									titulo:calificacionesCapitulo[j].titulo_capitulo,
+		        									indice:calificacionesCapitulo[j].indice_capitulo,
+		        									nota:calificacionesCapitulo[j].calificacion};
+		        					modulo.capitulos.push(capitulo);
+		        				}
+		        			}else{
+		        				ultimo=j;
+		        				break;
+		        			}
+		        		};
+						respuesta.modulos.push(modulo);
+					}
+					response.render('evaluaciones',respuesta);
+					
+			    });
 			}
-			connection.query('call getCalificacionCapitulosByEstudianteId('+userId+')',function(err,rows2){
-		        if(err){
-		        	console.log(err);
-					response.render('index',{id:-1});
-				}
-				var calificacionesModulos=rows1[0];
-				var calificacionesCapitulo=rows2[0];
-				var respuesta={ id:request.session.user.id,
-							modulos:[]
-						};
-				var ultimo=0;
-				for (var i = 0; i < calificacionesModulos.length; i++) {
-					var modulo={id:calificacionesModulos[i].id,
-								titulo:calificacionesModulos[i].titulo,
-								indice:calificacionesModulos[i].indice_Modulo,
-								nota:calificacionesModulos[i].calificacion,
-								capitulos:[]};
-					var ban=true;
-					for (var j = ultimo; j < calificacionesCapitulo.length; j++) {
-	        			if(ban || modulo.id==calificacionesCapitulo[j].id){
-	        				if(modulo.id==calificacionesCapitulo[j].id){
-	        					ban=false;
-	        					var capitulo={	id:calificacionesCapitulo[j].id_capitulo,
-	        									titulo:calificacionesCapitulo[j].titulo_capitulo,
-	        									indice:calificacionesCapitulo[j].indice_capitulo,
-	        									nota:calificacionesCapitulo[j].calificacion};
-	        					modulo.capitulos.push(capitulo);
-	        				}
-	        			}else{
-	        				ultimo=j;
-	        				break;
-	        			}
-	        		};
-					respuesta.modulos.push(modulo);
-				}
-				response.render('evaluaciones',respuesta);
-				
-		    });
 	    });
 		
 	}else{
@@ -337,6 +339,7 @@ exports.evaluaciones = function(request,response){
 
 exports.calificar = function(request, response){
 	if(request.session.user){
+		var idEstudiante=request.session.user.id;
 		var tipo=request.body.tipo;
 		var id_evaluacion=request.body.id_evaluacion;
 		var respuestas=request.body.respuestas;
@@ -368,7 +371,20 @@ exports.calificar = function(request, response){
 					};
 				};
 				var calificacion=100.0*correctas/total;
-				response.json({error:false,calificacion:calificacion});
+				if(tipo=="capitulo"){
+					query2='call guardarCalificacionCapituloEstudiante('+id_evaluacion+','+idEstudiante+','+calificacion.toFixed(2)+')';
+				}else{
+					query2='call guardarCalificacionModuloEstudiante('+id_evaluacion+','+idEstudiante+','+calificacion.toFixed(2)+')';
+				}
+				console.log(query2);
+				connection.query(query2,function(err,rows){
+			        if(err){
+			        	console.log(err);
+						response.json({error:true});
+					}else{
+						response.json({error:false,calificacion:calificacion});
+					}
+				});	
 			}
 		});
 	}else{

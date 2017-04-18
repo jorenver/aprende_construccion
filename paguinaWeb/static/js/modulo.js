@@ -6,6 +6,7 @@ function procesarContenidoCapitulo(json){
     console.log(json);
     if(!json.error){
     	//titulo_capitulo.innerHTML= "Capitulo "+json.indice+" : "+json.titulo;
+    	titulo_capitulo.innerHTML=boton.innerHTML;
     	var secciones= json.secciones;
     	contenido_secciones.innerHTML="";
     	for (var i = 0; i < secciones.length; i++) {

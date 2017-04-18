@@ -17,7 +17,7 @@ module.exports = function(app){
 	app.post('/guardarPregunta',ControllerContenido.guardarPregunta);
 
 	//control del contenido
-	app.get('/adminModulos',ControllerIndex.getListEstudiantes);
+	app.get('/modulos',ControllerIndex.modulos);
 
 
 };

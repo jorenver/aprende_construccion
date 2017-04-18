@@ -17,7 +17,7 @@ function inicializar(){
           contentType: 'application/json',
           success: function(data){
               if(!data.error){
-                swal("Su calificacion es:", data.calificacion+"/100","success").then(function(){
+                swal("Su calificacion es:", data.calificacion.toFixed(2)+"/100","success").then(function(){
                   window.location.href="/evaluaciones"
                 });
               }else{

@@ -36,10 +36,10 @@
                                     </div>
                                     <div>
                                         <table class="table table-bordered">
-                                            <thead >
+                                            <thead class="bg-primary" >
                                               <tr >
-                                                <th>Titulo Evaluacion</th>
-                                                <th class="text-center">Calificacion</th>
+                                                <th>Titulo de la evaluación</th>
+                                                <th class="text-center">Calificación</th>
                                                 <th class="text-center"></th>
                                               </tr>
                                             </thead>
@@ -53,8 +53,8 @@
                                                         <td class="text-center">--</td>
                                                     {% endif %}
                                                     <td class="text-center">
-                                                        <button data-id="{{capitulo.id}}" type="button" class="btnEvaluacionCapitulo btn btn-default btn-sm">
-                                                            <span data-id="{{capitulo.id}}" class="glyphicon glyphicon-list-alt"></span> tomar evaluacion
+                                                        <button data-id="{{capitulo.id}}" type="button" class="btnEvaluacionCapitulo btn btn-success">
+                                                            <span data-id="{{capitulo.id}}" class="glyphicon glyphicon-list-alt"></span> tomar evaluación
                                                         </button>
                                                     </td>
                                                   </tr>
@@ -67,8 +67,8 @@
                                                     <td class="text-center">--</td>
                                                 {% endif %}
                                                 <td class="text-center">
-                                                    <button data-id="{{modulo.id}}" type="button" class="btnEvaluacionModulo btn btn-default btn-sm">
-                                                        <span data-id="{{modulo.id}}" class="glyphicon glyphicon-list-alt"></span> tomar evaluacion
+                                                    <button data-id="{{modulo.id}}" type="button" class="btnEvaluacionModulo btn btn-success">
+                                                        <span data-id="{{modulo.id}}" class="glyphicon glyphicon-list-alt"></span> tomar evaluación
                                                     </button>
                                                 </td>
                                               </tr>

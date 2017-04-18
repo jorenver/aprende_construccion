@@ -128,9 +128,22 @@ exports.calificaciones = function(request,response){
 		
 }
 
+
+exports.modulos =function(request,response) {
+	if(request.session.user){
+		var respuesta={
+			modulos:[{id:1,indice:1,titulo:"Modulo 1"},{id:2,indice:2,titulo:"Modulo 2"},{id:3,indice:3,titulo:"Modulo 3"}]
+		}
+		response.render('adminModulos',respuesta);
+	}
+	else{
+		response.render('login');
+	}
+}
+
+
 exports.contenido = function(request,response){
 	if(request.session.user){
-
 			var lstContenido = []
 		connection.query('call getModulos',function(err,rows){
 			if(err){
