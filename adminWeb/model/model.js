@@ -36,29 +36,29 @@ exports.signInAdmin = function(request,response){
  */
 
 exports.listaEstudiantes =function(request,response) {
-		var lstEstudiantes = [];
-		if(request.session.user){
-			connection.query('call cargarListadoUsuarios',function(err,rows) {
-		try {
-			for (var i=0; i < rows[0].length;i++){
-				var estudiante = {
-					id: rows[0][i].id,
-					cedula: rows[0][i].cedula,
-					nombre: rows[0][i].nombre,
-					apellido: rows[0][i].apellido
+	var lstEstudiantes = [];
+	if(request.session.user){
+		connection.query('call cargarListadoUsuarios',function(err,rows) {
+			try {
+				for (var i=0; i < rows[0].length;i++){
+					var estudiante = {
+						id: rows[0][i].id,
+						cedula: rows[0][i].cedula,
+						nombre: rows[0][i].nombre,
+						apellido: rows[0][i].apellido
+					}
+					lstEstudiantes.push(estudiante);
 				}
-				lstEstudiantes.push(estudiante);
+				response.render('listaEstudiantes',{lstEstudiantes:lstEstudiantes});
 			}
-			response.render('listaEstudiantes',{lstEstudiantes:lstEstudiantes});
-		}
-		 	catch (err) {
+	 		catch (err) {
 				console.log(err);
-		 }
+	 		}
 		});
-	 }
-	 else{
-		 response.render('login')
-	 }
+ 	}
+ 	else{
+	 	response.render('login')
+ 	}
 		
 }
 
@@ -131,10 +131,23 @@ exports.calificaciones = function(request,response){
 
 exports.modulos =function(request,response) {
 	if(request.session.user){
-		var respuesta={
+		/*var respuesta={
 			modulos:[{id:1,indice:1,titulo:"Modulo 1"},{id:2,indice:2,titulo:"Modulo 2"},{id:3,indice:3,titulo:"Modulo 3"}]
-		}
-		response.render('adminModulos',respuesta);
+		}*/
+		connection.query('call getModulos()',function(err,rows){
+			if(err){
+				console.log(err);
+				response.render('login');
+			}
+			if(rows[0]){
+				var respuesta={modulos:rows[0]};
+				response.render('adminModulos',respuesta);
+			}
+			else{
+				response.render('login');
+			}
+		});
+		
 	}
 	else{
 		response.render('login');
@@ -315,6 +328,45 @@ exports.guardarPregunta= function(request,response){
 	}
 
 }
+
+exports.agregarModulo = function(request,response){
+	if(request.session.user){
+		var indice= request.body.indice;
+		var titulo= request.body.titulo;
+		var query = 'call guardarModulo('+indice+',"'+titulo+'")';
+		console.log(query);
+		connection.query(query,function(err,rows){
+			if(err){
+				console.log(err);
+				response.json({error:true});
+			}else{
+				response.json({error:false});
+			}
+		});
+	}
+	else{
+		response.json({error:true});
+	}
+}
+
+exports.eliminarModulo = function(request,response){
+	if(request.session.user){
+		var query = 'call deleteModulo('+request.query.id+')';
+		console.log(query);
+		connection.query(query,function(err,rows){
+			if(err){
+				console.log(err);
+				response.json({error:true});
+			}else{
+				response.json({error:false});
+			}
+		});
+	}
+	else{
+		response.json({error:true});
+	}
+}
+
 
 
 

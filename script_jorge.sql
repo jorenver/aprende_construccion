@@ -181,6 +181,25 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE deleteModulo
+(IN idModulo INT)
+BEGIN
+  DELETE FROM Modulo
+  WHERE id=idModulo;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE guardarModulo
+(IN number INT, IN title VARCHAR(255))
+BEGIN
+ INSERT INTO Modulo (Modulo.indice,Modulo.titulo)
+ VALUES (number,title);
+END //
+DELIMITER ;
+
+
 CALL getSeccionesByCapituloId(1);
 CALL getContenidoCapitulonByCapituloId(1);
 CALL getPreguntasCapitulo(1);
@@ -191,9 +210,11 @@ CALL getInfoModuloById(1);
 CALL getPreguntasCapitulo(1);
 CALL guardarCalificacionCapituloEstudiante(1,1,30.3312312312312312);
 CALL guardarCalificacionModuloEstudiante(1,1,1);
+CALL getModulos();
+CALL deleteModulo(7);
+CALL guardarModulo(1,'asd');
 
-
-Select Modulo.id,Modulo.indice as indice_Modulo, Capitulo.indice as indice_capitulo, Capitulo.id as id_capitulo, Capitulo.titulo as titulo_capitulo,
+SELECT Modulo.id,Modulo.indice as indice_Modulo, Capitulo.indice as indice_capitulo, Capitulo.id as id_capitulo, Capitulo.titulo as titulo_capitulo,
   (SELECT calificacion FROM calificacion_capitulo WHERE Capitulo.id=calificacion_capitulo.capitulo and calificacion_capitulo.estudiante=4) as calificacion
 FROM Modulo,Capitulo
 where Modulo.id=Capitulo.modulo;
@@ -203,6 +224,7 @@ Select Modulo.id,Modulo.indice as indice_Modulo, Modulo.titulo,
 FROM Modulo
 where Modulo.id
 ORDER BY indice_Modulo;
+
 
 
 
