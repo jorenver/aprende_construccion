@@ -234,10 +234,36 @@ exports.verPregunta = function(request,response){
 	if(request.session.user){
 		var id = request.query.id;
 		connection.query('call verPregunta('+id+')',function(err,rows){
+			var pregunta = {
+                id:0,
+                pregunta:"",
+                tipoMultimedia:"",
+                ruta:"",
+                opcion1:"",
+                opcion2:"",
+                opcion3:"",
+                opcion4:"",
+                correcta:0,
+                capituloPregunta:0,
+                moduloPregunta:0
+			};
 			try {
-			var objetoPregunta = rows[0][0];
-			response.json({pregunta:objetoPregunta});	
-			} catch (err) {
+				var objetoPregunta = rows[0][0];
+				pregunta.id = objetoPregunta.id;
+				pregunta.pregunta = objetoPregunta.pregunta;
+				pregunta.tipoMultimedia = objetoPregunta.tipo_multimedia;
+				pregunta.ruta = objetoPregunta.ruta_multimedia;
+				pregunta.opcion1 = objetoPregunta.opcion_1;
+				pregunta.opcion2 = objetoPregunta.opcion_2;
+				pregunta.opcion3 = objetoPregunta.opcion_3;
+				pregunta.opcion4 = objetoPregunta.opcion_4;
+				pregunta.correcta = objetoPregunta.correcta;
+				pregunta.capituloPregunta = objetoPregunta.capitulo;
+				pregunta.moduloPregunta = objetoPregunta.modulo;
+
+				response.json({pregunta:pregunta});
+			}
+			catch (err) {
 				console.log(err);
 				response.json({pregunta:null});
 			}
@@ -249,7 +275,7 @@ exports.verPregunta = function(request,response){
 	}
 
 
-}
+};
 
 exports.actualizarPregunta = function(request,response){
 	if (request.session.user) {

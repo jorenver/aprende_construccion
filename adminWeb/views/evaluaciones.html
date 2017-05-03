@@ -21,7 +21,7 @@
                          <div>
                              <div class="row">
                                    <div class="col-md-12">
-                                        <h3 class="text-center">EDICION DE EVALUACION</h3>
+                                        <h3 class="text-center">EDICIÓN DE EVALUACIÓN</h3>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="row" style="margin-top: 20px;">
@@ -29,7 +29,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-horizontal">
                                                         <div class="form-group">
-                                                            <label class="col-md-6 text-right" >Capitulo {{listadoPregunta.idCapitulo}}:{{listadoPregunta.tituloCapitulo}}</label>
+                                                            <label class="col-md-6 text-right"  id="descripcionPregunta">Capitulo {{listadoPregunta.idCapitulo}}:{{listadoPregunta.tituloCapitulo}}</label>
                                                             <button  type="button" class="btnNuevaPregunta btn btn-default btn-sm" data-toggle="modal" data-target="#crearPregunta">
                                                                     <span  class="glyphicon glyphicon-plus-sign"></span>
                                                             </button>
@@ -41,7 +41,6 @@
                                         </div>
 
                                         <div class="row">
-
                                             <div class="form-horizontal">
                                                 <div class="form-group">
                                                         <div id="tablaNotas" class="container-fluid">
@@ -57,7 +56,7 @@
                                                                                                 <th class="text-center">Acciones</th>
                                                                                             </tr>
                                                                                         </thead>
-                                                                                        <tbody>
+                                                                                        <tbody id="idTableEvaluaciones">
                                                                                             {% for pregunta in listadoPregunta.preguntas %}
                                                                                                 <tr>
                                                                                                     <td> {{pregunta.id}}: {{pregunta.pregunta}}</td>

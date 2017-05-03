@@ -3,76 +3,56 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{capitulo.tituloCapitulo}}</h4>
+                <h2 class="modal-title text-center" id="descripcionVerPregunta"></h2>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12"> 
-                        <h3 class="text-center">Pregunta</h3>
-                        <textarea rows="5" class="form-control" id="txtPregunta"></textarea>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="row" style="margin-top: 20px;">
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <div class="container-fluid">
-                                                    <table class="table table-striped">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Respuesta</th>
-                                                                <th>Opcion</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <input type="text" class="form-control" id="opcion1" disabled>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="radio"  value="1" id="resp1" disabled>
-                                                                </td>
-                                                            </tr>
+            <div class="modal-body" id="modalVerPregunta">
+                <h3 class="text-center">Pregunta</h3>
+                <textarea rows="5" class="form-control" id="txtPreguntaModalVerPregunta" disabled></textarea>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Respuesta</th>
+                            <th>Opción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" id="opcion1ModalVerPregunta" disabled>
+                            </td>
+                            <td>
+                                <input type="radio"  value="1" id="resp1ModalVerPregunta" disabled name="escorrecto">
+                            </td>
+                        </tr>
 
-                                                            <tr>
-                                                                <td>
-                                                                    <input type="text" class="form-control" id="opcion2" disabled>
-                                                                </td>
-                                                                <td>
-                                                                <input type="radio"  value="2" id="resp2" disabled>
-                                                                </td>
-                                                            </tr>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" id="opcion2ModalVerPregunta" disabled>
+                            </td>
+                            <td>
+                               <input type="radio"  value="2" id="resp2ModalVerPregunta" disabled name="escorrecto">
+                            </td>
+                        </tr>
 
-                                                            <tr>
-                                                                <td>
-                                                                    <input type="text" class="form-control" id="opcion3" disabled>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="radio"  value="3" id="resp3" disabled>
-                                                                </td>
-                                                            </tr>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" id="opcion3ModalVerPregunta" disabled>
+                            </td>
+                            <td>
+                                <input type="radio"  value="3" id="resp3ModalVerPregunta" disabled name="escorrecto" >
+                            </td>
+                        </tr>
 
-                                                            <tr>
-                                                                <td>
-                                                                    <input type="text" class="form-control" id="opcion4" disabled>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="radio"  value="4" id="resp4" disabled>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" id="opcion4ModalVerPregunta" disabled>
+                            </td>
+                            <td>
+                                <input type="radio"  value="4" id="resp4ModalVerPregunta" disabled name="escorrecto" >
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Salir</button>

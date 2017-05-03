@@ -3,52 +3,52 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{capitulo.tituloCapitulo}}</h4>
+                <h2 class="modal-title text-center" id="descripcionEditarPregunta"></h2>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="modalEditarPregunta">
                 <h3 class="text-center">Pregunta</h3>
-                <textarea rows="5" class="form-control" id="txtPregunta"></textarea>
+                <textarea rows="5" class="form-control" id="txtPreguntaModalEditarPregunta"></textarea>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Respuesta</th>
-                            <th>Opcion</th>
+                            <th>Opción</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>
-                                <input type="text" class="form-control" id="opcion1">
+                                <input type="text" class="form-control" id="opcion1ModalEditarPregunta">
                             </td>
                             <td>
-                                <input type="radio"  value="1" id="resp1">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" id="opcion2">
-                            </td>
-                            <td>
-                               <input type="radio"  value="2" id="resp2">
+                                <input type="radio"  value="1" id="resp1ModalEditarPregunta" name="escorrecta">
                             </td>
                         </tr>
 
                         <tr>
                             <td>
-                                <input type="text" class="form-control" id="opcion3">
+                                <input type="text" class="form-control" id="opcion2ModalEditarPregunta">
                             </td>
                             <td>
-                                <input type="radio"  value="3" id="resp3">
+                               <input type="radio"  value="2" id="resp2ModalEditarPregunta" name="escorrecta">
                             </td>
                         </tr>
 
                         <tr>
                             <td>
-                                <input type="text" class="form-control" id="opcion4">
+                                <input type="text" class="form-control" id="opcion3ModalEditarPregunta">
                             </td>
                             <td>
-                                <input type="radio"  value="4" id="resp4">
+                                <input type="radio"  value="3" id="resp3ModalEditarPregunta" name="escorrecta">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" id="opcion4ModalEditarPregunta">
+                            </td>
+                            <td>
+                                <input type="radio"  value="4" id="resp4ModalEditarPregunta" name="escorrecta">
                             </td>
                         </tr>
                     </tbody>
@@ -56,8 +56,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnActualizarPregunta">Actualizar</button>
-                
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnActualizarPregunta">Actualizar</button> 
             </div>
         </div>
     </div>
