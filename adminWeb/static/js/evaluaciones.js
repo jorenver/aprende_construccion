@@ -299,8 +299,9 @@ function serializarInformacionEditarPregunta(datos){
                     var data = serializarInformacionEditarPregunta(datos);
 
 
+
                      $.ajax({
-                        url:'/actualizarPregunta?id='+event.target.dataset.id,
+                        url:'/actualizarPregunta',
                         type:'POST',
                         dataType:'json',
                         contentType:'application/json; charset=utf8',
