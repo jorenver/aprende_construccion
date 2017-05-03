@@ -1,5 +1,6 @@
 var ControllerIndex = require('./controller/ControllerIndex');
 var ControllerContenido = require('./controller/ControllerContenido');
+var ControllerContenidoCurso = require('./controller/ControllerContenidoCurso');
 
 module.exports = function(app){
 	//ControllerIndex
@@ -17,7 +18,10 @@ module.exports = function(app){
 	app.post('/guardarPregunta',ControllerContenido.guardarPregunta);
 
 	//control del contenido
-	app.get('/modulos',ControllerIndex.modulos);
+	app.get('/modulos',ControllerContenidoCurso.modulos);
+	app.post('/agregarModulo',ControllerContenidoCurso.agregarModulo);
+	app.get('/eliminarModulo',ControllerContenidoCurso.eliminarModulo);
+	
 
 
 };

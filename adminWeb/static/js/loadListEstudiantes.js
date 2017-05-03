@@ -26,6 +26,7 @@ $(document).ready(function(){
 				    }
 				}
 	} ); 
+	$("select").css("height","100%");
 });
 
 function cargarNota(data){
