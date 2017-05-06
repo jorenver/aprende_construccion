@@ -17,10 +17,10 @@ var data = {
     opcion2:"",
     opcion3:"",
     opcion4:"",
-    capituloPregunta:"",
-    moduloPregunta:"",
+    capituloPregunta:0,
+    moduloPregunta:0,
     tipoMultimedia:"",
-    ruta:null,
+    ruta:"",
     imagen1:"",
     imagen2:"",
     imagen3:"",
@@ -30,14 +30,17 @@ var data = {
 
 
 
+
 function serializarInformacionCrearPregunta(datos){
 
-        data.id = datos.id;
-        data.pregunta = $("#txtPreguntaModalCrearPregunta");
-        data.opcion1 = $("#opcion1ModalCrearPregunta");
-        data.opcion2 = $("#opcion2ModalCrearPregunta");
-        data.opcion3 = $("#opcion3ModalCrearPregunta");
-        data.opcion4 = $("#opcion4ModalCrearPregunta");
+
+        data.pregunta = $("#txtPreguntaModalCrearPregunta").val();
+        data.opcion1 = $("#opcion1ModalCrearPregunta").val();
+        data.opcion2 = $("#opcion2ModalCrearPregunta").val();
+        data.opcion3 = $("#opcion3ModalCrearPregunta").val();
+        data.opcion4 = $("#opcion4ModalCrearPregunta").val();
+        data.capituloPregunta = parseInt($("#idCapitulo").text());
+        data.moduloPregunta = parseInt($("#idModulo").text());
         data.correcta = datos.correcta;
 
 
@@ -45,13 +48,14 @@ function serializarInformacionCrearPregunta(datos){
   }
 
 function serializarInformacionEditarPregunta(datos){
-
     data.id = datos.id;
-    data.pregunta = $("#txtPreguntaModalEditarPregunta");
-    data.opcion1 = $("#opcion1ModalEditarPregunta");
-    data.opcion2 = $("#opcion2ModalEditarPregunta");
-    data.opcion3 = $("#opcion3ModalEditarPregunta");
-    data.opcion4 = $("#opcion4ModalEditarPregunta");
+    data.pregunta = $("#txtPreguntaModalEditarPregunta").val();
+    data.opcion1 = $("#opcion1ModalEditarPregunta").val();
+    data.opcion2 = $("#opcion2ModalEditarPregunta").val();
+    data.opcion3 = $("#opcion3ModalEditarPregunta").val();
+    data.opcion4 = $("#opcion4ModalEditarPregunta").val();
+    data.capituloPregunta = parseInt($("#idCapitulo").text());
+    data.moduloPregunta = parseInt($("#idModulo").text());
     data.correcta = datos.correcta;
 
 
@@ -126,6 +130,8 @@ function serializarInformacionEditarPregunta(datos){
     });
     
     $(".btnEditarPregunta").on('click',function(event){
+        datos.id = event.target.dataset.id;
+        console.log(datos);
         $.ajax({
             url:'/verPregunta?id='+event.target.dataset.id,
             type: "GET",
@@ -133,7 +139,6 @@ function serializarInformacionEditarPregunta(datos){
             contentType: "application/json; charset=utf8",
             data:null,
             success: function(data){
-                datos.id = data.id;
                 $("#descripcionEditarPregunta").text($("#descripcionPregunta").text());
                 $("#txtPreguntaModalEditarPregunta").val(data.pregunta.pregunta);
                 $("#opcion1ModalEditarPregunta").val(data.pregunta.opcion1);
@@ -164,21 +169,27 @@ function serializarInformacionEditarPregunta(datos){
                 swal({
                     type: "error",
                     title: "Error en la red",
-                    text: "Existen problemas en la red, por favor vuélvalo a intentar mas tarde"
+                    text: "Existen problemas en la red, por favor vuélvalo a intentar mas tarde",
+                    confirmButtonColor: '#00BCD4',
+                    confirmButtonText: 'Aceptar'
                 });
             }
         });
     });
 
     $(".btnEliminarPregunta").on('click',function(event){
+        var item = event.target.dataset.id;
+
         swal({
             title:"Eliminar Pregunta",
             type: "question",
             text: "Eliminará de forma permanente esta pregunta de la Base de Datos, Desea eliminar esta pregunta?",
             showConfirmButton: true,
             showCancelButton: true,
-            ConfirmButton: "Si",
-            CancelButton: "No"
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            confirmButtonColor: '#00BCD4',
+            cancelButtonColor:  '#EF5350'
         }).then(function(){
                 $.ajax({
                     url:'/eliminarPregunta?id='+event.target.dataset.id,
@@ -188,18 +199,23 @@ function serializarInformacionEditarPregunta(datos){
                     data: null,
                     success: function(data){
                         if(data.exito){
-                            swal({
-                            type: "success",
-                            title: "Eliminación correcta",
-                            text: "Se ha eliminado de manera satisfactoria los datos"
-                            });
-
+                                    swal({
+                                        type: "success",
+                                        title: "Eliminación correcta",
+                                        text: "Se ha eliminado de manera satisfactoria los datos",
+                                        confirmButtonColor: '#00BCD4',
+                                        confirmButtonText: 'Aceptar'
+                                    }).then(function () {
+                                        $("table#tablePregunta tr#"+item+"").remove();
+                                    });
                         }
                         else{
-                            swal({
-                            type: "error",
-                            title: "Error en la actualización",
-                            text: "Existio un error al eliminar la pregunta"
+                                swal({
+                                    type: "error",
+                                    title: "Error en la actualización",
+                                    text: "Existio un error al eliminar la pregunta",
+                                    confirmButtonColor: '#00BCD4',
+                                    confirmButtonText: 'Aceptar'
                             });
                         }
                     },
@@ -207,7 +223,9 @@ function serializarInformacionEditarPregunta(datos){
                         swal({
                             type: "error",
                             title: "Error en la red",
-                            text: "Existen problemas en la red, por favor vuélvalo a intentar mas tarde"
+                            text: "Existen problemas en la red, por favor vuélvalo a intentar mas tarde",
+                            confirmButtonColor: '#00BCD4',
+                            confirmButtonText: 'Aceptar'
                         });
                     }
               });
@@ -244,6 +262,7 @@ function serializarInformacionEditarPregunta(datos){
                     }
 
                     var data = serializarInformacionCrearPregunta(datos);
+                    console.log(data);
 
                     $.ajax({
                         url:"/guardarPregunta",
@@ -256,7 +275,11 @@ function serializarInformacionEditarPregunta(datos){
                                 swal({
                                     type:"success",
                                     title:"Registro Exitoso",
-                                    text: "La pregunta ha sido registrada de manera exitosa en la base de datos"
+                                    text: "La pregunta ha sido registrada de manera exitosa en la base de datos",
+                                    confirmButtonColor: '#00BCD4',
+                                    confirmButtonText: 'Aceptar'
+                                }).then(function () {
+                                    window.location.href="/evaluaciones?id="+ parseInt($("#idCapitulo").text());
                                 });
 
                             }
@@ -264,7 +287,9 @@ function serializarInformacionEditarPregunta(datos){
                                 swal({
                                     type:"error",
                                     title:"Registro Fallido",
-                                    text: "Existe problemas en el servidor, por favor vuelva a intentarlo mas tarde"
+                                    text: "Existe problemas en el servidor, por favor vuelva a intentarlo mas tarde",
+                                    confirmButtonColor: '#00BCD4',
+                                    confirmButtonText: 'Aceptar'
                                 });
                             }
                         },
@@ -272,7 +297,9 @@ function serializarInformacionEditarPregunta(datos){
                             swal({
                                 type: "error",
                                 title: "Error en la red",
-                                text: "Existen problemas en la red, por favor vulevalo a intentar mas tarde"
+                                text: "Existen problemas en la red, por favor vulevalo a intentar mas tarde",
+                                confirmButtonColor: '#00BCD4',
+                                confirmButtonText: 'Aceptar'
                             });
                         }
                     });
@@ -297,8 +324,7 @@ function serializarInformacionEditarPregunta(datos){
                     }
 
                     var data = serializarInformacionEditarPregunta(datos);
-
-
+                    console.log(data);
 
                      $.ajax({
                         url:'/actualizarPregunta',
@@ -311,14 +337,21 @@ function serializarInformacionEditarPregunta(datos){
                                 swal({
                                     type: "success",
                                     title: "Actualización correcta",
-                                    text: "Se ha actualizado de forma satisfactoria los datos"
+                                    text: "Se ha actualizado de forma satisfactoria los datos",
+                                    confirmButtonColor: '#00BCD4',
+                                    confirmButtonText: 'Aceptar'
+                                }).then(function () {
+                                    window.location.href="/evaluaciones?id="+ parseInt($("#idCapitulo").text());
+
                                 });
                             }
                             else{
                                 swal({
                                     type: "error",
                                     title: "Actualización fallida",
-                                    text: "No se pudo actualizar la información ingresada"
+                                    text: "No se pudo actualizar la información ingresada",
+                                    confirmButtonColor: '#00BCD4',
+                                    confirmButtonText: 'Aceptar'
                                 });
 
                             }
@@ -328,7 +361,9 @@ function serializarInformacionEditarPregunta(datos){
                             swal({
                                 type: "error",
                                 title: "Error en la red",
-                                text: "Existen problemas en la red, por favor vulevalo a intentar mas tarde"
+                                text: "Existen problemas en la red, por favor vulevalo a intentar mas tarde",
+                                confirmButtonColor: '#00BCD4',
+                                confirmButtonText: 'Aceptar'
                             });
                         }
 

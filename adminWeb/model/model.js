@@ -210,6 +210,7 @@ exports.getExamenesByCapitulo = function(request,response){
 			}
 			connection.query('call getInfoCapituloById('+id+')',function(err,rows1){
 						var listadoPregunta = {
+						        idModulo:rows1[0][0].modulo,
 								idCapitulo:rows1[0][0].id,
 								tituloCapitulo:rows1[0][0].titulo,
 								preguntas:[]
@@ -292,11 +293,11 @@ exports.verPregunta = function(request,response){
 
 exports.actualizarPregunta = function(request,response){
 	if (request.session.user) {
-		connection.query('call actualizarPreguntas('+request.body.id+','+request.body.pregunta+','+request.body.opcion1+','+request.body.opcion2+','+request.body.opcion3+','+request.body.opcion4+','+request.body.capituloPregunta+','+request.body.moduloPregunta+','+request.body.tipoMultimedia+','+request.body.ruta+','+request.body.imagen1+')',function(err,rows){
+		connection.query('call actualizarPreguntas('+request.body.id+',"'+request.body.pregunta+'","'+request.body.opcion1+'","'+request.body.opcion2+'","'+request.body.opcion3+'","'+request.body.opcion4+'",'+request.body.capituloPregunta+','+request.body.moduloPregunta+',"'+request.body.tipoMultimedia+'","'+request.body.ruta+'","'+request.body.imagen1+'",'+request.body.correcta+')',function(err,rows){
 			if(err){
 				console.log(err);
 			}
-			if(rows[0][0]!= undefined){
+			if(rows != undefined){
 				response.json({exito:true});
 			}
 			else{
@@ -315,7 +316,7 @@ exports.eliminarPregunta = function(request,response){
 		var id = request.query.id;
 		connection.query('call eliminarPregunta('+id+')',function(err,rows){
 			try {
-			var objetoPregunta = rows[0][0];
+			var objetoPregunta = rows;
 			 if(objetoPregunta != undefined){
 				response.json({exito:true});
 			 }
@@ -335,12 +336,23 @@ exports.eliminarPregunta = function(request,response){
 }
 
 exports.guardarPregunta= function(request,response){
+	var pregunta = request.body.pregunta;
+	var opcion1= request.body.opcion1;
+	var opcion2= request.body.opcion2;
+	var opcion3= request.body.opcion3;
+	var opcion4= request.body.opcion4;
+	var capituloPregunta = request.body.capituloPregunta;
+	var moduloPregunta = request.body.moduloPregunta;
+	var tipoMultimedia = request.body.tipoMultimedia;
+	var ruta = request.body.ruta;
+	var imagen1 = request.body.imagen1;
+	var correcta = request.body.correcta;
 	if (request.session.user) {
-		connection.query('call guardarPreguntas('+request.body.pregunta+','+request.body.opcion1+','+request.body.opcion2+','+request.body.opcion3+','+request.body.opcion4+','+request.body.capituloPregunta+','+request.body.moduloPregunta+','+request.body.tipoMultimedia+','+request.body.ruta+','+request.body.imagen1+')',function(err,rows){
+		connection.query('call guardarPreguntas("'+pregunta+'","'+opcion1+'","'+opcion2+'","'+opcion3+'","'+opcion4+'",'+capituloPregunta+','+moduloPregunta+',"'+tipoMultimedia+'","'+ruta+'","'+imagen1+'",'+correcta+')',function(err,rows){
 			if(err){
 				console.log(err);
 			}
-			if(rows[0][0]!= undefined){
+			if(rows != undefined){
 				response.json({exito:true});
 			}
 			else{
