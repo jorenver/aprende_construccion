@@ -28,6 +28,7 @@ var data = {
     correcta:0
 };
 
+$("#descripcionCrearPregunta").text($("#descripcionPregunta").text());
 
 
 
@@ -131,7 +132,6 @@ function serializarInformacionEditarPregunta(datos){
     
     $(".btnEditarPregunta").on('click',function(event){
         datos.id = event.target.dataset.id;
-        console.log(datos);
         $.ajax({
             url:'/verPregunta?id='+event.target.dataset.id,
             type: "GET",
@@ -262,8 +262,6 @@ function serializarInformacionEditarPregunta(datos){
                     }
 
                     var data = serializarInformacionCrearPregunta(datos);
-                    console.log(data);
-
                     $.ajax({
                         url:"/guardarPregunta",
                         type:"POST",
@@ -324,7 +322,6 @@ function serializarInformacionEditarPregunta(datos){
                     }
 
                     var data = serializarInformacionEditarPregunta(datos);
-                    console.log(data);
 
                      $.ajax({
                         url:'/actualizarPregunta',
