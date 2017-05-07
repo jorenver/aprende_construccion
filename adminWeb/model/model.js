@@ -367,8 +367,119 @@ exports.eliminarModulo = function(request,response){
 	}
 }
 
+exports.getModulo = function(request,response){
+    if(request.session.user){
+        var query = 'call getModulo('+request.query.id+')';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+            	if(rows[0][0]) {
+                    response.json({error: false,modulo:rows[0][0]});
+                }else{
+                    response.json({error: true});
+				}
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
+exports.actualizarModulo = function(request,response){
+    if(request.session.user){
+        var indice= request.body.indice;
+        var titulo= request.body.titulo;
+        var idModulo= request.body.id;
+        var query = 'call actualizarModulo('+idModulo+','+indice+',"'+titulo+'")';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                response.json({error:false});
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
 
 
+
+exports.capitulos =function(request,response) {
+	if(request.session.user){
+		var idModulo=request.query.id;
+		connection.query('call getCapitulosByModuloId('+idModulo+')',function(err,rows){
+			if(err){
+				console.log(err);
+				response.render('login');
+			}
+			if(rows[0]){
+				var respuesta={capitulos:rows[0]};
+				response.render('adminCapitulos',respuesta);
+			}
+			else{
+				response.render('login');
+			}
+		});
+		
+	}
+	else{
+		response.render('login');
+	}
+}
+
+exports.secciones =function(request,response) {
+    if(request.session.user){
+        var idCapitulo=request.query.id;
+        connection.query('call getSeccionesByCapituloId('+idCapitulo+')',function(err,rows){
+            if(err){
+                console.log(err);
+                response.render('login');
+            }
+            if(rows[0]){
+                var respuesta={secciones:rows[0]};
+                response.render('adminSecciones',respuesta);
+            }
+            else{
+                response.render('login');
+            }
+        });
+
+    }
+    else{
+        response.render('login');
+    }
+}
+
+exports.parrafos =function(request,response) {
+    if(request.session.user){
+        var idSeccion=request.query.id;
+        connection.query('call getParrafoByIdSeccion('+idSeccion+')',function(err,rows){
+            if(err){
+                console.log(err);
+                response.render('login');
+            }
+            if(rows[0]){
+                var respuesta={parrafos:rows[0]};
+                response.render('adminParrafos',respuesta);
+            }
+            else{
+                response.render('login');
+            }
+        });
+
+    }
+    else{
+        response.render('login');
+    }
+}
 
 
 

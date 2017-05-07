@@ -1,3 +1,5 @@
+var idModulo=-1;
+
 $(document).ready(function(){
 	//$("#tableEstudiantes").DataTable();
 
@@ -28,12 +30,15 @@ $(document).ready(function(){
 	} ); 
 	$("select").css("height","100%");
 	$("#btnGuardarModulo").click(function(){
-		agregarModulo();
-	});
+        agregarModulo();
+    });
+    $("#btnActualizarModulo").click(function(){
+        actualizarrModulo();
+    });
 });
 
 function modalNuevoModulo(){
-	$("#tituloModal").text("Nuevo Modulo");
+	$("#tituloModal").text("Nuevo Módulo");
 	$("#btnActualizarModulo").hide();
 	$("#btnGuardarModulo").show();
 	$('#titulo-modulo').val("");
@@ -42,19 +47,36 @@ function modalNuevoModulo(){
 }
 
 function modalActualizarModulo(id){
-	$("#tituloModal").text("Actualizar Modulo");
-	$("#btnActualizarModulo").show();
-	$("#btnGuardarModulo").hide();
-	$('#titulo-modulo').val("titulo");
-	$('#numero-modulo').val("1");
-	$("#modalModulo").modal("show");
+    $.ajax({
+        url: "/getModulo?id="+id,
+        type: "GET",
+        contentType: 'application/json',
+        data:null,
+        success: function(data) {
+            if(!data.error){
+            	idModulo=data.modulo.id;
+                $("#tituloModal").text("Actualizar Módulo");
+                $('#titulo-modulo').val(data.modulo.titulo);
+                $('#numero-modulo').val(data.modulo.indice);
+                $("#btnActualizarModulo").show();
+                $("#btnGuardarModulo").hide();
+                $("#modalModulo").modal("show");
+            }else{
+                swal("error!","módulo no encontrado","error");
+            }
+        },
+        error : function() {
+            swal("error!","al agregar el Módulo","error");
+        }
+    });
+
 }
 
 
 function eliminarModulo(id){
 	swal({
-          title: 'Evaluacion',
-          text: "Si eliminar el modulo se eliminara todo el contenido asociado a el, ¿Esta seguro desea continuar?",
+          title: 'Módulos',
+          text: "Si eliminar el módulo se eliminara todo el contenido asociado a el, ¿Esta seguro desea continuar?",
           type: 'info',
           showCancelButton: true,
           confirmButtonColor: '#00BCD4',
@@ -69,15 +91,15 @@ function eliminarModulo(id){
 		        data:null,
 		        success: function(data) {
 			        if(!data.error){
-				        swal("Modulos","modulo eliminado correctamente","success").then(function(){
+				        swal("Modulos","módulo eliminado correctamente","success").then(function(){
 				        	window.location.href="/modulos"
 				        });
 				    }else{
-				    	swal("error!","al eliminar el Modulo","error");
+				    	swal("error!","al eliminar el Módulo","error");
 				    }
 		        },
 		        error : function() {
-		        	swal("error!","al eliminar el Modulo","error");
+		        	swal("error!","al eliminar el Módulo","error");
 		        }
 		    });
         });
@@ -96,18 +118,48 @@ function agregarModulo(){
 	        data:JSON.stringify(datos),
 	        success: function(data) {
 		        if(!data.error){
-			        swal("Modulos","modulo agregado correctamente","success").then(function(){
+			        swal("Módulos","módulo agregado correctamente","success").then(function(){
 			        	$("#modalModulo").modal("hide");
 			        	window.location.href="/modulos"
 			        });
 			    }else{
-			    	swal("error!","al agregar el Modulo","error");
+			    	swal("error!","al agregar el Módulo","error");
 			    }
 	        },
 	        error : function() {
-	        	swal("error!","al agregar el Modulo","error");
+	        	swal("error!","al agregar el Módulo","error");
 	        }
 	    });
 	}
 	
+}
+
+function actualizarrModulo(){
+    var isValid = $('#formNuevoModulo').parsley().validate();
+    if(isValid){
+        datos={id:idModulo,
+        	titulo:$('#titulo-modulo').val(),
+            indice:$('#numero-modulo').val()
+        };
+        $.ajax({
+            url: "/actualizarModulo",
+            type: "POST",
+            contentType: 'application/json',
+            data:JSON.stringify(datos),
+            success: function(data) {
+                if(!data.error){
+                    swal("Módulos","módulo actualizado correctamente","success").then(function(){
+                        $("#modalModulo").modal("hide");
+                        window.location.href="/modulos"
+                    });
+                }else{
+                    swal("error!","al actualizar el Módulo","error");
+                }
+            },
+            error : function() {
+                swal("error!","al actualizar el Módulo","error");
+            }
+        });
+    }
+
 }

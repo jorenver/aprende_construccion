@@ -9,19 +9,20 @@
             <meta name="author" content="">
             {% include './importsFooter.html' %}
             <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">            
-            <link rel="stylesheet"  href="css/modulos.css">                
+            <link rel="stylesheet"  href="css/capitulos.css">                
     </head>
     <body>
         {% include './header.html' %}
             <div class="content" style="margin-top: 100px;">
-                <h3 class="title text-center">Módulos</h3>
+                <h3 class="title text-center">Capítulos</h3>
+                <h4 class="title text-center">Módulo: Lectura de Planos</h4>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div>
-                            <button id="btnNuevoModulo" type="button" class="btn btn-primary" onclick="modalNuevoModulo();">
+                            <button id="btnNuevoCapitulo" type="button" class="btn btn-primary" onclick="modalNuevoCapitulo();">
                                 <span class="glyphicon glyphicon-plus">
                                 </span> 
-                                Nuevo Módulo
+                                Nuevo Capítulo
                             </button>
                         </div>  
                         <br/>
@@ -31,26 +32,26 @@
                             <table class="table table-hover table-valign-middle m-b-0" cellspacing="0" width="100%" id="tableModulos" >
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Número Módulo</th>
-                                        <th class="text-center">Título Módulo</th>
+                                        <th class="text-center">Número Capítulo</th>
+                                        <th class="text-center">Título Capítulo</th>
                                         <th class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
                                     <tbody>
-                                        {% for modulo in modulos  %}
+                                        {% for capitulo in capitulos  %}
                                             <tr>
-                                                <td>{{modulo.indice}}</td>
-                                                <td>{{modulo.titulo}}</td>
+                                                <td>{{capitulo.indice}}</td>
+                                                <td>{{capitulo.titulo}}</td>
                                                 <td class="text-center">
-                                                    <a href="/capitulos?id={{modulo.id}}" class="nounderline" style="text-decoration: none" alt="Editar">
+                                                    <a href="/secciones?id={{capitulo.id}}" onclick="" class="nounderline" style="text-decoration: none" alt="Editar">
                                                         <span class="glyphicon glyphicon-search">
                                                         </span>
                                                     </a>
-                                                    <a href="javascript:;" onclick="eliminarModulo({{modulo.id}})" class="nounderline" style="text-decoration: none" alt="Editar">
+                                                    <a href="javascript:;" onclick="eliminarCapitulo({{capitulo.id}});" class="nounderline" style="text-decoration: none" alt="Editar">
                                                         <span class="glyphicon glyphicon-trash">
                                                         </span>
                                                     </a>
-                                                    <a href="javascript:;" onclick="modalActualizarModulo({{modulo.id}})" class="nounderline" style="text-decoration: none" alt="Editar">
+                                                    <a href="javascript:;" onclick="modalActualizarCapitulo({{capitulo.id}});" class="nounderline" style="text-decoration: none" alt="Editar">
                                                         <span class="glyphicon glyphicon-pencil">
                                                         </span>
                                                     </a>
@@ -65,40 +66,40 @@
             </div>
         <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/modulos.js"></script>
+        <script type="text/javascript" src="js/capitulos.js"></script>
         
     </body>
     
     <!-- Modal nuevo-->
-    <div id="modalModulo" class="modal fade" role="dialog">
+    <div id="modalCapitulo" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h2 class="modal-title text-primary text-center" id="tituloModal">Nuevo Modulo</h2>
+            <h2 class="modal-title text-primary text-center" id="tituloModal">Nuevo Capitulo</h2>
           </div>
           <div class="modal-body">
             <form id="formNuevoModulo" data-parsley-validate="">
                 <div class="form-group">
                     <label>Titulo</label>
-                    <input type="text" class="form-control" id="titulo-modulo" data-parsley-required>
+                    <input type="text" class="form-control" id="titulo-capitulo" data-parsley-required>
                 </div>
                 <div class="form-group">
                     <label>Numero</label>
-                    <input class="form-control" id="numero-modulo" data-parsley-required data-parsley-type="integer">
+                    <input class="form-control" id="numero-capitulo" data-parsley-required data-parsley-type="integer">
                 </div>
             </form>
 
           </div>
           <div class="modal-footer text-center">
-            <button id="btnGuardarModulo" type="button" class="btn btn-primary">
+            <button id="btnGuardarCapitulo" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-floppy-disk">
                 </span> 
                 Guardar
             </button>
-            <button id="btnActualizarModulo" type="button" class="btn btn-primary">
+            <button id="btnActualizarCapitulo" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-floppy-disk">
                 </span> 
                 Actualizar
@@ -109,5 +110,3 @@
       </div>
     </div>
 </html>
-
-

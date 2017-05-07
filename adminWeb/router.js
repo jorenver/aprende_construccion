@@ -21,6 +21,16 @@ module.exports = function(app){
 	app.get('/modulos',ControllerContenidoCurso.modulos);
 	app.post('/agregarModulo',ControllerContenidoCurso.agregarModulo);
 	app.get('/eliminarModulo',ControllerContenidoCurso.eliminarModulo);
+    app.get('/getModulo',ControllerContenidoCurso.getModulo);
+    app.post('/actualizarModulo',ControllerContenidoCurso.actualizarModulo);
+
+
+
+	app.get('/capitulos',ControllerContenidoCurso.capitulos);
+
+    app.get('/secciones',ControllerContenidoCurso.secciones);
+
+    app.get('/parrafos',ControllerContenidoCurso.parrafos);
 	
 
 
