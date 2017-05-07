@@ -9,10 +9,6 @@ var connection = mysql.createPool({
     database : "Sistema_Aprendizaje_Construccion"
 });
 
-
-
-
-
 exports.signInAdmin = function(request,response){
     var cedula = request.body.ced;
     var password = request.body.pass;
@@ -128,33 +124,6 @@ exports.calificaciones = function(request,response){
 		
 }
 
-
-exports.modulos =function(request,response) {
-	if(request.session.user){
-		/*var respuesta={
-			modulos:[{id:1,indice:1,titulo:"Modulo 1"},{id:2,indice:2,titulo:"Modulo 2"},{id:3,indice:3,titulo:"Modulo 3"}]
-		}*/
-		connection.query('call getModulos()',function(err,rows){
-			if(err){
-				console.log(err);
-				response.render('login');
-			}
-			if(rows[0]){
-				var respuesta={modulos:rows[0]};
-				response.render('adminModulos',respuesta);
-			}
-			else{
-				response.render('login');
-			}
-		});
-		
-	}
-	else{
-		response.render('login');
-	}
-}
-
-
 exports.contenido = function(request,response){
 	if(request.session.user){
 			var lstContenido = []
@@ -243,7 +212,6 @@ exports.getExamenesByCapitulo = function(request,response){
 	}
 }
 
-
 exports.verPregunta = function(request,response){
 	if(request.session.user){
 		var id = request.query.id;
@@ -311,6 +279,7 @@ exports.actualizarPregunta = function(request,response){
 	}
 
 }
+
 exports.eliminarPregunta = function(request,response){
 	if(request.session.user){
 		var id = request.query.id;
@@ -367,6 +336,53 @@ exports.guardarPregunta= function(request,response){
 
 }
 
+exports.modulos =function(request,response) {
+    if(request.session.user){
+		/*var respuesta={
+		 modulos:[{id:1,indice:1,titulo:"Modulo 1"},{id:2,indice:2,titulo:"Modulo 2"},{id:3,indice:3,titulo:"Modulo 3"}]
+		 }*/
+        connection.query('call getModulos()',function(err,rows){
+            if(err){
+                console.log(err);
+                response.render('login');
+            }
+            if(rows[0]){
+                var respuesta={modulos:rows[0]};
+                response.render('adminModulos',respuesta);
+            }
+            else{
+                response.render('login');
+            }
+        });
+
+    }
+    else{
+        response.render('login');
+    }
+}
+
+exports.getModulo = function(request,response){
+    if(request.session.user){
+        var query = 'call getModulo('+request.query.id+')';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                if(rows[0][0]) {
+                    response.json({error: false,modulo:rows[0][0]});
+                }else{
+                    response.json({error: true});
+                }
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
 exports.agregarModulo = function(request,response){
 	if(request.session.user){
 		var indice= request.body.indice;
@@ -385,46 +401,6 @@ exports.agregarModulo = function(request,response){
 	else{
 		response.json({error:true});
 	}
-}
-
-exports.eliminarModulo = function(request,response){
-	if(request.session.user){
-		var query = 'call deleteModulo('+request.query.id+')';
-		console.log(query);
-		connection.query(query,function(err,rows){
-			if(err){
-				console.log(err);
-				response.json({error:true});
-			}else{
-				response.json({error:false});
-			}
-		});
-	}
-	else{
-		response.json({error:true});
-	}
-}
-
-exports.getModulo = function(request,response){
-    if(request.session.user){
-        var query = 'call getModulo('+request.query.id+')';
-        console.log(query);
-        connection.query(query,function(err,rows){
-            if(err){
-                console.log(err);
-                response.json({error:true});
-            }else{
-            	if(rows[0][0]) {
-                    response.json({error: false,modulo:rows[0][0]});
-                }else{
-                    response.json({error: true});
-				}
-            }
-        });
-    }
-    else{
-        response.json({error:true});
-    }
 }
 
 exports.actualizarModulo = function(request,response){
@@ -448,7 +424,23 @@ exports.actualizarModulo = function(request,response){
     }
 }
 
-
+exports.eliminarModulo = function(request,response){
+	if(request.session.user){
+		var query = 'call deleteModulo('+request.query.id+')';
+		console.log(query);
+		connection.query(query,function(err,rows){
+			if(err){
+				console.log(err);
+				response.json({error:true});
+			}else{
+				response.json({error:false});
+			}
+		});
+	}
+	else{
+		response.json({error:true});
+	}
+}
 
 exports.capitulos =function(request,response) {
 	if(request.session.user){
