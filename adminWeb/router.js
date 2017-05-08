@@ -24,11 +24,18 @@ module.exports = function(app){
     app.get('/getModulo',ControllerContenidoCurso.getModulo);
     app.post('/actualizarModulo',ControllerContenidoCurso.actualizarModulo);
 
-
-
 	app.get('/capitulos',ControllerContenidoCurso.capitulos);
+    app.post('/agregarCapitulo',ControllerContenidoCurso.agregarCapitulo);
+    app.get('/eliminarCapitulo',ControllerContenidoCurso.eliminarCapitulo);
+    app.get('/getCapitulo',ControllerContenidoCurso.getCapitulo);
+    app.post('/actualizarCapitulo',ControllerContenidoCurso.actualizarCapitulo);
 
     app.get('/secciones',ControllerContenidoCurso.secciones);
+    app.post('/agregarSeccion',ControllerContenidoCurso.agregarSeccion);
+    app.get('/eliminarSeccion',ControllerContenidoCurso.eliminarSeccion);
+    app.get('/getSeccion',ControllerContenidoCurso.getSeccion);
+    app.post('/actualizarSeccion',ControllerContenidoCurso.actualizarSeccion);
+
 
     app.get('/parrafos',ControllerContenidoCurso.parrafos);
 	

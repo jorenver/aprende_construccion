@@ -8,14 +8,15 @@
             <meta name="description" content="">
             <meta name="author" content="">
             {% include './importsFooter.html' %}
-            <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">            
-            <link rel="stylesheet"  href="css/capitulos.css">                
+            <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">
+            <script>
+                var idModulo={{modulo.id}};
+            </script>
     </head>
     <body>
         {% include './header.html' %}
             <div class="content" style="margin-top: 100px;">
-                <h3 class="title text-center">Capítulos</h3>
-                <h4 class="title text-center">Módulo: Lectura de Planos</h4>
+                <h3 class="title text-center">Módulo: {{modulo.titulo}}</h3>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div>
@@ -29,7 +30,7 @@
                         <br/>
                         <br/>
                         <div >
-                            <table class="table table-hover table-valign-middle m-b-0" cellspacing="0" width="100%" id="tableModulos" >
+                            <table class="table table-hover table-valign-middle m-b-0" cellspacing="0" width="100%" id="tableCapitulos" >
                                 <thead>
                                     <tr>
                                         <th class="text-center">Número Capítulo</th>
@@ -64,9 +65,6 @@
                     </div>
                 </div>
             </div>
-        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/capitulos.js"></script>
         
     </body>
     
@@ -81,7 +79,7 @@
             <h2 class="modal-title text-primary text-center" id="tituloModal">Nuevo Capitulo</h2>
           </div>
           <div class="modal-body">
-            <form id="formNuevoModulo" data-parsley-validate="">
+            <form id="formNuevoCapitulo" data-parsley-validate="">
                 <div class="form-group">
                     <label>Titulo</label>
                     <input type="text" class="form-control" id="titulo-capitulo" data-parsley-required>
@@ -109,4 +107,8 @@
 
       </div>
     </div>
+
+    <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/capitulos.js"></script>
 </html>

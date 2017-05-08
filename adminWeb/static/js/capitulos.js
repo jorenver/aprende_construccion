@@ -1,7 +1,8 @@
+var idCapitulo=-1;
 $(document).ready(function(){
 	//$("#tableEstudiantes").DataTable();
 
-	$('#tableModulos').DataTable( {
+	$('#tableCapitulos').DataTable( {
 	    language: { "sProcessing":     "Procesando...",
 				    "sLengthMenu":     "Mostrar _MENU_ registros",
 				    "sZeroRecords":    "No se encontraron resultados",
@@ -27,13 +28,16 @@ $(document).ready(function(){
 				}
 	} ); 
 	$("select").css("height","100%");
-	$("#btnGuardarModulo").click(function(){
-		//agregarModulo();
+	$("#btnGuardarCapitulo").click(function(){
+		agregarCapitulo();
 	});
+    $("#btnActualizarCapitulo").click(function(){
+        actualizarCapitulo();
+    });
 });
 
 function modalNuevoCapitulo(){
-	$("#tituloModal").text("Nuevo Capitulo");
+	$("#tituloModal").text("Nuevo Capítulo");
 	$("#btnActualizarCapitulo").hide();
 	$("#btnGuardarCapitulo").show();
 	$('#titulo-capitulo').val("");
@@ -42,12 +46,29 @@ function modalNuevoCapitulo(){
 }
 
 function modalActualizarCapitulo(id){
-	$("#tituloModal").text("Actualizar Capitulo");
-	$("#btnActualizarCapitulo").show();
-	$("#btnGuardarCapitulo").hide();
-	$('#titulo-capitulo').val("titulo");
-	$('#numero-capitulo').val("1");
-	$("#modalCapitulo").modal("show");
+
+    $.ajax({
+        url: "/getCapitulo?id="+id,
+        type: "GET",
+        contentType: 'application/json',
+        data:null,
+        success: function(data) {
+            if(!data.error){
+                idCapitulo=data.capitulo.id;
+                $("#tituloModal").text("Actualizar Capítulo");
+                $("#btnActualizarCapitulo").show();
+                $("#btnGuardarCapitulo").hide();
+                $('#titulo-capitulo').val(data.capitulo.titulo);
+                $('#numero-capitulo').val(data.capitulo.indice);
+                $("#modalCapitulo").modal("show");
+            }else{
+                swal("error!","capítulo no encontrado","error");
+            }
+        },
+        error : function() {
+            swal("error!","capítulo no encontrado","error");
+        }
+    });
 }
 
 
@@ -62,53 +83,84 @@ function eliminarCapitulo(id){
           confirmButtonText: 'Aceptar',
           cancelButtonText: 'Cancelar'
         }).then(function () {
-        	/*$.ajax({
-		        url: "/eliminarModulo?id="+id,
+        	$.ajax({
+		        url: "/eliminarCapitulo?id="+id,
 		        type: "GET",
 		        contentType: 'application/json',
 		        data:null,
 		        success: function(data) {
 			        if(!data.error){
-				        swal("Modulos","modulo eliminado correctamente","success").then(function(){
-				        	window.location.href="/modulos"
+				        swal("Capítulos","capítulo eliminado correctamente","success").then(function(){
+				        	window.location.href="/capitulos?id="+idModulo;
 				        });
 				    }else{
-				    	swal("error!","al eliminar el Modulo","error");
+				    	swal("error!","al eliminar el capítulo","error");
 				    }
 		        },
 		        error : function() {
-		        	swal("error!","al eliminar el Modulo","error");
+		        	swal("error!","al eliminar el capítulo","error");
 		        }
-		    });*/
+		    });
         });
 }
 
+function agregarCapitulo(){
+    var isValid = $('#formNuevoCapitulo').parsley().validate();
+    if(isValid){
+        datos={titulo:$('#titulo-capitulo').val(),
+            indice:$('#numero-capitulo').val(),
+			idModulo:idModulo
+        };
+        $.ajax({
+            url: "/agregarCapitulo",
+            type: "POST",
+            contentType: 'application/json',
+            data:JSON.stringify(datos),
+            success: function(data) {
+                if(!data.error){
+                    swal("Capítulos","capítulo agregado correctamente","success").then(function(){
+                        $("#modalCapitulo").modal("hide");
+                        window.location.href="/capitulos?id="+idModulo;
+                    });
+                }else{
+                    swal("error!","al agregar el capítulo","error");
+                }
+            },
+            error : function() {
+                swal("error!","al agregar el capítulo","error");
+            }
+        });
+    }
 
-/*function agregarModulo(){
-	var isValid = $('#formNuevoModulo').parsley().validate();
-	if(isValid){
-		datos={titulo:$('#titulo-modulo').val(),
-				indice:$('#numero-modulo').val()
-			};
-		$.ajax({
-	        url: "/agregarModulo",
-	        type: "POST",
-	        contentType: 'application/json',
-	        data:JSON.stringify(datos),
-	        success: function(data) {
-		        if(!data.error){
-			        swal("Modulos","modulo agregado correctamente","success").then(function(){
-			        	$("#modalModulo").modal("hide");
-			        	window.location.href="/modulos"
-			        });
-			    }else{
-			    	swal("error!","al agregar el Modulo","error");
-			    }
-	        },
-	        error : function() {
-	        	swal("error!","al agregar el Modulo","error");
-	        }
-	    });
-	}
-	
-}*/
+}
+
+function actualizarCapitulo(){
+    var isValid = $('#formNuevoCapitulo').parsley().validate();
+    if(isValid){
+        datos={id:idCapitulo,
+            titulo:$('#titulo-capitulo').val(),
+            indice:$('#numero-capitulo').val()
+        };
+        $.ajax({
+            url: "/actualizarCapitulo",
+            type: "POST",
+            contentType: 'application/json',
+            data:JSON.stringify(datos),
+            success: function(data) {
+                if(!data.error){
+                    swal("Capítulos","capítulo actualizado correctamente","success").then(function(){
+                        $("#modalCapitulo").modal("hide");
+                        window.location.href="/capitulos?id="+idModulo;
+                    });
+                }else{
+                    swal("error!","al actualizar el capítulo","error");
+                }
+            },
+            error : function() {
+                swal("error!","al actualizar el capítulo","error");
+            }
+        });
+    }
+
+}
+
