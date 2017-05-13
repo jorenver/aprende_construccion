@@ -1,4 +1,3 @@
-$("#passwordsNoMatchRegister").hide();
 var dict= {}
 $("#btnSignInAdmin").on('click',function(){
     dict.ced= $("#login-cedula").val();
@@ -14,7 +13,13 @@ $("#btnSignInAdmin").on('click',function(){
                     window.location.href='/';
                 }
                 else{
-                    $("#passwordsNoMatchRegister").show();
+                    swal({
+                        type: "error",
+                        title: "Acceso denegado",
+                        text: "La contraseña o cedula ingresada son incorrectas, vuelva a intentarlo",
+                        confirmButtonColor: '#00BCD4',
+                        confirmButtonText: 'Aceptar'
+                    });
                 }
         },
         error: function(data){
