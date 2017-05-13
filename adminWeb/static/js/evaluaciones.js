@@ -28,12 +28,8 @@ var data = {
     correcta:0
 };
 
-$("#descripcionCrearPregunta").text($("#descripcionPregunta").text());
-
-
 
 function serializarInformacionCrearPregunta(datos){
-
 
         data.pregunta = $("#txtPreguntaModalCrearPregunta").val();
         data.opcion1 = $("#opcion1ModalCrearPregunta").val();
@@ -139,7 +135,6 @@ function serializarInformacionEditarPregunta(datos){
             contentType: "application/json; charset=utf8",
             data:null,
             success: function(data){
-                $("#descripcionEditarPregunta").text($("#descripcionPregunta").text());
                 $("#txtPreguntaModalEditarPregunta").val(data.pregunta.pregunta);
                 $("#opcion1ModalEditarPregunta").val(data.pregunta.opcion1);
                 $("#opcion2ModalEditarPregunta").val(data.pregunta.opcion2);

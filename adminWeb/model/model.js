@@ -148,7 +148,8 @@ exports.contenido = function(request,response){
 								if( idModulo == idCapitulo ){
 									var capitulo = {
 										idCapitulo:listaCapitulos[j].id,
-										tituloCapitulo:listaCapitulos[j].titulo
+										tituloCapitulo:listaCapitulos[j].titulo,
+										indiceCapitulo:listaCapitulos[j].indice
 									}
 									modulo.capitulos.push(capitulo);
 								}

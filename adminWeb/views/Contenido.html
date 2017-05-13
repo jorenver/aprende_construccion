@@ -41,7 +41,7 @@
                                                                                     <div id="tablaCalificaciones">
                                                                                         <table class="table table-bordered">
                                                                                             <thead>
-                                                                                                <tr>
+                                                                                                <tr class="bg-primary">
                                                                                                     <th>Titulo del Capitulo</th>
                                                                                                     <th class="text-center">Acciones</th>
                                                                                                 </tr>
@@ -49,9 +49,9 @@
                                                                                             <tbody>
                                                                                                 {%  for capitulo in modulo.capitulos %}
                                                                                                     <tr>
-                                                                                                        <td>Capitulo {{capitulo.idCapitulo}}: {{capitulo.tituloCapitulo}}</td>
+                                                                                                        <td>Capitulo {{capitulo.indiceCapitulo}}: {{capitulo.tituloCapitulo}}</td>
                                                                                                         <td class="text-center">
-                                                                                                                  <button data-id="{{capitulo.idCapitulo}}" type="button" class="btnExamenesCapitulo btn btn-default btn-sm">
+                                                                                                                  <button data-id="{{capitulo.idCapitulo}}" type="button" class="btnExamenesCapitulo btn btn-success btn-sm">
                                                                                                                         <span data-id="{{capitulo.idCapitulo}}" class="glyphicon glyphicon-list-alt"></span> Abrir Evaluaciones
                                                                                                                  </button>
                                                                                                         </td>

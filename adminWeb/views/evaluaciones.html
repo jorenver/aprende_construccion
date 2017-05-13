@@ -21,19 +21,20 @@
                          <div>
                              <div class="row">
                                    <div class="col-md-12">
-                                        <h3 class="text-center">EDICIÓN DE EVALUACIÓN</h3>
-                                    </div>
+                                        <h3 class="title text-center">Evaluación</h3>
+                                        <h4 class="title text-center"  id="descripcionPregunta">Capitulo {{listadoPregunta.idCapitulo}}:{{listadoPregunta.tituloCapitulo}}</h4>
+                                   </div>
                                     <div class="col-md-12">
                                         <div class="row" style="margin-top: 20px;">
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-12 col-md-offset-2">
                                                     <div class="form-horizontal">
                                                         <div class="form-group">
-                                                            <label class="col-md-6 text-right"  id="descripcionPregunta">Capitulo {{listadoPregunta.idCapitulo}}:{{listadoPregunta.tituloCapitulo}}</label>
                                                             <label class="col-md-6 text-right"  id="idCapitulo" hidden>{{listadoPregunta.idCapitulo}}</label>
                                                             <label class="col-md-6 text-right"  id="idModulo" hidden>{{listadoPregunta.idModulo}}</label>
-                                                            <button  type="button" class="btnNuevaPregunta btn btn-default btn-sm" data-toggle="modal" data-target="#crearPregunta">
-                                                                    <span  class="glyphicon glyphicon-plus-sign"></span>
+                                                            <button  type="button" class="btnNuevaPregunta btn btn-primary btn-sm " data-toggle="modal" data-target="#crearPregunta">
+                                                                    <span  class="glyphicon glyphicon-plus"></span>
+                                                                    Nueva Pregunta
                                                             </button>
                                                         </div>
                                                     </div>
@@ -53,7 +54,7 @@
                                                                                 <div id="tablaPreguntas">
                                                                                     <table class="table table-bordered" id="tablePregunta">
                                                                                         <thead>
-                                                                                            <tr>
+                                                                                            <tr class="bg-primary">
                                                                                                 <th>Preguntas</th>
                                                                                                 <th class="text-center">Acciones</th>
                                                                                             </tr>
@@ -64,17 +65,17 @@
                                                                                                     <td> {{pregunta.id}}: {{pregunta.pregunta}}</td>
                                                                                                     <td>
 
-                                                                                                         <button data-id="{{pregunta.id}}" type="button" class="btnVerPregunta btn btn-default btn-sm">
-                                                                                                             <span data-id="{{pregunta.id}}" class="glyphicon glyphicon-zoom-in"></span>
-                                                                                                        </button>
+                                                                                                         <a href="javascript:;" data-id="{{pregunta.id}}" type="button" class="btnVerPregunta nounderline" style="text-decoration: none">
+                                                                                                             <span data-id="{{pregunta.id}}" class="glyphicon glyphicon-zoom-in text-primary" ></span>
+                                                                                                        </a>
 
-                                                                                                         <button data-id="{{pregunta.id}}" type="button" class="btnEditarPregunta btn btn-default btn-sm">
-                                                                                                             <span data-id="{{pregunta.id}}" class="glyphicon glyphicon-pencil"></span>
-                                                                                                        </button>
+                                                                                                         <a href="javascript:;" data-id="{{pregunta.id}}" type="button" class="btnEditarPregunta nounderline" style="text-decoration: none">
+                                                                                                             <span data-id="{{pregunta.id}}" class="glyphicon glyphicon-pencil text-primary" ></span>
+                                                                                                        </a>
 
-                                                                                                         <button data-id="{{pregunta.id}}" type="button" class="btnEliminarPregunta btn btn-default btn-sm">
-                                                                                                             <span data-id="{{pregunta.id}}" class="glyphicon glyphicon-trash"></span>
-                                                                                                        </button>
+                                                                                                         <a href="javascript:;" data-id="{{pregunta.id}}" type="button" class="btnEliminarPregunta nounderline" style="text-decoration: none">
+                                                                                                             <span data-id="{{pregunta.id}}" class="glyphicon glyphicon-trash text-primary" ></span>
+                                                                                                        </a>
                                                                                                     </td>        
                                                                                                 </tr>
                                                                                             {%  endfor  %}
