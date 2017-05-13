@@ -8,19 +8,19 @@
             <meta name="description" content="">
             <meta name="author" content="">
             {% include './importsFooter.html' %}
-            <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">            
-            <link rel="stylesheet"  href="css/capitulos.css">                
+            <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">
+            <script>
+                var idCapitulo={{capitulo.id}};
+            </script>
     </head>
     <body>
         {% include './header.html' %}
             <div class="content" style="margin-top: 100px;">
-                <h3 class="title text-center">Secciónes</h3>
-                <h4 class="title text-center">Módulo: Lectura de Planos</h4>
-                <h5 class="title text-center">Capítulo: Planos Arquitectonicos</h5>
+                <h3 class="title text-center">Capítulo: {{capitulo.titulo}}</h3>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div>
-                            <button id="btnNuevoCapitulo" type="button" class="btn btn-primary" onclick="modalNuevoCapitulo();">
+                            <button id="btnNuevaSeccion" type="button" class="btn btn-primary" onclick="modalNuevaSeccion();">
                                 <span class="glyphicon glyphicon-plus">
                                 </span> 
                                 Nueva Sección
@@ -30,7 +30,7 @@
                         <br/>
                         <br/>
                         <div >
-                            <table class="table table-hover table-valign-middle m-b-0" cellspacing="0" width="100%" id="tableModulos" >
+                            <table class="table table-hover table-valign-middle m-b-0" cellspacing="0" width="100%" id="tableSecciones" >
                                 <thead>
                                     <tr>
                                         <th class="text-center">Número Sección</th>
@@ -48,11 +48,11 @@
                                                         <span class="glyphicon glyphicon-search">
                                                         </span>
                                                     </a>
-                                                    <a href="javascript:;" onclick="eliminarCapitulo({{seccion.id}});" class="nounderline" style="text-decoration: none" alt="Editar">
+                                                    <a href="javascript:;" onclick="eliminarSeccion({{seccion.id}});" class="nounderline" style="text-decoration: none" alt="Editar">
                                                         <span class="glyphicon glyphicon-trash">
                                                         </span>
                                                     </a>
-                                                    <a href="javascript:;" onclick="modalActualizarCapitulo({{seccion.id}});" class="nounderline" style="text-decoration: none" alt="Editar">
+                                                    <a href="javascript:;" onclick="modalActualizarSeccion({{seccion.id}});" class="nounderline" style="text-decoration: none" alt="Editar">
                                                         <span class="glyphicon glyphicon-pencil">
                                                         </span>
                                                     </a>
@@ -65,42 +65,40 @@
                     </div>
                 </div>
             </div>
-        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/capitulos.js"></script>
+
         
     </body>
     
     <!-- Modal nuevo-->
-    <div id="modalCapitulo" class="modal fade" role="dialog">
+    <div id="modalSeccion" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h2 class="modal-title text-primary text-center" id="tituloModal">Nuevo Capitulo</h2>
+            <h2 class="modal-title text-primary text-center" id="tituloModal">Nueva Seccion</h2>
           </div>
           <div class="modal-body">
-            <form id="formNuevoModulo" data-parsley-validate="">
+            <form id="formNuevaSeccion" data-parsley-validate="">
                 <div class="form-group">
                     <label>Titulo</label>
-                    <input type="text" class="form-control" id="titulo-capitulo" data-parsley-required>
+                    <input type="text" class="form-control" id="titulo-seccion" data-parsley-required>
                 </div>
                 <div class="form-group">
                     <label>Numero</label>
-                    <input class="form-control" id="numero-capitulo" data-parsley-required data-parsley-type="integer">
+                    <input class="form-control" id="numero-seccion" data-parsley-required data-parsley-type="integer">
                 </div>
             </form>
 
           </div>
           <div class="modal-footer text-center">
-            <button id="btnGuardarCapitulo" type="button" class="btn btn-primary">
+            <button id="btnGuardarSeccion" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-floppy-disk">
                 </span> 
                 Guardar
             </button>
-            <button id="btnActualizarCapitulo" type="button" class="btn btn-primary">
+            <button id="btnActualizarSeccion" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-floppy-disk">
                 </span> 
                 Actualizar
@@ -110,4 +108,8 @@
 
       </div>
     </div>
+
+    <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/secciones.js"></script>
 </html>

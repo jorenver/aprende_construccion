@@ -33,7 +33,7 @@ $(document).ready(function(){
         agregarModulo();
     });
     $("#btnActualizarModulo").click(function(){
-        actualizarrModulo();
+        actualizarModulo();
     });
 });
 
@@ -66,12 +66,11 @@ function modalActualizarModulo(id){
             }
         },
         error : function() {
-            swal("error!","al agregar el Módulo","error");
+            swal("error!","módulo no encontrado","error");
         }
     });
 
 }
-
 
 function eliminarModulo(id){
 	swal({
@@ -134,7 +133,7 @@ function agregarModulo(){
 	
 }
 
-function actualizarrModulo(){
+function actualizarModulo(){
     var isValid = $('#formNuevoModulo').parsley().validate();
     if(isValid){
         datos={id:idModulo,

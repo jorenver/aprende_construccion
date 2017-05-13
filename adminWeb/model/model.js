@@ -446,19 +446,27 @@ exports.eliminarModulo = function(request,response){
 exports.capitulos =function(request,response) {
 	if(request.session.user){
 		var idModulo=request.query.id;
-		connection.query('call getCapitulosByModuloId('+idModulo+')',function(err,rows){
-			if(err){
-				console.log(err);
-				response.render('login');
-			}
-			if(rows[0]){
-				var respuesta={capitulos:rows[0]};
-				response.render('adminCapitulos',respuesta);
-			}
-			else{
-				response.render('login');
-			}
-		});
+        //getInfoModuloById
+        connection.query('call getInfoModuloById('+idModulo+')',function(err,rows1) {
+            if (err) {
+                console.log(err);
+                response.render('login');
+            }else {
+                connection.query('call getCapitulosByModuloId(' + idModulo + ')', function (err, rows2) {
+                    if (err) {
+                        console.log(err);
+                        response.render('login');
+                    }
+                    if (rows2[0] && rows1[0][0]) {
+                        var respuesta = {capitulos: rows2[0],modulo:rows1[0][0]};
+                        response.render('adminCapitulos', respuesta);
+                    }
+                    else {
+                        response.render('login');
+                    }
+                });
+            }
+        });
 		
 	}
 	else{
@@ -466,26 +474,198 @@ exports.capitulos =function(request,response) {
 	}
 }
 
+exports.getCapitulo = function(request,response){
+    if(request.session.user){
+        var query = 'call getCapitulo('+request.query.id+')';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                if(rows[0][0]) {
+                    response.json({error: false,capitulo:rows[0][0]});
+                }else{
+                    response.json({error: true});
+                }
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
+exports.agregarCapitulo= function(request,response){
+    if(request.session.user){
+        var indice= request.body.indice;
+        var titulo= request.body.titulo;
+        var idModulo= request.body.idModulo;
+        var query = 'call guardarCapitulo('+indice+',"'+titulo+'",'+idModulo+')';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                response.json({error:false});
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
+exports.actualizarCapitulo = function(request,response){
+    if(request.session.user){
+        var indice= request.body.indice;
+        var titulo= request.body.titulo;
+        var idCapitulo= request.body.id;
+        var query = 'call actualizarCapitulo('+idCapitulo+','+indice+',"'+titulo+'")';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                response.json({error:false});
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
+exports.eliminarCapitulo = function(request,response){
+    if(request.session.user){
+        var query = 'call deleteCapitulo('+request.query.id+')';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                response.json({error:false});
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
 exports.secciones =function(request,response) {
     if(request.session.user){
         var idCapitulo=request.query.id;
-        connection.query('call getSeccionesByCapituloId('+idCapitulo+')',function(err,rows){
-            if(err){
+        //getInfoCapituloByIds
+        connection.query('call getInfoCapituloById('+idCapitulo+')',function(err,rows1) {
+            if (err) {
                 console.log(err);
                 response.render('login');
-            }
-            if(rows[0]){
-                var respuesta={secciones:rows[0]};
-                response.render('adminSecciones',respuesta);
-            }
-            else{
-                response.render('login');
+            }else {
+                connection.query('call getSeccionesByCapituloId(' + idCapitulo + ')', function (err, rows2) {
+                    if (err) {
+                        console.log(err);
+                        response.render('login');
+                    }
+                    if (rows2[0] && rows1[0][0]) {
+                        var respuesta = {secciones: rows2[0],capitulo:rows1[0][0]};
+                        response.render('adminSecciones', respuesta);
+                    }
+                    else {
+                        response.render('login');
+                    }
+                });
             }
         });
 
     }
     else{
         response.render('login');
+    }
+}
+
+exports.agregarSeccion= function(request,response){
+    if(request.session.user){
+        var indice= request.body.indice;
+        var titulo= request.body.titulo;
+        var idCapitulo= request.body.idCapitulo;
+        var query = 'call guardarSeccion('+indice+',"'+titulo+'",'+idCapitulo+')';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                response.json({error:false});
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
+exports.eliminarSeccion = function(request,response){
+    if(request.session.user){
+        var query = 'call deleteSeccion('+request.query.id+')';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                response.json({error:false});
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
+exports.getSeccion = function(request,response){
+    if(request.session.user){
+        var query = 'call getSeccion('+request.query.id+')';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                if(rows[0][0]) {
+                    response.json({error: false,seccion:rows[0][0]});
+                }else{
+                    response.json({error: true});
+                }
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
+exports.actualizarSeccion = function(request,response){
+    if(request.session.user){
+        var indice= request.body.indice;
+        var titulo= request.body.titulo;
+        var idSeccion= request.body.id;
+        var query = 'call actualizarSeccion('+idSeccion+','+indice+',"'+titulo+'")';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                response.json({error:false});
+            }
+        });
+    }
+    else{
+        response.json({error:true});
     }
 }
 
