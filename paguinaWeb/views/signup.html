@@ -18,6 +18,9 @@
     <!-- Plugins CSS -->    
     <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="assets/plugins/flexslider/flexslider.css">
+    <link href="assets/plugins/sweetalert/sweetalert2.css" rel="stylesheet" />
+    <!-- Plugin de dataparsley -->
+    <link rel="stylesheet" href="assets/plugins/parsley/parsley.css">
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles-3.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -48,182 +51,99 @@
                     <div class="form-box col-md-4 col-sm-12 col-xs-12 col-md-offset-4 col-sm-offset-0 xs-offset-0">     
                         <div class="form-box-inner">
                             <h2 class="title text-center">Registro</h2>                 
-                            <div class="row">
-                                <div class="form-container col-md-12 col-sm-12 col-xs-12">
-                                    <form class="signup-form" data-toggle="validator"> 
-
-                                        <div class="form-group cedula">
-                                            <label class="sr-only" for="signup-email">Cedula</label>
-                                            <input id="signup-cedula" type="text" class="form-control signup-cedula" placeholder="Cedula">
-                                            <div class="alert alert-danger" id="ErrorInputCedula">
-                                                    Solo se deben ingresar numeros de un tama&#241;o maximo de 10 digitos sin incluir "-"
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group nombre">
-                                            <label class="sr-only" for="signup-nombre">Nombres</label>
-                                            <input id="signup-nombre" type="text" class="form-control signup-nombre" placeholder="Nombres">
-                                            <div class="alert alert-danger" id="ErrorInputName">
-                                                    No se puede ingresar valores numericos o ningun caracter especial como (^%*_-)
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group apellido">
-                                            <label class="sr-only" for="signup-apellido">Apellidos</label>
-                                            <input id="signup-apellido" type="text" class="form-control signup-apellido" placeholder="Apellidos">
-                                            <div class="alert alert-danger" id="ErrorInputApellido">
-                                                    No se puede ingresar valores numericos o ningun caracter especial como (^%*_-)
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group email">
-                                            <label class="sr-only" for="signup-email">Correo electronico</label>
-                                            <input id="signup-email" type="email" class="form-control signup-email" placeholder="Correo electronico">
-                                            <div class="alert alert-danger" id="ErrorInputEmail">
-                                                 formato incorrecto de correo electronico ; (ejemplo:kevin@gmail.com)
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group password">
-                                            <label class="sr-only" for="signup-password">Contrase&#241;a</label>
-                                            <input id="signup-password" type="password" class="form-control signup-password" placeholder="Contrase&#241;a">
-                                        </div>
-
-                                        <div class="form-group password">
-                                            <label class="sr-only" for="signup--password">Repetir contrase&#241;a</label>
-                                            <input id="signup-re-password" type="password" class="form-control signup-re-password" placeholder="Repetir contrase&#241;a">
-                                            <div class="alert alert-danger" id="passwordsIncorrectas">
-                                                <strong>Error!</strong> Contrase&#241;a no coinciden!
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group telefono">
-                                            <label class="sr-only" for="signup-telefono">Telefono</label>
-                                            <input id="signup-telefono" class="form-control signup-telefono" type="text" placeholder="Celular">
-                                            <div class="alert alert-danger" id="ErrorInputTelefono">
-                                                 Solo se deben ingresar valores numericos (ejemplo:0997298159)
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group direccion">
-                                            <label class="sr-only" for="signup-direccion">Direccion</label>
-                                            <input id="signup-direccion" type="text" class="form-control signup-direccion" placeholder="Direccion">
-                                        </div>
-                                        <div class="form-group ciudad">
-                                            <label class="sr-only" for="signup-ciudad">Ciudad</label>
-                                            <input id="signup-ciudad" type="text" class="form-control signup-ciudad" placeholder="Ciudad">
-                                        </div>
-
-                                        <div class="form-group provinci dropdown ">
-                                            <label class="sr-only" for="signup-provinci">Provincia</label>
-                                            <button id="signup-provincia" type="button"  class="btn btn-default dropdown-toggle" data-toggle="dropdown" >Provincia<span class="caret"></span></button>
-                                            <ul class="dropdown-menu scrollable-menu" id="menuProvincia" role="menu" style="height: auto;max-height: 200px; overflow-x: hidden;" >
-                                                <li><a>Carchi</a></li>
-                                                <li><a>Imbabura</a></li>
-                                                <li><a>Pichincha</a></li>
-                                                <li><a>Cotopaxi</a></li>
-                                                <li><a >Tungurahua</a></li>
-                                                <li><a>Bolivar</a></li>
-                                                <li><a>Chimborazo</a></li>
-                                                <li><a>Ca&#241;ar</a></li>
-                                                <li><a>Azuay</a></li>
-                                                <li><a>Loja</a></li>
-                                                <li><a>Sto Domingo de los Tsachilas</a></li>
-                                                <li><a>Sucumbios</a></li>
-                                                <li><a >Napo</a></li>
-                                                <li><a>Pastaza</a></li>
-                                                <li><a>Orellana</a></li>
-                                                <li><a>Morona Santiago</a></li>
-                                                <li><a>Zamora Chinchipe</a></li>
-                                                <li><a>Esmeralda</a></li>
-                                                <li><a>Manabi</a></li>
-                                                <li><a>Guayas</a></li>
-                                                <li><a>Los Rios</a></li>
-                                                <li><a>El Oro</a></li>
-                                                <li><a>Santa Elena</a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="form-group distrito dropdown">
-                                            <label class="sr-only" for="signup-distrito">Distrito</label>
-                                            <button id="signup-distrito" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Distrito<span class="caret"></span></button>
-                                            <ul class="dropdown-menu scrollable-menu" id="menuDistrito" role="menu">
-                                                <li><a >Ximena 2</a></li>
-                                                <li><a>Febres Cordero</a></li>
-                                                <li><a>Tarqui 2</a></li>
-                                                <li><a>Pascuales 1</a></li>
-                                                <li><a>Pascuales 2</a></li>
-                                                <li><a>Duran</a></li>
-                                                
-                                        
-                                            </ul>
-                                        </div>
-
-                                        <div id='buttonRegister'>
-                                            <button id="idSignUp" class="btn btn-block btn-cta-primary" data-toggle="modal" data-target="#myModal" type="button">Registrar </button>
-                                            <div class="alert alert-danger" id="idDataInconcluso">
-                                                <strong>Error!</strong> Existen campos vacios o datos ingresados de forma erronea, Se necesita que ingrese esos datos!!
-                                            </div>
-                                        </div>
-                                        <!-- 
-                                          <div class="modal fade" id="myModal" role="dialog">
-                                            <div class="modal-dialog">
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Error en el Formulario</h4>
+                                <div class="row">
+                                    <div class="form-container col-md-12 col-sm-12 col-xs-12">
+                                            <form class="signup-form" data-toggle="validator" id="formulario_registro">
+                                                <div class="form-group cedula">
+                                                    <label class="sr-only" for="signup-email">Cedula</label>
+                                                    <input id="signup-cedula" type="text" class="form-control signup-cedula" placeholder="Cedula"   data-parsley-required="true">
                                                 </div>
-                                                <div class="modal-body">
-                                                    <p>Existen campos vacios o informacion mal ingresada que no corresponde al campo solicitado, Por favor vuelva a ingresarlos</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                                                </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        -->
-                                        
-                                          <div class="modal fade" id="myModalSuccessRequest" role="dialog">
-                                            <div class="modal-dialog">
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close"  data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Registro de Usuario</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Los datos se han guardados de manera satisfactoria</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" id="buttonRegister" class="btn btn-default" data-dismiss="modal">Salir</button>
-                                                </div>
-                                            </div>
-                                          </div>
-                                        </div>
 
+                                                <div class="form-group nombre">
+                                                    <label class="sr-only" for="signup-nombre">Nombres</label>
+                                                    <input id="signup-nombre" type="text" class="form-control signup-nombre" placeholder="Nombres">
+                                                </div>
 
-                                          <div class="modal fade" id="myModalFailRequest" role="dialog">
-                                            <div class="modal-dialog">
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" id="buttonError">&times;</button>
-                                                    <h4 class="modal-title">Informacion de Error</h4>
+                                                <div class="form-group apellido">
+                                                    <label class="sr-only" for="signup-apellido">Apellidos</label>
+                                                    <input id="signup-apellido" type="text" class="form-control signup-apellido" placeholder="Apellidos">
                                                 </div>
-                                                <div class="modal-body">
-                                                    <p>Ha ocurrido un error externo y los datos no se pudieron guardar</p>
+
+                                                <div class="form-group email">
+                                                    <label class="sr-only" for="signup-email">Correo electronico</label>
+                                                    <input id="signup-email" type="email" class="form-control signup-email" placeholder="Correo electronico">
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" id="buttonFailRegister" data-dismiss="modal">Salir</button>
+
+                                                <div class="form-group password">
+                                                    <label class="sr-only" for="signup-password">Contrase&#241;a</label>
+                                                    <input id="signup-password" type="password" class="form-control signup-password" placeholder="Contrase&#241;a">
                                                 </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        
-                                    </form>
-                                </div><!--//form-container-->
-                               
-                            </div><!--//row-->
+
+                                                <div class="form-group password">
+                                                    <label class="sr-only" for="signup-password">Repetir contrase&#241;a</label>
+                                                    <input id="signup-re-password" type="password" class="form-control signup-re-password" placeholder="Repetir contrase&#241;a">
+                                                </div>
+
+                                                <div class="form-group telefono">
+                                                    <label class="sr-only" for="signup-telefono">Telefono</label>
+                                                    <input id="signup-telefono" class="form-control signup-telefono" type="text" placeholder="Celular" data-parsley-required="true">
+                                                </div>
+
+                                                <div class="form-group direccion">
+                                                    <label class="sr-only" for="signup-direccion">Direccion</label>
+                                                    <input id="signup-direccion" type="text" class="form-control signup-direccion" placeholder="Direccion"   data-parsley-required="true">
+                                                </div>
+                                                <div class="form-group ciudad">
+                                                    <label class="sr-only" for="signup-ciudad">Ciudad</label>
+                                                    <input id="signup-ciudad" type="text" class="form-control signup-ciudad" placeholder="Ciudad"   data-parsley-required="true">
+                                                </div>
+
+                                                <div class="form-group provinci dropdown ">
+                                                    <label class="sr-only" for="signup-provincia">Provincia</label>
+                                                    <button id="signup-provincia" type="button"  class="btn btn-default dropdown-toggle" data-toggle="dropdown" >Provincia<span class="caret"></span></button>
+                                                    <ul class="dropdown-menu scrollable-menu" id="menuProvincia" role="menu" style="height: auto;max-height: 200px; overflow-x: hidden;" >
+                                                        <li><a>Carchi</a></li>
+                                                        <li><a>Imbabura</a></li>
+                                                        <li><a>Pichincha</a></li>
+                                                        <li><a>Cotopaxi</a></li>
+                                                        <li><a >Tungurahua</a></li>
+                                                        <li><a>Bolivar</a></li>
+                                                        <li><a>Chimborazo</a></li>
+                                                        <li><a>Ca&#241;ar</a></li>
+                                                        <li><a>Azuay</a></li>
+                                                        <li><a>Loja</a></li>
+                                                        <li><a>Sto Domingo de los Tsachilas</a></li>
+                                                        <li><a>Sucumbios</a></li>
+                                                        <li><a >Napo</a></li>
+                                                        <li><a>Pastaza</a></li>
+                                                        <li><a>Orellana</a></li>
+                                                        <li><a>Morona Santiago</a></li>
+                                                        <li><a>Zamora Chinchipe</a></li>
+                                                        <li><a>Esmeralda</a></li>
+                                                        <li><a>Manabi</a></li>
+                                                        <li><a>Guayas</a></li>
+                                                        <li><a>Los Rios</a></li>
+                                                        <li><a>El Oro</a></li>
+                                                        <li><a>Santa Elena</a></li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="form-group distrito dropdown">
+                                                    <label class="sr-only" for="signup-distrito">Distrito</label>
+                                                    <button id="signup-distrito" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Distrito<span class="caret"></span></button>
+                                                    <ul class="dropdown-menu scrollable-menu" id="menuDistrito" role="menu">
+                                                        <li><a >Ximena 2</a></li>
+                                                        <li><a>Febres Cordero</a></li>
+                                                        <li><a>Tarqui 2</a></li>
+                                                        <li><a>Pascuales 1</a></li>
+                                                        <li><a>Pascuales 2</a></li>
+                                                        <li><a>Duran</a></li>
+                                                    </ul>
+                                                </div>
+                                                <button  id= "idSignUp" type="button"  class="btn btn-block btn-cta-primary">Registrarse</button>
+                                            </form>
+                                    </div><!--//form-container-->
+                                </div><!--//row-->
                         </div><!--//form-box-inner-->
                     </div><!--//form-box-->
                 </div><!--//row-->
@@ -241,7 +161,10 @@
     <script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
     <script type="text/javascript" src="assets/plugins/jquery-placeholder/jquery.placeholder.js"></script>
     <script type="text/javascript" src="assets/plugins/FitVids/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="assets/plugins/flexslider/jquery.flexslider-min.js"></script> 
+    <script type="text/javascript" src="assets/plugins/flexslider/jquery.flexslider-min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="assets/plugins/sweetalert/sweetalert2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="assets/plugins/parsley/dist/parsley.js"></script>
+    <script type="text/javascript" charset="utf-8" src="assets/plugins/parsley/i18n/es.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
     <script type="text/javascript" src="js/signUp.js"></script>
     

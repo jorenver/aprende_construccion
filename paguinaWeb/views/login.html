@@ -18,6 +18,7 @@
     <!-- Plugins CSS -->    
     <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="assets/plugins/flexslider/flexslider.css">
+    <link href="assets/plugins/sweetalert/sweetalert2.css" rel="stylesheet" />
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles-3.css">
      
@@ -48,30 +49,20 @@
                 <div class="row">
                     <div class="form-box col-md-4 col-sm-12 col-xs-12 col-md-offset-4 col-sm-offset-0 xs-offset-0">     
                         <div class="form-box-inner">
-                            <h2 class="title text-center">Iniciar Sesion</h2>                 
+                            <h2 class="title text-center">Iniciar Sesión</h2>
                             <div class="row">
                                 <div class="form-container col-md-12 col-sm-12 col-xs-12">
                                     <form class="login-form" id="myFormLogin">              
                                         <div class="form-group email">
                                             <label class="sr-only" for="login-cedula">Cedula</label>
                                             <input id="login-cedula"   type="text" class="form-control login-cedula" placeholder="Cedula">
-                                                <div class="alert alert-danger" id="ErrorCedula">
-                                                    Solo se deben ingresar numeros de un tama&#241;o maximo de 10 sin incluir "-"
-                                                </div>
-                                                <div class="alert alert-danger" id="ErrorTextoCedula">
-                                                    <strong>Error!</strong>Solo se puede ingresar numeros
-                                                </div>
-                                        </div><!--//form-group-->
+                                        </div>
                                         <div class="form-group password">
                                             <label class="sr-only" for="login-password">contrase&#241;a</label>
                                             <input id="login-password" type="password" class="form-control login-password" placeholder="contrase&#241;a" required=true >
-                                            <!--<p class="forgot-password"><a href="#">Recuperar contrase&#241;a</a></p>-->
-                                        </div><!--//form-group-->
-                                        <button  id= "btnSignIn" type="button"  class="btn btn-block btn-cta-primary">Ingresar</button>
-                                        <div class="alert alert-danger" id="passwordsNoMatchRegister">
-                                           <strong>Error!</strong> Contrase&#241;a o cedula ingresados de forma incorrecta!
                                         </div>
-                                         <p class="lead">¿Aun no te registras? <br /><a class="signup-link" href="/signup">Crear nueva cuenta</a></p>  
+                                            <button  id= "btnSignIn" type="button"  class="btn btn-block btn-cta-primary">Ingresar</button>
+                                            <p class="lead">¿Aun no te registras? <br /><a class="signup-link" href="/signup">Crear nueva cuenta</a></p>
                                     </form>
                                 </div><!--//form-container-->
                                
@@ -93,6 +84,7 @@
     <script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
     <script type="text/javascript" src="assets/plugins/jquery-placeholder/jquery.placeholder.js"></script>
     <script type="text/javascript" src="assets/plugins/FitVids/jquery.fitvids.js"></script>
+    <script type="text/javascript" charset="utf-8" src="assets/plugins/sweetalert/sweetalert2.min.js"></script>
     <script type="text/javascript" src="assets/plugins/flexslider/jquery.flexslider-min.js"></script> 
     <script type="text/javascript" src="assets/js/main.js"></script>
     <script type="text/javascript" src="js/signIn.js"></script>
