@@ -1,32 +1,4 @@
 
-/*
-SELECT * FROM Estudiante;
-SELECT * FROM Modulo;
-SELECT * FROM Capitulo;
-SELECT * FROM Seccion;
-SELECT * FROM Contenido;
-INSERT INTO Estudiante (cedula, nombre, apellido, telefono, direccion, ciudad, provincia, distrito, password, correo)
-    VALUES ('0951060185','jorge enrique', 'vergara palma', '3092761','26 y la m','guayaqui','guayas','distrituo 4','12345','jorgenver@espol.edu.ec');
-INSERT INTO Modulo(titulo, indice) VALUES ('Lectura de Planos',1);
-INSERT INTO Modulo(titulo, indice) VALUES ('Tecnologia de Hormigon',2);
-INSERT INTO Modulo(titulo, indice) VALUES ('Acero y Armadura',3);
-INSERT INTO Modulo(titulo, indice) VALUES ('Topografia',4);
-
-INSERT INTO Capitulo(titulo, indice, modulo) VALUES ('Introduccion',1,1);
-INSERT INTO Capitulo(titulo, indice, modulo) VALUES ('Tipos de Planos',2,1);
-INSERT INTO Capitulo(titulo, indice, modulo) VALUES ('Plano tipo 1',3,1);
-INSERT INTO Capitulo(titulo, indice, modulo) VALUES ('Plano tipo 2',4,1);
-INSERT INTO Capitulo(titulo, indice, modulo) VALUES ('Plano tipo 3',5,1);
-
-INSERT INTO Capitulo(titulo, indice, modulo) VALUES ('Introduccion al Hormigon',1,2);
-INSERT INTO Capitulo(titulo, indice, modulo) VALUES ('Tipos de Hormigon',2,2);
-
-CALL getUserInfoByCedula('0951060185');
-CALL getModulos();
-CALL getCapitulosByModuloId(1);
-CALL getModulo(1);
-*/
-
 DELIMITER //
 CREATE PROCEDURE getUserInfoByCedula
 (IN ced CHAR(255))
@@ -44,18 +16,18 @@ END //
 DELIMITER ;
 
 DELIMITER //
-CREATE PROCEDURE getCapitulosByModuloId
-(IN idModulo INT)
-BEGIN
-  SELECT * FROM Capitulo WHERE modulo = idModulo ORDER BY indice;
-END //
-DELIMITER ;
-
-DELIMITER //
 CREATE PROCEDURE getModulo
 (IN idModulo INT)
 BEGIN
   SELECT * FROM Modulo WHERE id=idModulo;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE actualizarModulo
+(IN idModulo INT,IN number INT, IN title VARCHAR(255))
+BEGIN
+  UPDATE Modulo SET indice=number , titulo = title WHERE id=idModulo;
 END //
 DELIMITER ;
 
@@ -199,6 +171,92 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE getParrafoByIdSeccion
+(IN idSeccion INT)
+BEGIN
+  SELECT * FROM Contenido WHERE seccion=idSeccion ORDER BY indice;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE getCapitulosByModuloId
+(IN idModulo INT)
+BEGIN
+  SELECT * FROM Capitulo WHERE modulo = idModulo ORDER BY indice;
+END //
+DELIMITER ;
+
+
+
+DELIMITER //
+CREATE PROCEDURE guardarCapitulo
+(IN number INT, IN title VARCHAR(255), IN idModulo INT)
+BEGIN
+  INSERT INTO Capitulo (Capitulo.indice,Capitulo.titulo,Capitulo.modulo)
+  VALUES (number,title,idModulo);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE deleteCapitulo
+(IN idCapitulo INT)
+BEGIN
+  DELETE FROM Capitulo
+  WHERE id=idCapitulo;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE getCapitulo
+(IN idCapitulo INT)
+BEGIN
+  SELECT * FROM Capitulo WHERE id=idCapitulo;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE actualizarCapitulo
+(IN idCapitulo INT,IN number INT, IN title VARCHAR(255))
+BEGIN
+  UPDATE Capitulo SET indice=number , titulo = title WHERE id=idCapitulo;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE guardarSeccion
+(IN number INT, IN title VARCHAR(255), IN idCapitulo INT)
+BEGIN
+  INSERT INTO Seccion (Seccion.indice,Seccion.titulo,Seccion.capitulo)
+  VALUES (number,title,idCapitulo);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE deleteSeccion
+(IN idSeccion INT)
+BEGIN
+  DELETE FROM Seccion
+  WHERE id=idSeccion;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE getSeccion
+(IN idSeccion INT)
+BEGIN
+  SELECT * FROM Seccion WHERE id=idSeccion;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE actualizarSeccion
+(IN idSeccion INT,IN number INT, IN title VARCHAR(255))
+BEGIN
+  UPDATE Seccion SET indice=number , titulo = title WHERE id=idSeccion;
+END //
+DELIMITER ;
+
 
 CALL getSeccionesByCapituloId(1);
 CALL getContenidoCapitulonByCapituloId(1);
@@ -213,6 +271,8 @@ CALL guardarCalificacionModuloEstudiante(1,1,1);
 CALL getModulos();
 CALL deleteModulo(7);
 CALL guardarModulo(1,'asd');
+CALL getCapitulosByModuloId(1);
+CALL getParrafoByIdSeccion(2);
 
 SELECT Modulo.id,Modulo.indice as indice_Modulo, Capitulo.indice as indice_capitulo, Capitulo.id as id_capitulo, Capitulo.titulo as titulo_capitulo,
   (SELECT calificacion FROM calificacion_capitulo WHERE Capitulo.id=calificacion_capitulo.capitulo and calificacion_capitulo.estudiante=4) as calificacion
