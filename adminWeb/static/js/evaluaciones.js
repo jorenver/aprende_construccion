@@ -239,63 +239,78 @@ function serializarInformacionEditarPregunta(datos){
     });
 
         function guardarPregunta(){
+            if($("#formularioPreguntas").parsley().validate()){
 
-                    if($("#resp1ModalCrearPregunta").is(':checked')){
-                        datos.correcta = 1;
+                if($("#resp1ModalCrearPregunta").is(':checked')){
+                    datos.correcta = 1;
 
-                    }
-                    else if($("#resp2ModalCrearPregunta").is(':checked')){
-                        datos.correcta = 2;
+                }
+                else if($("#resp2ModalCrearPregunta").is(':checked')){
+                    datos.correcta = 2;
 
-                    }
-                    else if($("#resp3ModalCrearPregunta").is(':checked')){
-                        datos.correcta = 3;
+                }
+                else if($("#resp3ModalCrearPregunta").is(':checked')){
+                    datos.correcta = 3;
 
-                    }
-                    else{
-                        datos.correcta = 4;
-                    }
+                }
+                else{
+                    datos.correcta = 4;
+                }
 
-                    var data = serializarInformacionCrearPregunta(datos);
-                    $.ajax({
-                        url:"/guardarPregunta",
-                        type:"POST",
-                        data: JSON.stringify(data),
-                        dataType: "json",
-                        contentType: 'application/json; charset=utf8',
-                        success: function(data){
-                            if(data.exito== true){
-                                swal({
-                                    type:"success",
-                                    title:"Registro Exitoso",
-                                    text: "La pregunta ha sido registrada de manera exitosa en la base de datos",
-                                    confirmButtonColor: '#00BCD4',
-                                    confirmButtonText: 'Aceptar'
-                                }).then(function () {
-                                    window.location.href="/evaluaciones?id="+ parseInt($("#idCapitulo").text());
-                                });
+                var data = serializarInformacionCrearPregunta(datos);
 
-                            }
-                            else{
-                                swal({
-                                    type:"error",
-                                    title:"Registro Fallido",
-                                    text: "Existe problemas en el servidor, por favor vuelva a intentarlo mas tarde",
-                                    confirmButtonColor: '#00BCD4',
-                                    confirmButtonText: 'Aceptar'
-                                });
-                            }
-                        },
-                        error: function(data){
+                $.ajax({
+                    url:"/guardarPregunta",
+                    type:"POST",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf8',
+                    success: function(data){
+                        if(data.exito== true){
                             swal({
-                                type: "error",
-                                title: "Error en la red",
-                                text: "Existen problemas en la red, por favor vulevalo a intentar mas tarde",
+                                type:"success",
+                                title:"Registro Exitoso",
+                                text: "La pregunta ha sido registrada de manera exitosa en la base de datos",
+                                confirmButtonColor: '#00BCD4',
+                                confirmButtonText: 'Aceptar'
+                            }).then(function () {
+                                $("#crearPregunta").modal('toggle');
+                                window.location.href="/evaluaciones?id="+ parseInt($("#idCapitulo").text());
+                            });
+
+                        }
+                        else{
+                            swal({
+                                type:"error",
+                                title:"Registro Fallido",
+                                text: "Existe problemas en el servidor, por favor vuelva a intentarlo mas tarde",
                                 confirmButtonColor: '#00BCD4',
                                 confirmButtonText: 'Aceptar'
                             });
                         }
-                    });
+                    },
+                    error: function(data){
+                        swal({
+                            type: "error",
+                            title: "Error en la red",
+                            text: "Existen problemas en la red, por favor vulevalo a intentar mas tarde",
+                            confirmButtonColor: '#00BCD4',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                });
+
+            }
+            else{
+                swal({
+                    type:"error",
+                    title:"Campos vacios",
+                    text:"Existen campos vacios que deben ser llenados",
+                    confirmButtonColor: '#00BCD4',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+
         }
 
         function actualizarPregunta(event){
@@ -361,3 +376,30 @@ function serializarInformacionEditarPregunta(datos){
 
                     });
         }
+
+
+        $("#btnSubmit").on('click',function (event) {
+            event.preventDefault();
+            var imagen = new FormData($("#formularioPreguntas")[0]);
+            imagen.append('imgUploader',$("#loadImage").files);
+            $.ajax({
+                type:"POST",
+                url:"/subirImagen",
+                data: imagen,
+                cache:false,
+                contentType:false,
+                processData:false,
+                success: function (data) {
+                    console.log("exitos");
+
+                },
+                error: function (data) {
+                    console.log("error");
+                }
+            });
+        });
+
+$('#loadImage').change( function(event) {
+
+    $("#showImage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+});

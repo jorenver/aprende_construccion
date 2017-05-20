@@ -38,7 +38,7 @@ module.exports = function(app){
 
 
     app.get('/parrafos',ControllerContenidoCurso.parrafos);
-	
+	app.post("/subirImagen",ControllerContenido.uploadPicture);
 
 
 };

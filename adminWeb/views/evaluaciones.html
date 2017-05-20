@@ -8,8 +8,9 @@
             <meta name="description" content="">
             <meta name="author" content="">
             {% include './importsFooter.html' %}
-            <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">            
-            <link rel="stylesheet" href="css/estiloListaEstudiantes.css" type="text/css">            
+            <link rel="stylesheet" href="assets/plugins/DataTables-1.10.13/media/css/dataTables.bootstrap.min.css" type="text/css">
+            <link type="text/css" rel="stylesheet" href="assets/plugins/parsley/parsley.css" />
+            <link rel="stylesheet" href="css/estiloListaEstudiantes.css" type="text/css">
     
     </head>
     <body>
@@ -25,9 +26,8 @@
                                         <h4 class="title text-center"  id="descripcionPregunta">Capitulo {{listadoPregunta.idCapitulo}}:{{listadoPregunta.tituloCapitulo}}</h4>
                                    </div>
                                     <div class="col-md-12">
-                                        <div class="row" style="margin-top: 20px;">
                                             <div class="row">
-                                                <div class="col-md-12 col-md-offset-2">
+                                                <div class="col-md-12 ">
                                                     <div class="form-horizontal">
                                                         <div class="form-group">
                                                             <label class="col-md-6 text-right"  id="idCapitulo" hidden>{{listadoPregunta.idCapitulo}}</label>
@@ -41,14 +41,13 @@
                                                     
                                                 </div>
                                             </div>
-                                        </div>
 
                                         <div class="row">
                                             <div class="form-horizontal">
                                                 <div class="form-group">
                                                         <div id="tablaNotas" class="container-fluid">
                                                             <div class="row">
-                                                                <div class="col-md-10 col-md-offset-1">
+                                                                <div class="col-md-12 ">
                                                                     <div class="container-fluid">
                                                                         <div class="row">
                                                                                 <div id="tablaPreguntas">
@@ -66,7 +65,7 @@
                                                                                                     <td>
 
                                                                                                          <a href="javascript:;" data-id="{{pregunta.id}}" type="button" class="btnVerPregunta nounderline" style="text-decoration: none">
-                                                                                                             <span data-id="{{pregunta.id}}" class="glyphicon glyphicon-zoom-in text-primary" ></span>
+                                                                                                             <span data-id="{{pregunta.id}}" class="glyphicon glyphicon-search text-primary" ></span>
                                                                                                         </a>
 
                                                                                                          <a href="javascript:;" data-id="{{pregunta.id}}" type="button" class="btnEditarPregunta nounderline" style="text-decoration: none">
@@ -108,6 +107,8 @@
             
         <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
         <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="assets/plugins/parsley/dist/parsley.js"></script>
+        <script type="text/javascript" charset="utf-8" src="assets/plugins/parsley/i18n/es.js"></script>
         <script type="text/javascript" src="js/evaluaciones.js"></script>
     </body>
 </html>
