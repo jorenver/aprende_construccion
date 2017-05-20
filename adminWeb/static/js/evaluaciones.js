@@ -382,7 +382,6 @@ function serializarInformacionEditarPregunta(datos){
 
 $('#loadImage').change( function(event) {
     event.preventDefault();
-    $("#showImage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
     var imagen = new FormData($("#formularioPreguntas")[0]);
     imagen.append('imgUploader',$("#loadImage").files);
     $.ajax({
@@ -392,8 +391,11 @@ $('#loadImage').change( function(event) {
         cache:false,
         contentType:false,
         processData:false,
-        success: function (data) {
-            console.log("exitos");
+        success: function (datos) {
+            $("#showImage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+            data.tipoMultimedia = "foto";
+            data.ruta ="images/"+datos.ruta;
+            console.log(data.ruta);
 
         },
         error: function (data) {
