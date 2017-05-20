@@ -400,5 +400,6 @@ function serializarInformacionEditarPregunta(datos){
         });
 
 $('#loadImage').change( function(event) {
+
     $("#showImage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
 });
