@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div>
-                            <button id="btnNuevoCapitulo" type="button" class="btn btn-primary" onclick="modalNuevoCapitulo();">
+                            <button id="btnNuevoCapitulo" type="button" class="btn btn-primary" onclick="modalNuevoParrafo();">
                                 <span class="glyphicon glyphicon-plus">
                                 </span> 
                                 Nueva Párrafo
@@ -30,7 +30,7 @@
                         <br/>
                         <br/>
                         <div >
-                            <table class="table table-hover table-valign-middle m-b-0" cellspacing="0" width="100%" id="tableModulos" >
+                            <table class="table table-hover table-valign-middle m-b-0" cellspacing="0" width="100%" id="tableParrafos" >
                                 <thead>
                                     <tr>
                                         <th class="text-center">Número Párrafo</th>
@@ -76,28 +76,55 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h2 class="modal-title text-primary text-center" id="tituloModal">Nuevo Capitulo</h2>
+            <h2 class="modal-title text-primary text-center" id="tituloParrafo">Nuevo Párrafo</h2>
           </div>
           <div class="modal-body">
             <form id="formNuevoParrafo" data-parsley-validate="">
                 <div class="form-group">
-                    <label>Titulo</label>
-                    <input type="text" class="form-control" id="titulo-parrafo" data-parsley-required>
+                    <label>Texto</label>
+                    <input type="text" class="form-control" id="text-parrafo" data-parsley-required>
                 </div>
                 <div class="form-group">
-                    <label>Numero</label>
+                    <label>Número</label>
                     <input class="form-control" id="numero-parrafo" data-parsley-required data-parsley-type="integer">
                 </div>
+                <div class="form-group">
+                    <label>Tipo multimedia</label>
+                    <select class="form-control" id="select-tipo-multimedia">
+                        <option selected disabled value="0">SELECCIONE</option>
+                        <option value="1">IMAGEN</option>
+                        <option value="2">VIDEO</option>
+                    </select>
+                </div>
+                <div id="div_multimedia">
+                    <div id="div_imagen" class="form-group">
+                        <label>Imagen</label>
+                        <input type="file" class="form-control" id="file-archivo" >
+                    </div>
+                    <div id="div_video" class="form-group">
+                        <label>Video</label>
+                        <input type="text" class="form-control" id="text-video" >
+                    </div>
+                    <div class="form-group">
+                        <label>Descripcion multimedia</label>
+                        <input type="text" class="form-control" id="text-descripcion" >
+                    </div>
+                    <div class="form-group">
+                        <label>Fuente</label>
+                        <input type="text" class="form-control" id="text-fuente">
+                    </div>
+                </div>
+
             </form>
 
           </div>
           <div class="modal-footer text-center">
-            <button id="btnGuardarCapitulo" type="button" class="btn btn-primary">
+            <button id="btnGuardarParrafo" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-floppy-disk">
                 </span> 
                 Guardar
             </button>
-            <button id="btnActualizarCapitulo" type="button" class="btn btn-primary">
+            <button id="btnActualizarParrafo" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-floppy-disk">
                 </span> 
                 Actualizar

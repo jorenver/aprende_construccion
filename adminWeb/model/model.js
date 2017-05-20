@@ -670,21 +670,23 @@ exports.actualizarSeccion = function(request,response){
 }
 
 exports.parrafos =function(request,response) {
-    if(request.session.user){
-        var idSeccion=request.query.id;
-        connection.query('call getParrafoByIdSeccion('+idSeccion+')',function(err,rows){
-            if(err){
-                console.log(err);
-                response.render('login');
-            }
-            if(rows[0]){
-                var respuesta={parrafos:rows[0]};
-                response.render('adminParrafos',respuesta);
-            }
-            else{
-                response.render('login');
-            }
-        });
+    if(request.session.user) {
+        var idSeccion = request.query.id;
+        connection.query('call getInfoSeccionById('+idSeccion+')',function(err,rows1) {
+			connection.query('call getParrafoByIdSeccion(' + idSeccion + ')', function (err, rows2) {
+				if (err) {
+					console.log(err);
+					response.render('login');
+				}
+				if (rows2[0] && rows1[0][0]) {
+					var respuesta = {parrafos: rows2[0],seccion:rows1[0][0]};
+					response.render('adminParrafos', respuesta);
+				}
+				else {
+					response.render('login');
+				}
+			});
+		});
 
     }
     else{
