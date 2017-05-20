@@ -95,22 +95,24 @@ function serializarInformacionEditarPregunta(datos){
             $("#opcion2ModalVerPregunta").val(data.pregunta.opcion2);
             $("#opcion3ModalVerPregunta").val(data.pregunta.opcion3);
             $("#opcion4ModalVerPregunta").val(data.pregunta.opcion4);
-            switch (data.pregunta.correcta){
-                case 1:
-                    $("#resp1ModalVerPregunta").prop('checked',true);
-                    break;
+            $("#VerImagen").fadeIn("fast").attr('src',"./../paguinaWeb/static/"+data.pregunta.ruta);
 
-                case 2:
-                    $("#resp2ModalVerPregunta").prop('checked',true);
-                    break;
+                switch (data.pregunta.correcta){
+                    case 1:
+                        $("#resp1ModalVerPregunta").prop('checked',true);
+                        break;
 
-                case 3:
-                    $("#resp3ModalVerPregunta").prop("checked",true);
-                    break;
+                    case 2:
+                        $("#resp2ModalVerPregunta").prop('checked',true);
+                        break;
 
-                case 4:
-                    $("#resp4ModalVerPregunta").prop("checked",true);
-                    break;
+                    case 3:
+                        $("#resp3ModalVerPregunta").prop("checked",true);
+                        break;
+
+                    case 4:
+                        $("#resp4ModalVerPregunta").prop("checked",true);
+                        break;
 
             }
             $("#verPregunta").modal();
@@ -140,6 +142,7 @@ function serializarInformacionEditarPregunta(datos){
                 $("#opcion2ModalEditarPregunta").val(data.pregunta.opcion2);
                 $("#opcion3ModalEditarPregunta").val(data.pregunta.opcion3);
                 $("#opcion4ModalEditarPregunta").val(data.pregunta.opcion4);
+                $("#showEditImage").fadeIn("fast").attr('src',"./../paguinaWeb/static/"+data.pregunta.ruta);
                 switch (data.pregunta.correcta){
                     case 1:
                         $("#resp1ModalEditarPregunta").prop('checked',true);
@@ -393,6 +396,31 @@ $('#loadImage').change( function(event) {
         processData:false,
         success: function (datos) {
             $("#showImage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+            data.tipoMultimedia = "foto";
+            data.ruta ="images/"+datos.ruta;
+            console.log(data.ruta);
+
+        },
+        error: function (data) {
+            console.log("error");
+        }
+    });
+});
+
+
+$('#editLoadImage').change( function(event) {
+    event.preventDefault();
+    var imagen = new FormData($("#formularioPreguntasEditar")[0]);
+    imagen.append('imgUploader',$("#editLoadImage").files);
+    $.ajax({
+        type:"POST",
+        url:"/subirImagen",
+        data: imagen,
+        cache:false,
+        contentType:false,
+        processData:false,
+        success: function (datos) {
+            $("#showEditImage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
             data.tipoMultimedia = "foto";
             data.ruta ="images/"+datos.ruta;
             console.log(data.ruta);
