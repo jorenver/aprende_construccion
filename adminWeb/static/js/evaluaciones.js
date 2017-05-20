@@ -378,28 +378,26 @@ function serializarInformacionEditarPregunta(datos){
         }
 
 
-        $("#btnSubmit").on('click',function (event) {
-            event.preventDefault();
-            var imagen = new FormData($("#formularioPreguntas")[0]);
-            imagen.append('imgUploader',$("#loadImage").files);
-            $.ajax({
-                type:"POST",
-                url:"/subirImagen",
-                data: imagen,
-                cache:false,
-                contentType:false,
-                processData:false,
-                success: function (data) {
-                    console.log("exitos");
 
-                },
-                error: function (data) {
-                    console.log("error");
-                }
-            });
-        });
 
 $('#loadImage').change( function(event) {
-
+    event.preventDefault();
     $("#showImage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+    var imagen = new FormData($("#formularioPreguntas")[0]);
+    imagen.append('imgUploader',$("#loadImage").files);
+    $.ajax({
+        type:"POST",
+        url:"/subirImagen",
+        data: imagen,
+        cache:false,
+        contentType:false,
+        processData:false,
+        success: function (data) {
+            console.log("exitos");
+
+        },
+        error: function (data) {
+            console.log("error");
+        }
+    });
 });

@@ -44,9 +44,11 @@ exports.uploadPicture = function(request,response){
     upload(request,response,function(err){
         if(err){
             console.log("error algo paso");
+            response.json({ruta:"null"});
         }
         else{
             console.log("archivo subido exitosamente");
+
         }
     });
 }
