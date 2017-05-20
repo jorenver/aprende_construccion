@@ -95,7 +95,7 @@ function serializarInformacionEditarPregunta(datos){
             $("#opcion2ModalVerPregunta").val(data.pregunta.opcion2);
             $("#opcion3ModalVerPregunta").val(data.pregunta.opcion3);
             $("#opcion4ModalVerPregunta").val(data.pregunta.opcion4);
-            $("#VerImagen").fadeIn("fast").attr('src',"./../paguinaWeb/static/"+data.pregunta.ruta);
+            $("#VerImagen").fadeIn("fast").attr('src',data.pregunta.ruta);
 
                 switch (data.pregunta.correcta){
                     case 1:
@@ -142,7 +142,7 @@ function serializarInformacionEditarPregunta(datos){
                 $("#opcion2ModalEditarPregunta").val(data.pregunta.opcion2);
                 $("#opcion3ModalEditarPregunta").val(data.pregunta.opcion3);
                 $("#opcion4ModalEditarPregunta").val(data.pregunta.opcion4);
-                $("#showEditImage").fadeIn("fast").attr('src',"./../paguinaWeb/static/"+data.pregunta.ruta);
+                $("#showEditImage").fadeIn("fast").attr('src',data.pregunta.ruta);
                 switch (data.pregunta.correcta){
                     case 1:
                         $("#resp1ModalEditarPregunta").prop('checked',true);
