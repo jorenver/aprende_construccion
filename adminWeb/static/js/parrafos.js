@@ -132,16 +132,16 @@ function agregarParrafo(){
             data:JSON.stringify(datos),
             success: function(data) {
                 if(!data.error){
-                    swal("Secciones","sección agregado correctamente","success").then(function(){
+                    swal("Párrafos","Párrafo agregado correctamente","success").then(function(){
                         $("#modalSeccion").modal("hide");
-                        window.location.href="/secciones?id="+idCapitulo;
+                        window.location.href="/parrafos?id="+idSeccion;
                     });
                 }else{
-                    swal("error!","al agregar el sección","error");
+                    swal("error!","al agregar el párrafo","error");
                 }
             },
             error : function() {
-                swal("error!","al agregar el sección","error");
+                swal("error!","al agregar el párrafo","error");
             }
         });
     }
