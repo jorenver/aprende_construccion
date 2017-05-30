@@ -694,6 +694,66 @@ exports.parrafos =function(request,response) {
     }
 }
 
+/*
+ datos={texto:$('#text-parrafo').val(),
+ indice:$('#numero-parrafo').val(),
+ tipoMultimedia:$('#select-tipo-multimedia option:selected').val(),
+ video:$('#text-video').val(),
+ descripcion:$('#text-descripcion').val(),
+ fuente:$('#text-fuente').val(),
+ idSeccion:idSeccion
+ };
+ guardarParrafo
+ (IN number INT, IN text TEXT, IN tipo VARCHAR(255),
+ IN ruta VARCHAR(255),IN descripcion VARCHAR(255),
+ IN fuente VARCHAR(255),IN idSeccion INT )
+ */
+exports.agregarParrafo= function(request,response){
+    if(request.session.user){
+        var indice= request.body.indice;
+        var texto= request.body.texto;
+        var tipoMultimedia = request.body.tipoMultimedia;
+        var video= request.body.video;
+        var descripcion=request.body.descripcion;
+        var fuente=request.body.fuente;
+        var idSeccion= request.body.idSeccion;
+        var query = 'call guardarParrafo('+indice+',"'+texto+'","'+tipoMultimedia+'","'+
+										video+'","'+descripcion+'","'+fuente+'",'+idSeccion+ ')';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                response.json({error:false});
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
+exports.eliminarParrafo = function(request,response){
+    if(request.session.user){
+        var query = 'call deleteParrafo('+request.query.id+')';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                response.json({error:false});
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
+
+
 
 
 

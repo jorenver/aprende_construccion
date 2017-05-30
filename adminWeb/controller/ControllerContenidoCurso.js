@@ -64,3 +64,10 @@ exports.parrafos = function(request,response){
     db.parrafos(request,response);
 };
 
+exports.agregarParrafo = function(request,response){
+    db.agregarParrafo(request,response);
+};
+
+exports.eliminarParrafo = function(request,response){
+    db.eliminarParrafo(request,response);
+};

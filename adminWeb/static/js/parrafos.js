@@ -2,7 +2,7 @@
  * Created by jorge on 7/5/17.
  */
 
-var idSeccion=-1;
+var idParrafo=-1;
 
 $(document).ready(function(){
     //$("#tableEstudiantes").DataTable();
@@ -34,10 +34,27 @@ $(document).ready(function(){
     } );
     $("select").css("height","100%");
     $("#btnGuardarParrafo").click(function(){
-        //agregarSeccion();
+        agregarParrafo();
     });
     $("#btnActualizarParrafo").click(function(){
         //actualizarSeccion();
+    });
+
+    $("#select-tipo-multimedia").change(function () {
+        var opcion=$('#select-tipo-multimedia option:selected').val();
+        if(opcion=="ninguna"){
+            $('#div_multimedia').hide();
+        }
+        if(opcion=="foto"){
+            $('#div_video').hide();
+            $('#div_imagen').show();
+            $('#div_multimedia').show();
+        }
+        if(opcion=="video"){
+            $('#div_video').show();
+            $('#div_imagen').hide();
+            $('#div_multimedia').show();
+        }
     });
 });
 
@@ -56,8 +73,8 @@ function modalNuevoParrafo(){
     $("#modalParrafo").modal("show");
 }
 
-function modalActualizarSeccion(id){
-    $.ajax({
+function modalActualizarParrafo(id){
+    /*$.ajax({
         url: "/getSeccion?id="+id,
         type: "GET",
         contentType: 'application/json',
@@ -78,14 +95,14 @@ function modalActualizarSeccion(id){
         error : function() {
             swal("error!","sección no encontrada","error");
         }
-    });
+    });*/
 
 }
 
-function eliminarSeccion(id){
+function eliminarParrafo(id){
     swal({
-        title: 'Sección',
-        text: "Si eliminar la sección se eliminara todo el contenido asociado a el, ¿Esta seguro desea continuar?",
+        title: 'Párrafo',
+        text: "Si elimina la párrafo se eliminara todo el contenido asociado a el, ¿Esta seguro desea continuar?",
         type: 'info',
         showCancelButton: true,
         confirmButtonColor: '#00BCD4',
@@ -94,21 +111,21 @@ function eliminarSeccion(id){
         cancelButtonText: 'Cancelar'
     }).then(function () {
         $.ajax({
-            url: "/eliminarSeccion?id="+id,
+            url: "/eliminarParrafo?id="+id,
             type: "GET",
             contentType: 'application/json',
             data:null,
             success: function(data) {
                 if(!data.error){
-                    swal("Sección","sección eliminado correctamente","success").then(function(){
-                        window.location.href="/secciones?id="+idCapitulo;
+                    swal("Párrafo","párrafo eliminado correctamente","success").then(function(){
+                        window.location.href="/parrafos?id="+idSeccion;
                     });
                 }else{
-                    swal("error!","al eliminar la sección","error");
+                    swal("error!","al eliminar la párrafo","error");
                 }
             },
             error : function() {
-                swal("error!","al eliminar la sección","error");
+                swal("error!","al eliminar la párrafo","error");
             }
         });
     });
@@ -164,7 +181,7 @@ function actualizarSeccion(){
                 if(!data.error){
                     swal("Sección","sección actualizado correctamente","success").then(function(){
                         $("#modalSeccion").modal("hide");
-                        window.location.href="/secciones?id="+idCapitulo;
+                        window.location.href="/parrafos?id="+idSeccion;
                     });
                 }else{
                     swal("error!","al actualizar la seccíon","error");

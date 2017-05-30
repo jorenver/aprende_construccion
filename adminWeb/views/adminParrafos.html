@@ -48,11 +48,11 @@
                                                         <span class="glyphicon glyphicon-search">
                                                         </span>
                                                     </a>
-                                                    <a href="javascript:;" onclick="eliminarCapitulo({{parrafo.id}});" class="nounderline" style="text-decoration: none" alt="Editar">
+                                                    <a href="javascript:;" onclick="eliminarParrafo({{parrafo.id}});" class="nounderline" style="text-decoration: none" alt="Editar">
                                                         <span class="glyphicon glyphicon-trash">
                                                         </span>
                                                     </a>
-                                                    <a href="javascript:;" onclick="modalActualizarCapitulo({{parrafo.id}});" class="nounderline" style="text-decoration: none" alt="Editar">
+                                                    <a href="javascript:;" onclick="modalActualizarParrafo({{parrafo.id}});" class="nounderline" style="text-decoration: none" alt="Editar">
                                                         <span class="glyphicon glyphicon-pencil">
                                                         </span>
                                                     </a>
@@ -81,19 +81,20 @@
           <div class="modal-body">
             <form id="formNuevoParrafo" data-parsley-validate="">
                 <div class="form-group">
-                    <label>Texto</label>
-                    <input type="text" class="form-control" id="text-parrafo" data-parsley-required>
-                </div>
-                <div class="form-group">
                     <label>Número</label>
                     <input class="form-control" id="numero-parrafo" data-parsley-required data-parsley-type="integer">
                 </div>
                 <div class="form-group">
+                    <label>Texto</label>
+                    <textarea type="text" class="form-control" id="text-parrafo" data-parsley-required>
+                    </textarea>
+                </div>
+                <div class="form-group">
                     <label>Tipo multimedia</label>
                     <select class="form-control" id="select-tipo-multimedia">
-                        <option selected disabled value="0">SELECCIONE</option>
-                        <option value="1">IMAGEN</option>
-                        <option value="2">VIDEO</option>
+                        <option selected value="0">NO</option>
+                        <option value="foto">IMAGEN</option>
+                        <option value="video">VIDEO</option>
                     </select>
                 </div>
                 <div id="div_multimedia">
@@ -102,7 +103,7 @@
                         <input type="file" class="form-control" id="file-archivo" >
                     </div>
                     <div id="div_video" class="form-group">
-                        <label>Video</label>
+                        <label>URL Youtube</label>
                         <input type="text" class="form-control" id="text-video" >
                     </div>
                     <div class="form-group">
