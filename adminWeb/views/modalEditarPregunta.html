@@ -6,53 +6,72 @@
                 <h2 class="modal-title text-center">Editar Pregunta</h2>
             </div>
             <div class="modal-body" id="modalEditarPregunta">
-                <h3 class="text-center">Pregunta</h3>
-                <textarea rows="5" class="form-control" id="txtPreguntaModalEditarPregunta"></textarea>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Respuesta</th>
-                            <th>Opción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" id="opcion1ModalEditarPregunta">
-                            </td>
-                            <td>
-                                <input type="radio"  value="1" id="resp1ModalEditarPregunta" name="escorrecta">
-                            </td>
-                        </tr>
+                <form id="formularioPreguntasEditar" enctype="multipart/form-data">
+                        <h3 class="text-center">Pregunta</h3>
+                        <textarea rows="5" class="form-control" id="txtPreguntaModalEditarPregunta"></textarea>
+                        </br>
+                        <div class="row">
+                            <img src="" style='height: 100%; width: 100%; object-fit: contain;border:0' id="showEditImage" hidden>
+                        </div>
+                        </br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                     <span  class="btn btn-primary btn-file">
+                                         <input type="file" name="imgUploader" multiple id="editLoadImage" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' size="40"  />
+                                         <span  class="glyphicon glyphicon-upload"></span>
+                                         Subir Imagen
 
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" id="opcion2ModalEditarPregunta">
-                            </td>
-                            <td>
-                               <input type="radio"  value="2" id="resp2ModalEditarPregunta" name="escorrecta">
-                            </td>
-                        </tr>
+                                     </span>
+                            </div>
+                        </div>
+                        </br>
+                        </br>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Respuesta</th>
+                                    <th>Opción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control" id="opcion1ModalEditarPregunta">
+                                    </td>
+                                    <td>
+                                        <input type="radio"  value="1" id="resp1ModalEditarPregunta" name="escorrecta">
+                                    </td>
+                                </tr>
 
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" id="opcion3ModalEditarPregunta">
-                            </td>
-                            <td>
-                                <input type="radio"  value="3" id="resp3ModalEditarPregunta" name="escorrecta">
-                            </td>
-                        </tr>
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control" id="opcion2ModalEditarPregunta">
+                                    </td>
+                                    <td>
+                                       <input type="radio"  value="2" id="resp2ModalEditarPregunta" name="escorrecta">
+                                    </td>
+                                </tr>
 
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" id="opcion4ModalEditarPregunta">
-                            </td>
-                            <td>
-                                <input type="radio"  value="4" id="resp4ModalEditarPregunta" name="escorrecta">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control" id="opcion3ModalEditarPregunta">
+                                    </td>
+                                    <td>
+                                        <input type="radio"  value="3" id="resp3ModalEditarPregunta" name="escorrecta">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control" id="opcion4ModalEditarPregunta">
+                                    </td>
+                                    <td>
+                                        <input type="radio"  value="4" id="resp4ModalEditarPregunta" name="escorrecta">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnActualizarPregunta">

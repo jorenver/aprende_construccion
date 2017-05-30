@@ -4,7 +4,7 @@ var multer = require('multer');
 
 var Storage = multer.diskStorage({
     destination: function(request,file,callback){
-        callback(null,"static/images");
+        callback(null,"./../paguinaWeb/static/images");
     },
     filename: function(request,file,callback){
         callback(null, file.originalname);
@@ -44,9 +44,12 @@ exports.uploadPicture = function(request,response){
     upload(request,response,function(err){
         if(err){
             console.log("error algo paso");
+            response.json({ruta:"null"});
         }
         else{
             console.log("archivo subido exitosamente");
+            response.json({ruta:request.files[0].originalname});
+
         }
     });
 }
