@@ -752,6 +752,59 @@ exports.eliminarParrafo = function(request,response){
     }
 }
 
+exports.getParrafo = function(request,response){
+    if(request.session.user){
+        var query = 'call getParrafo('+request.query.id+')';
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                if(rows[0][0]) {
+                    response.json({error: false,parrafo:rows[0][0]});
+                }else{
+                    response.json({error: true});
+                }
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
+exports.actualizarParrafo = function(request,response){
+    if(request.session.user){
+        var idParrafo= request.body.id;
+        var indice= request.body.indice;
+        var texto= request.body.texto;
+        var tipoMultimedia = request.body.tipoMultimedia;
+        var video= request.body.video;
+        var descripcion=request.body.descripcion;
+        var fuente=request.body.fuente;
+        var idSeccion= request.body.idSeccion;
+        var query = 'call actualizarParrafo('+idParrafo+','+indice+',"'+texto+'","'+tipoMultimedia+'","'+
+        video+'","'+descripcion+'","'+fuente+'",'+idSeccion+ ')';
+
+        console.log(query);
+        connection.query(query,function(err,rows){
+            if(err){
+                console.log(err);
+                response.json({error:true});
+            }else{
+                response.json({error:false});
+            }
+        });
+    }
+    else{
+        response.json({error:true});
+    }
+}
+
+
+
+
 
 
 

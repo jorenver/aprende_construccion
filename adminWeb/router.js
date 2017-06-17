@@ -40,6 +40,8 @@ module.exports = function(app){
     app.get('/parrafos',ControllerContenidoCurso.parrafos);
     app.post('/agregarParrafo',ControllerContenidoCurso.agregarParrafo);
     app.get('/eliminarParrafo',ControllerContenidoCurso.eliminarParrafo);
+    app.get('/getParrafo',ControllerContenidoCurso.getParrafo);
+    app.post('/actualizarParrafo',ControllerContenidoCurso.actualizarParrafo);
 	app.post("/subirImagen",ControllerContenido.uploadPicture);
 
 

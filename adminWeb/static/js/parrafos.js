@@ -37,7 +37,7 @@ $(document).ready(function(){
         agregarParrafo();
     });
     $("#btnActualizarParrafo").click(function(){
-        //actualizarSeccion();
+        actualizarParrafo();
     });
 
     $("#select-tipo-multimedia").change(function () {
@@ -54,6 +54,11 @@ $(document).ready(function(){
             $('#div_video').show();
             $('#div_imagen').hide();
             $('#div_multimedia').show();
+        }
+        if(opcion=="no"){
+            $('#div_video').hide();
+            $('#div_imagen').hide();
+            $('#div_multimedia').hide();
         }
     });
 });
@@ -74,28 +79,35 @@ function modalNuevoParrafo(){
 }
 
 function modalActualizarParrafo(id){
-    /*$.ajax({
-        url: "/getSeccion?id="+id,
+    $.ajax({
+        url: "/getParrafo?id="+id,
         type: "GET",
         contentType: 'application/json',
         data:null,
         success: function(data) {
             if(!data.error){
-                idSeccion=data.seccion.id;
-                $("#tituloModal").text("Actualizar Seccíon");
-                $('#titulo-seccion').val(data.seccion.titulo);
-                $('#numero-seccion').val(data.seccion.indice);
-                $("#btnActualizarSeccion").show();
-                $("#btnGuardarSeccion").hide();
-                $("#modalSeccion").modal("show");
+                idParrafo=data.parrafo.id;
+                $("#tituloParrafo").text("Actualizar Párrafo");
+                $('#text-parrafo').val(data.parrafo.texto);
+                $('#numero-parrafo').val(data.parrafo.indice);
+                $('#file-archivo').val("");
+                if(data.parrafo.tipo_multimedia=="video"){
+                    $('#text-video').val(data.parrafo.ruta_multimedia);
+                }
+                $('#text-descripcion').val(data.parrafo.descripcion_multimedia);
+                $('#text-fuente').val(data.parrafo.fuente_multimedia);
+                $("#btnActualizarParrafo").show();
+                $("#btnGuardarParrafo").hide();
+                $('#select-tipo-multimedia').val(data.parrafo.tipo_multimedia).trigger('change');
+                $("#modalParrafo").modal("show");
             }else{
-                swal("error!","seccíon no encontrado","error");
+                swal("error!","párrafo no encontrado","error");
             }
         },
         error : function() {
-            swal("error!","sección no encontrada","error");
+            swal("error!","párrafo no encontrada","error");
         }
-    });*/
+    });
 
 }
 
@@ -165,32 +177,63 @@ function agregarParrafo(){
 
 }
 
-function actualizarSeccion(){
-    var isValid = $('#formNuevaSeccion').parsley().validate();
+function actualizarParrafo(){
+    var isValid = $('#formNuevoParrafo').parsley().validate();
     if(isValid){
-        datos={id:idSeccion,
-            titulo:$('#titulo-seccion').val(),
-            indice:$('#numero-seccion').val()
+        datos={
+            id:idParrafo,
+            texto:$('#text-parrafo').val(),
+            indice:$('#numero-parrafo').val(),
+            tipoMultimedia:$('#select-tipo-multimedia option:selected').val(),
+            video:$('#text-video').val(),
+            descripcion:$('#text-descripcion').val(),
+            fuente:$('#text-fuente').val(),
+            idSeccion:idSeccion
         };
         $.ajax({
-            url: "/actualizarSeccion",
+            url: "/actualizarParrafo",
             type: "POST",
             contentType: 'application/json',
             data:JSON.stringify(datos),
             success: function(data) {
                 if(!data.error){
-                    swal("Sección","sección actualizado correctamente","success").then(function(){
-                        $("#modalSeccion").modal("hide");
+                    swal("Párrafo","párrafo actualizado correctamente","success").then(function(){
+                        $("#modalParrafo").modal("hide");
                         window.location.href="/parrafos?id="+idSeccion;
                     });
                 }else{
-                    swal("error!","al actualizar la seccíon","error");
+                    swal("error!","al actualizar el párrafo","error");
                 }
             },
             error : function() {
-                swal("error!","al actualizar el sección","error");
+                swal("error!","al actualizar el párrafo","error");
             }
         });
     }
+
+}
+
+function modalVerParrafo(id){
+    $.ajax({
+        url: "/getParrafo?id="+id,
+        type: "GET",
+        contentType: 'application/json',
+        data:null,
+        success: function(data) {
+            if(!data.error){
+                idParrafo=data.parrafo.id;
+
+                $('#vista_previa_parrafo').text(data.parrafo.texto);
+
+                $("#div_vista_previa_multimedia").hide();
+                $("#modalVistaPreviaParrafo").modal("show");
+            }else{
+                swal("error!","párrafo no encontrado","error");
+            }
+        },
+        error : function() {
+            swal("error!","párrafo no encontrada","error");
+        }
+    });
 
 }

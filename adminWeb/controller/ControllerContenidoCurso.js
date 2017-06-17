@@ -71,3 +71,12 @@ exports.agregarParrafo = function(request,response){
 exports.eliminarParrafo = function(request,response){
     db.eliminarParrafo(request,response);
 };
+
+exports.getParrafo = function(request,response){
+    db.getParrafo(request,response);
+};
+
+exports.actualizarParrafo = function(request,response){
+    db.actualizarParrafo(request,response);
+};
+

@@ -44,7 +44,7 @@
                                                 <td>{{parrafo.indice}}</td>
                                                 <td>{{parrafo.texto}}</td>
                                                 <td class="text-center">
-                                                    <a href="javascript:;" onclick="" class="nounderline" style="text-decoration: none" alt="Editar">
+                                                    <a href="javascript:;" onclick="modalVerParrafo({{parrafo.id}});" class="nounderline" style="text-decoration: none" alt="Editar">
                                                         <span class="glyphicon glyphicon-search">
                                                         </span>
                                                     </a>
@@ -92,7 +92,7 @@
                 <div class="form-group">
                     <label>Tipo multimedia</label>
                     <select class="form-control" id="select-tipo-multimedia">
-                        <option selected value="0">NO</option>
+                        <option selected value="no">NO</option>
                         <option value="foto">IMAGEN</option>
                         <option value="video">VIDEO</option>
                     </select>
@@ -134,6 +134,42 @@
         </div>
 
       </div>
+    </div>
+
+    <div id="modalVistaPreviaParrafo" class="modal" rol="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title text-primary text-center" >Párrafo</h2>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <p id="vista_previa_parrafo"></p>
+                        <div id="div_vista_previa_multimedia">
+                            <figure class="col-md-10 col-md-offset-1">
+
+                                <div id="div_vista_previa_imagen" class="multimedia-center">
+                                    <img src="images/plano.gif">
+                                </div>
+
+                                <div id="div_vista_previa_video" class="multimedia-center video-responsive">
+                                    <iframe src="https://www.youtube.com/embed/mzq656xAUy4"></iframe>
+                                </div>
+
+
+                                <figcaption id="vista_previa_descripcion_multimedia" class="figure-caption">Vista en Planta</figcaption>
+                                <figcaption id="vista_previa_fuente_multimedia" class="figure-caption">Fuente: http://www.importancia.org/plano.php</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <script type="text/javascript" src="assets/plugins/DataTables-1.10.13/media/js/jquery.dataTables.js"></script>
